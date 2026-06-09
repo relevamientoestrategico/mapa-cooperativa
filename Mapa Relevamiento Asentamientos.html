@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relevamiento de Asentamientos - Concordia, Entre Ríos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; }
+
+    .header {
+      background: linear-gradient(135deg, #0f3460, #16213e);
+      color: white;
+      padding: 18px 30px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+    .header-logo {
+      width: 44px; height: 44px;
+      background: #e94560;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+    .header h1 { font-size: 20px; font-weight: 700; }
+    .header p { font-size: 12px; color: #aaa; margin-top: 2px; }
+
+    #map { width: 100%; height: calc(100vh - 70px); }
+
+    /* Tooltip hover */
+    .custom-tooltip {
+      background: white;
+      border-radius: 10px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      font-size: 13px;
+      min-width: 180px;
+      pointer-events: none;
+    }
+    .custom-tooltip h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 6px;
+    }
+    .custom-tooltip .stat { display: flex; justify-content: space-between; margin: 4px 0; }
+    .custom-tooltip .stat span:first-child { color: #666; }
+    .custom-tooltip .stat span:last-child { font-weight: 600; }
+    .custom-tooltip .footer-tip {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+      border-top: 1px solid #eee;
+      padding-top: 6px;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: white;
+      border-radius: 16px;
+      width: 520px;
+      max-width: 95vw;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      animation: slideIn 0.25s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .modal-header {
+      padding: 22px 24px 16px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .modal-header h2 { font-size: 20px; font-weight: 700; }
+    .modal-header .zona {
+      font-size: 12px;
+      background: #f0f4ff;
+      color: #4a6fa5;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 4px;
+      display: inline-block;
+    }
+    .close-btn {
+      background: #f0f0f0;
+      border: none;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #555;
+      transition: background 0.2s;
+    }
+    .close-btn:hover { background: #e0e0e0; }
+    .modal-body { padding: 20px 24px 24px; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: #f8f9ff;
+      border-radius: 10px;
+      padding: 14px;
+      border-left: 4px solid;
+    }
+    .stat-card .label { font-size: 11px; color: #888; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+    .stat-card .value { font-size: 26px; font-weight: 700; color: #222; }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #888;
+      margin: 16px 0 8px;
+      letter-spacing: 0.5px;
+    }
+    .services-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+    .badge {
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .badge.si { background: #e6f4ea; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .badge.no { background: #fce8e6; color: #c62828; border: 1px solid #ef9a9a; }
+
+    .service-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+    }
+    .service-row:last-child { border-bottom: none; }
+    .service-row .svc-name { color: #555; }
+    .service-row .svc-val { font-weight: 700; color: #222; }
+    .btn-pdf {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 22px;
+      background: #e94560;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+      width: 100%;
+    }
+    .btn-pdf:hover { background: #c73652; }
+    .svc-bar {
+      height: 5px;
+      background: #eee;
+      border-radius: 4px;
+      margin-top: 3px;
+      width: 100%;
+    }
+    .svc-bar-fill { height: 100%; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">🗺️</div>
+  <div>
+    <h1>Relevamiento de Asentamientos — Concordia, Entre Ríos</h1>
+    <p>Cooperativa Eléctrica · Pasá el mouse sobre un barrio para ver datos · Hacé clic para el informe completo</p>
+  </div>
+</div>
+
+<div id="map"></div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div>
+        <h2 id="modalTitle"></h2>
+        <span class="zona" id="modalZona"></span>
+      </div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  // ── DATOS DE LOS BARRIOS ──────────────────────────────────────────
+  const barrios = [
+    {
+      id: 1,
+      nombre: "Carretera La Cruz",
+      zona: "Sur · Costa del Río Uruguay",
+      color: "#c8a800",
+      fillColor: "#FFEA00",
+      coords: [
+        [-31.4101678, -58.029694],
+        [-31.4088492, -58.0309814],
+        [-31.4082448, -58.0323011],
+        [-31.4102868, -58.0356485],
+        [-31.411468,  -58.0347258],
+        [-31.4127041, -58.0363458],
+        [-31.4140226, -58.0348331],
+        [-31.4101678, -58.029694]
+      ],
+      viviendas: 26,
+      poblacion: 109,
+      educacion: false,
+      salud: true,
+      pdf: "Relevamiento Carretera La Cruz.html",
+      servicios: { luz: 26, agua: 22, gas: 26, cloacas: 24, telefono: 23, celular: 20, internet: 20, tv: 16, residuos: 7 }
+    },
+    {
+      id: 2,
+      nombre: "Villa Adela",
+      zona: "Zona San Miguel · Cuba / San Antonio de Padua",
+      color: "#b34000",
+      fillColor: "#E65100",
+      coords: [
+        [-31.4031536, -58.0675499],
+        [-31.4036595, -58.0681842],
+        [-31.4042753, -58.0689151],
+        [-31.403687,  -58.0696125],
+        [-31.4042639, -58.0702455],
+        [-31.4047584, -58.0696662],
+        [-31.405436,  -58.070503],
+        [-31.4059763, -58.0698164],
+        [-31.4057016, -58.0692638],
+        [-31.4054612, -58.0689286],
+        [-31.405262,  -58.0687274],
+        [-31.4049644, -58.0686309],
+        [-31.4048317, -58.0685705],
+        [-31.4047218, -58.0684565],
+        [-31.4050057, -58.0681373],
+        [-31.4049873, -58.0681051],
+        [-31.4049484, -58.0680883],
+        [-31.404779,  -58.0680126],
+        [-31.4046073, -58.0678825],
+        [-31.4040241, -58.0674614],
+        [-31.4035036, -58.0670657],
+        [-31.4031936, -58.0675338],
+        [-31.4031536, -58.0675499]
+      ],
+      viviendas: 14,
+      poblacion: 46,
+      educacion: true,
+      salud: true,
+      pdf: "Relevamiento Villa Adela.html",
+      servicios: { luz: 14, agua: 14, gas: 14, cloacas: 14, telefono: 10, celular: 13, tv: 11, internet: 9, residuos: 9 }
+    },
+    {
+      id: 3,
+      nombre: "Barrio Golf",
+      zona: "Noroeste · Las Palmeras / Laprida",
+      color: "#4a7c2f",
+      fillColor: "#7CB342",
+      coords: [
+        [-31.3423317, -58.0117083],
+        [-31.3411084, -58.0114293],
+        [-31.3408473, -58.0128562],
+        [-31.3420981, -58.0131567],
+        [-31.3423317, -58.0117083]
+      ],
+      viviendas: 7,
+      poblacion: 34,
+      educacion: false,
+      salud: true,
+      pdf: "Relevamiento Barrio Golf.html",
+      servicios: { luz: 7, agua: 7, gas: 6, cloacas: 5, telefono: 5, celular: 4, tv: 4, internet: 2, residuos: 4 }
+    }
+  ];
+
+  // ── MAPA ────────────────────────────────────────────────────────
+  const map = L.map('map', { zoomControl: true }).setView([-31.400, -58.048], 12);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap contributors © CARTO',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  // ── POLÍGONOS ───────────────────────────────────────────────────
+  barrios.forEach(b => {
+    const poly = L.polygon(b.coords, {
+      color: b.color,
+      fillColor: b.fillColor,
+      weight: 2.5,
+      fillOpacity: 0.55,
+      opacity: 1
+    }).addTo(map);
+
+    // Tooltip hover
+    const tooltipHTML = `
+      <div class="custom-tooltip">
+        <h3 style="color:${b.color}">${b.nombre}</h3>
+        <div class="stat"><span>💡 Electricidad</span><span>${b.educacion ? '✅' : '⚠️'} Ver informe</span></div>
+        <div class="stat"><span>💧 Agua</span><span>${b.servicios.agua > 0 ? '✅' : '❌'}</span></div>
+        <div class="stat"><span>🏫 Educación cercana</span><span>${b.educacion ? '✅ Sí' : '❌ No'}</span></div>
+        <div class="stat"><span>🏥 Salud cercana</span><span>${b.salud ? '✅ Sí' : '❌ No'}</span></div>
+        <div class="footer-tip">Clic para ver informe completo</div>
+      </div>`;
+
+    poly.bindTooltip(tooltipHTML, {
+      sticky: true,
+      opacity: 1,
+      className: ''
+    });
+
+    // Click → modal
+    poly.on('click', () => openModal(b));
+  });
+
+  // ── MODAL ───────────────────────────────────────────────────────
+  function openModal(b) {
+    document.getElementById('modalTitle').textContent = b.nombre;
+    document.getElementById('modalZona').textContent = b.zona;
+
+    const svcs = b.servicios;
+    const pct = (v, t) => Math.round((v / t) * 100);
+    const bar = (v, t, color) =>
+      `<div class="svc-bar"><div class="svc-bar-fill" style="width:${pct(v,t)}%;background:${color}"></div></div>`;
+
+    const svcList = [
+      { label: '💡 Electricidad', v: svcs.luz },
+      { label: '💧 Agua corriente', v: svcs.agua },
+      { label: '🔥 Gas', v: svcs.gas },
+      { label: '🚿 Cloacas', v: svcs.cloacas },
+      { label: '📞 Teléfono fijo', v: svcs.telefono },
+      { label: '📱 Celular', v: svcs.celular },
+      { label: '🌐 Internet', v: svcs.internet },
+      { label: '📺 TV', v: svcs.tv },
+      { label: '🗑️ Recolección residuos', v: svcs.residuos },
+    ].map(s => `
+      <div class="service-row">
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between">
+            <span class="svc-name">${s.label}</span>
+            <span class="svc-val">${pct(s.v, b.viviendas)}%</span>
+          </div>
+          ${bar(s.v, b.viviendas, b.color)}
+        </div>
+      </div>`).join('');
+
+    document.getElementById('modalBody').innerHTML = `
+      <div class="stats-grid">
+        <div class="stat-card" style="border-color:${b.color}">
+          <div class="label">Educación cercana</div>
+          <div class="value" style="font-size:20px">${b.educacion ? '✅ Sí' : '❌ No'}</div>
+        </div>
+        <div class="stat-card" style="border-color:${b.color}">
+          <div class="label">Salud cercana</div>
+          <div class="value" style="font-size:20px">${b.salud ? '✅ Sí' : '❌ No'}</div>
+        </div>
+      </div>
+      <div class="section-title">Cobertura de servicios</div>
+      ${svcList}
+      <a class="btn-pdf" href="${b.pdf}" target="_blank">📄 Ver informe completo</a>
+    `;
+
+    document.getElementById('modalOverlay').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+  }
+
+  document.getElementById('modalOverlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  });
+</script>
+</body>
+</html>
