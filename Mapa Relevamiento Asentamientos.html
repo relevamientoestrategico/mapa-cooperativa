@@ -250,6 +250,37 @@
       }
     },
     {
+      nombre: 'Barrio Sarmiento',
+      color: '#d63b8f',
+      colorClaro: '#fce8f3',
+      html: 'Relevamiento Barrio Sarmiento.html',
+      coords: [
+        [-31.3692969,-58.0508817],
+        [-31.370703,-58.0511767],
+        [-31.3710649,-58.0490631],
+        [-31.3699015,-58.0488432],
+        [-31.3692603,-58.0486608],
+        [-31.3687015,-58.048591],
+        [-31.368674,-58.0489827],
+        [-31.3686923,-58.0490631],
+        [-31.3687518,-58.0492723],
+        [-31.3688068,-58.0496049],
+        [-31.3689809,-58.0501789],
+        [-31.369274,-58.0506403],
+        [-31.3692969,-58.0508817]
+      ],
+      info: {
+        zona: 'Zona Noroeste',
+        edad: 'N/D',
+        origen: 'Plan Hábitat 2017',
+        electricidad: 55,
+        educacion: false,
+        salud: true,
+        viviendas: 'Múltiples',
+        material: '65% noble'
+      }
+    },
+    {
       nombre: 'Barrio La Arrocera',
       color: '#a0522d',
       colorClaro: '#f5ede7',
@@ -350,33 +381,4 @@
       permanent: false,
       direction: 'top',
       className: 'tarjeta-barrio',
-      sticky: false,
-      offset: [0, -10]
-    });
-
-    polygon.on('mouseover', function() { this.setStyle({ fillOpacity: 0.6 }); });
-    polygon.on('mouseout', function() { this.setStyle({ fillOpacity: 0.35 }); });
-  });
-
-  const legend = L.control({ position: 'bottomright' });
-  legend.onAdd = function(map) {
-    const div = L.DomUtil.create('div', 'legend');
-    div.innerHTML = '<h4>Asentamientos relevados</h4>';
-    barrios.forEach(barrio => {
-      div.innerHTML += `
-        <div class="legend-item">
-          <div class="legend-color" style="background: ${barrio.color};"></div>
-          <span>${barrio.nombre}</span>
-        </div>
-      `;
-    });
-    return div;
-  };
-  legend.addTo(map);
-
-  const allCoords = barrios.flatMap(b => b.coords);
-  const bounds = L.latLngBounds(allCoords);
-  map.fitBounds(bounds, { padding: [50, 50] });
-</script>  
-</body>
-</html>
+      st
