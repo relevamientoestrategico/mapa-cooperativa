@@ -396,7 +396,7 @@
     <div class="topbar-sep"></div>
     <span class="topbar-tag">Unidad de Relevamiento Estratégico</span>
     <div class="topbar-right">
-      <div class="topbar-meta">Relevamiento exploratorio<br><b>6 zonas caracterizadas</b></div>
+      <div class="topbar-meta">Relevamiento exploratorio<br><b>7 zonas caracterizadas</b></div>
       <button class="btn-about" id="aboutBtn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
         Acerca del proyecto
@@ -411,11 +411,11 @@
       <div class="panel-label">Resumen del relevamiento</div>
       <div class="metric-grid">
         <div class="metric">
-          <div class="m-val" id="mBarrios">6</div>
+          <div class="m-val" id="mBarrios">7</div>
           <div class="m-lbl">Zonas relevadas</div>
         </div>
         <div class="metric">
-          <div class="m-val" id="mElec">≈20%</div>
+          <div class="m-val" id="mElec">≈22%</div>
           <div class="m-lbl">Conexión legal</div>
           <div class="m-note">promedio orientativo</div>
         </div>
@@ -575,13 +575,13 @@
       <div class="foot-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 22V12h6v10M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
       </div>
-      <div class="foot-txt"><div class="fv">6</div><div class="fl">Zonas relevadas</div></div>
+      <div class="foot-txt"><div class="fv">7</div><div class="fl">Zonas relevadas</div></div>
     </div>
     <div class="foot-kpi">
       <div class="foot-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg>
       </div>
-      <div class="foot-txt"><div class="fv">≈20%</div><div class="fl">Conexión eléctrica legal</div><div class="fn">promedio orientativo</div></div>
+      <div class="foot-txt"><div class="fv">≈22%</div><div class="fl">Conexión eléctrica legal</div><div class="fn">promedio orientativo</div></div>
     </div>
     <div class="foot-kpi">
       <div class="foot-icon">
@@ -650,7 +650,10 @@ const barrios = [
     info: { zona: 'Sector Este', edad: '32,6', origen: 'Años 90', electricidad: 35, educacion: true, salud: true, viviendas: 'Múltiples', material: '~90% material noble' } },
   { nombre: 'Barrio Nebel', color: '#0077a8', html: 'Relevamiento Barrio Nebel.html',
     coords: [[-31.393713,-57.9984819],[-31.3956957,-57.9963415],[-31.3952058,-57.9952525],[-31.3945052,-57.9945659],[-31.3935435,-57.9942225],[-31.3930169,-57.9972374],[-31.3929299,-57.9974573],[-31.393713,-57.9984819]],
-    info: { zona: 'Sector Sureste', edad: '30,8', origen: 'Post 2001', electricidad: 40, educacion: true, salud: true, viviendas: 'Múltiples', material: 'Noble / mixto' } }
+    info: { zona: 'Sector Sureste', edad: '30,8', origen: 'Post 2001', electricidad: 40, educacion: true, salud: true, viviendas: 'Múltiples', material: 'Noble / mixto' } },
+  { nombre: 'Barrio Sarmiento', color: '#cc4400', html: 'Relevamiento Barrio Sarmiento.html',
+    coords: [[-31.3692969,-58.0508817],[-31.370703,-58.0511767],[-31.3710649,-58.0490631],[-31.3699015,-58.0488432],[-31.3692603,-58.0486608],[-31.3687015,-58.048591],[-31.368674,-58.0489827],[-31.3686923,-58.0490631],[-31.3687518,-58.0492723],[-31.3688068,-58.0496049],[-31.3689809,-58.0501789],[-31.369274,-58.0506403],[-31.3692969,-58.0508817]],
+    info: { zona: 'Sector Sur', edad: '27,9', origen: 'Años 90', electricidad: 38, educacion: true, salud: true, viviendas: 'Múltiples', material: '~76% material noble' } }
 ];
 
 function prioridad(e){ return e < 15 ? 'alta' : (e < 50 ? 'media' : 'baja'); }
