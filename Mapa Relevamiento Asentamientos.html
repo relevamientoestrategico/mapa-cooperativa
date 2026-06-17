@@ -333,36 +333,27 @@
       }
       #map { width: 100%; height: 100%; }
 
-      /* PANEL DERECHO: oculto en móvil, se muestra como overlay desde abajo */
+      /* PANEL DERECHO: centrado en pantalla como modal compacto */
       #panel {
         display: none;
         position: fixed;
-        bottom: var(--footer-h);
-        left: 0;
-        right: 0;
-        height: 26vh;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 92vw;
+        max-width: 420px;
+        max-height: 52vh;
         z-index: 600;
         border-left: none;
         border-top: none;
-        border-radius: 16px 16px 0 0;
-        box-shadow: 0 -6px 24px rgba(0,0,0,0.32);
+        border-radius: 14px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.38);
         overflow-y: auto;
         background: var(--panel-bg);
       }
       #panel.visible {
         display: flex;
         flex-direction: column;
-      }
-      /* Handle visual tipo bottom-sheet */
-      #panel::before {
-        content: '';
-        display: block;
-        width: 36px;
-        height: 4px;
-        background: #ccc;
-        border-radius: 2px;
-        margin: 10px auto 4px;
-        flex-shrink: 0;
       }
 
       /* Botón cerrar panel en móvil */
