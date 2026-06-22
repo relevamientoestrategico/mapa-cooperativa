@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe — Asentamiento La Bianca</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f4f6f9; color: #333; }
+
+    .header {
+      background: linear-gradient(135deg, #2f8f6f, #4db38c);
+      color: white; padding: 30px 40px;
+    }
+    .header a.back { font-size: 13px; opacity: 0.8; margin-bottom: 10px; display: inline-block; text-decoration: none; color: white; }
+    .header a.back:hover { opacity: 1; }
+    .header h1 { font-size: 28px; font-weight: 700; }
+    .header p { font-size: 14px; opacity: 0.85; margin-top: 6px; }
+    .header .equipo { margin-top: 12px; font-size: 13px; opacity: 0.75; }
+
+    .content { max-width: 860px; margin: 30px auto; padding: 0 20px 60px; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+    .kpi { background: white; border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-top: 4px solid #2f8f6f; }
+    .kpi .val { font-size: 30px; font-weight: 700; color: #2f8f6f; }
+    .kpi .lbl { font-size: 11px; color: #888; margin-top: 4px; text-transform: uppercase; font-weight: 600; }
+
+    /* KPIs electricidad bicolor */
+    .kpi-elec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .kpi-legal { background: white; border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-top: 4px solid #2e7d32; }
+    .kpi-legal .val { font-size: 34px; font-weight: 700; color: #2e7d32; }
+    .kpi-legal .lbl { font-size: 11px; color: #888; margin-top: 4px; text-transform: uppercase; font-weight: 600; }
+    .kpi-ilegal { background: white; border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-top: 4px solid #c62828; }
+    .kpi-ilegal .val { font-size: 34px; font-weight: 700; color: #c62828; }
+    .kpi-ilegal .lbl { font-size: 11px; color: #888; margin-top: 4px; text-transform: uppercase; font-weight: 600; }
+
+    .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .card h2 { font-size: 16px; font-weight: 700; color: #2f8f6f; border-bottom: 2px solid #e3f3ec; padding-bottom: 10px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card p { font-size: 14px; line-height: 1.75; color: #444; margin-bottom: 10px; }
+    .card p:last-child { margin-bottom: 0; }
+
+    .svc-table { width: 100%; border-collapse: collapse; }
+    .svc-table th { background: #e3f3ec; color: #2f8f6f; font-size: 12px; text-transform: uppercase; padding: 10px 14px; text-align: left; }
+    .svc-table td { padding: 10px 14px; font-size: 14px; border-bottom: 1px solid #f0f0f0; }
+    .svc-table tr:last-child td { border-bottom: none; }
+
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .badge.si { background: #e6f4ea; color: #2e7d32; }
+    .badge.no { background: #fce8e6; color: #c62828; }
+    .badge.parcial { background: #fff8e1; color: #f57f17; }
+
+    .alerta { background: #fff8e1; border-left: 4px solid #f9a825; padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 14px; color: #555; margin-bottom: 10px; }
+    .alerta-roja { background: #fce8e6; border-left: 4px solid #c62828; padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 14px; color: #555; margin-bottom: 10px; }
+    .alerta-verde { background: #e6f4ea; border-left: 4px solid #2e7d32; padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 14px; color: #555; margin-bottom: 10px; }
+
+    .conclusion { background: #e3f3ec; border-radius: 12px; padding: 20px 24px; border-left: 5px solid #2f8f6f; }
+    .conclusion p { font-size: 14px; line-height: 1.75; color: #444; }
+
+    /* Galería */
+    .galeria { background: white; border-radius: 12px; padding: 30px; margin-top: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .galeria h2 { font-size: 18px; font-weight: 700; color: #333; margin-bottom: 20px; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
+    .galeria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .galeria-item { border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+    .galeria-item:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+    .galeria-item img { width: 100%; height: 220px; object-fit: cover; display: block; cursor: zoom-in; }
+
+    /* Lightbox */
+    #lightbox-overlay { display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); justify-content: center; align-items: center; cursor: zoom-out; }
+    #lightbox-overlay.active { display: flex; }
+    #lightbox-overlay img { max-width: 92vw; max-height: 92vh; object-fit: contain; border-radius: 8px; }
+    #lightbox-close-btn { position: fixed; top: 20px; right: 30px; color: white; font-size: 36px; cursor: pointer; background: rgba(0,0,0,0.4); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100000; }
+    #lightbox-close-btn:hover { background: rgba(0,0,0,0.7); }
+
+    @media (max-width: 600px) {
+      .kpi-grid { grid-template-columns: repeat(2,1fr); }
+      .kpi-elec-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <a class="back" href="Mapa Relevamiento Asentamientos.html">← Volver al mapa</a>
+  <h1>Informe de Relevamiento — Asentamiento La Bianca</h1>
+  <p>Zona Noreste · Delimitado por San Juan (oeste), Antártida Argentina (norte), Chubut (sur) y terreno baldío (este)</p>
+  <div class="equipo">Equipo: Tito Lampazzi · Agostina Rettori · Laura Canali · Nicolás Peri · Lucas Masso</div>
+</div>
+
+<div class="content">
+
+  <!-- KPIs principales -->
+  <div class="kpi-grid">
+    <div class="kpi"><div class="val">27,4</div><div class="lbl">Edad Promedio</div></div>
+    <div class="kpi"><div class="val">4,2</div><div class="lbl">Personas por Hogar</div></div>
+    <div class="kpi"><div class="val">Años 80</div><div class="lbl">Origen del barrio</div></div>
+    <div class="kpi"><div class="val">73%</div><div class="lbl">Vivienda noble</div></div>
+  </div>
+
+  <!-- KPIs electricidad -->
+  <div class="kpi-elec-grid">
+    <div class="kpi-legal">
+      <div class="val">65%</div>
+      <div class="lbl">⚡ Conexiones eléctricas legales</div>
+    </div>
+    <div class="kpi-ilegal">
+      <div class="val">35%</div>
+      <div class="lbl">⚠️ Conexiones irregulares</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Introducción</h2>
+    <p>El asentamiento La Bianca se ubica en la zona noreste de la ciudad, a aproximadamente cinco cuadras del río Uruguay y cercano a la playa Los Tomates, que algunos vecinos utilizan para la pesca como medio de vida. El sector relevado corresponde al perímetro delimitado por la calle San Juan al oeste, Antártida Argentina al norte, Chubut al sur, y terreno baldío al este. Residen en él aproximadamente 60 familias.</p>
+    <p>El asentamiento se relaciona con el Barrio La Bianca y está construido sobre terrenos que originalmente estaban destinados a las piletas de decantación de efluentes del complejo habitacional barrio 708 viviendas, inaugurado en 1980. Con el tiempo, al quedar el barrio conectado al sistema de cloacas, esos terrenos del IAPV quedaron sin destino aparente y fueron ocupándose progresivamente, primero con comercios y luego con viviendas que se extendieron hacia el río Uruguay.</p>
+    <p>Se distinguen dos sectores con marcadas diferencias: las viviendas más cercanas a la calle San Juan son en su mayoría de material, con techos de chapa de zinc, revocadas y con mejoras; mientras que las del límite este son de madera, precarias, con techos de chapa asfáltica y sin mejoras. En la actualidad, la mayoría de los habitantes tiene regularizada con el municipio la tenencia de su terreno.</p>
+  </div>
+
+  <div class="card">
+    <h2>Servicios públicos y comunicación</h2>
+    <table class="svc-table">
+      <thead><tr><th>Servicio</th><th>Estado</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td>Cloacas</td><td><span class="badge no">No disponible</span></td><td>Sin red cloacal; los vecinos utilizan pozo ciego o pozo negro</td></tr>
+        <tr><td>Agua corriente</td><td><span class="badge parcial">Por mangueras</span></td><td>Todas las viviendas acceden mediante mangueras tendidas por las calles hasta cada hogar</td></tr>
+        <tr><td>Alumbrado público</td><td><span class="badge parcial">Parcial</span></td><td>Presente pero de baja intensidad; de noche el sector queda bastante oscuro</td></tr>
+        <tr><td>Calles</td><td><span class="badge no">Sin pavimentar</span></td><td>De tierra; en el límite este en muy mal estado e intransitables para vehículos comunes</td></tr>
+        <tr><td>Transporte público</td><td><span class="badge si">Disponible</span></td><td>Líneas de colectivo 7 y 9</td></tr>
+        <tr><td>Recolección residuos</td><td><span class="badge parcial">Deficiente</span></td><td>Contenedores en San Juan y Antártida Argentina; algunos vecinos queman o entierran la basura</td></tr>
+        <tr><td>Telefonía celular</td><td><span class="badge si">Disponible</span></td><td>Uso generalizado de teléfonos móviles</td></tr>
+        <tr><td>Internet</td><td><span class="badge parcial">Parcial</span></td><td>Megacable; Internet Cooperativa por enlace inalámbrico (no fibra óptica)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Servicio Eléctrico</h2>
+    <div class="alerta-verde">✅ Sobre el total de conexiones activas, aproximadamente el <strong>65%</strong> son legales — uno de los porcentajes más altos entre los barrios relevados. Del total de conexiones activas, un <strong>69%</strong> cuenta con el subsidio otorgado en la tarifa eléctrica.</div>
+    <div class="alerta-roja">⚠️ El <strong>35% restante</strong> presenta conexiones irregulares. De las aproximadamente 60 familias del lugar, se contabilizaron 37 conexiones activas de electricidad (cerca del 60%).</div>
+    <p>Las líneas eléctricas que recorren las calles Chubut y Antártida Argentina se realizaron a partir de la solicitud de las familias residentes. En un principio Electrotecnia del municipio no lo permitía por tratarse de terrenos provinciales, pero tras las gestiones correspondientes se ejecutaron los tendidos: primero por calle Chubut y años más tarde por Antártida Argentina, según la instalación de nuevos vecinos.</p>
+    <p><strong>Informe técnico (Tco. Lampazzi):</strong> La cuadrícula inspeccionada presenta, hasta el momento, las mejores condiciones generales en relación con el uso y estado de las instalaciones eléctricas. Si bien se detectaron algunas conexiones irregulares, una parte significativa de las familias cuenta con pilares normalizados y medidores correctamente instalados, lo que evidencia un mayor nivel de regularización respecto de otros sectores relevados.</p>
+    <p>Gran parte de la infraestructura existente (postes y tendidos) se encuentra en buenas condiciones. Resultaría conveniente aprovechar las obras ya ejecutadas para realizar mantenimiento preventivo, particularmente elevando algunos tramos del cableado en sectores donde circulan vehículos de gran porte (camiones recolectores y proveedores), reduciendo el riesgo de enganches accidentales. Los vecinos con conexiones regularizadas manifestaron conformidad con la calidad del servicio y los niveles de tensión, y los tendidos se encuentran libres de interferencias por árboles o ramas.</p>
+  </div>
+
+  <div class="card">
+    <h2>Establecimientos educativos y de salud</h2>
+    <p><strong>Salud:</strong> En cercanías del asentamiento se encuentra el Centro de Salud "La Bianca", que brinda cobertura de especialidades básicas (clínica médica, pediatría, ginecología, obstetricia) y cuenta con ambulancia permanente para urgencias. Para tratamientos e internaciones, los vecinos recurren al Hospital Masvernat.</p>
+    <p><strong>Educación secundaria:</strong> Escuela N°2 "José Gervasio Artigas".</p>
+    <p><strong>Educación primaria:</strong> Escuela N°69 "Malvinas Argentinas", además de un jardín de infantes en la zona.</p>
+  </div>
+
+  <div class="card">
+    <h2>Información de las familias</h2>
+    <p>En el sector se observan huertas y hornos de ladrillos que utilizan los vecinos como medio de vida, además de la pesca en la cercana playa Los Tomates. El barrio cuenta con comisaría 6ta y registro civil próximos, clubes como el Social y Deportivo "La Bianca", plazas y plazoletas de uso recreativo, y cajero automático en el Barrio La Bianca lindero, lo que facilita los trámites y el abastecimiento de los vecinos.</p>
+    <p><strong>Composición familiar:</strong> Promedio de 4,2 personas por hogar.</p>
+    <p><strong>Edad promedio:</strong> 27,4 años, una población relativamente joven.</p>
+    <p><strong>Ingresos:</strong> Promedio declarado de $446.000, un valor bajo. El número está influido por grupos familiares entrevistados con ingresos estables (empleados municipales y docentes) que no quisieron detallar el monto, y por pescadores que tampoco informaron un promedio.</p>
+    <p><strong>Material de construcción:</strong> Aproximadamente el 73% de las viviendas relevadas son de material noble y el resto de madera, concentrándose las construcciones precarias hacia el límite este.</p>
+    <p><strong>Hacinamiento:</strong> Se declara un número de entre 2 y 3 ambientes por vivienda (incluyendo cocina o comedor), lo que frente al promedio de personas por hogar evidencia presencia de indicadores de promiscuidad y hacinamiento.</p>
+    <p><strong>Energía para cocción:</strong> Utilizan gas envasado y en algunos casos cocinan a leña; varios vecinos expresan que se les complica la compra de la garrafa por su costo.</p>
+  </div>
+
+  <div class="conclusion">
+    <h2 style="color:#2f8f6f;margin-bottom:10px">Conclusión</h2>
+    <p>El asentamiento La Bianca presenta el mayor nivel de regularización eléctrica entre los sectores relevados, con una proporción significativa de pilares normalizados, medidores correctamente instalados e infraestructura en buenas condiciones. La mayoría de los habitantes tiene además regularizada la tenencia de su terreno. No obstante, persisten déficits estructurales: ausencia de red cloacal, acceso al agua únicamente mediante mangueras, calles de tierra intransitables hacia el límite este e indicadores de hacinamiento. Para la Cooperativa Eléctrica, la intervención prioritaria es de mantenimiento preventivo sobre la red existente —especialmente la elevación de tramos de cableado en zonas de circulación de vehículos de gran porte— a fin de evitar daños mayores y costos superiores a los de una intervención planificada.</p>
+  </div>
+
+  <div class="galeria">
+    <h2>Registro fotográfico — La Bianca</h2>
+    <div class="galeria-grid">
+      <div class="galeria-item"><img src="la_bianca_1.jpg" alt="La Bianca"></div>
+      <div class="galeria-item"><img src="la_bianca_2.jpg" alt="La Bianca"></div>
+      <div class="galeria-item"><img src="la_bianca_3.jpg" alt="La Bianca"></div>
+      <div class="galeria-item"><img src="la_bianca_4.jpg" alt="La Bianca"></div>
+      <div class="galeria-item"><img src="la_bianca_5.jpg" alt="La Bianca"></div>
+      <div class="galeria-item"><img src="la_bianca_6.jpg" alt="La Bianca"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var overlay = document.createElement('div');
+  overlay.id = 'lightbox-overlay';
+  var closeBtn = document.createElement('span');
+  closeBtn.id = 'lightbox-close-btn';
+  closeBtn.innerHTML = '&times;';
+  var imgEl = document.createElement('img');
+  imgEl.alt = 'Foto ampliada';
+  overlay.appendChild(closeBtn);
+  overlay.appendChild(imgEl);
+  document.body.appendChild(overlay);
+
+  document.querySelectorAll('.galeria-item img').forEach(function(img) {
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      imgEl.src = this.src;
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function cerrar() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  overlay.addEventListener('click', cerrar);
+  closeBtn.addEventListener('click', cerrar);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') cerrar();
+  });
+});
+</script>
+
+</body>
+</html>
