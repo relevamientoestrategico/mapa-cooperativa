@@ -87,146 +87,6 @@
     .legend h4 { margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #333; }
     .legend-item { display: flex; align-items: center; margin-bottom: 6px; }
     .legend-color { width: 20px; height: 20px; border-radius: 3px; margin-right: 8px; border: 2px solid rgba(0,0,0,0.2); }
-    
-    /* MEDIA QUERIES MÓVIL - Correcciones responsive sin afectar desktop */
-    @media (max-width: 768px) {
-      #header {
-        padding: 12px 16px;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-      
-      #header .logo-header {
-        width: 40px;
-      }
-      
-      #header h1 {
-        font-size: 18px;
-      }
-      
-      #header p {
-        font-size: 11px;
-      }
-      
-      #map {
-        height: calc(100vh - 80px);
-      }
-      
-      /* Tooltip/tarjeta responsive */
-      .leaflet-tooltip.tarjeta-barrio {
-        width: auto;
-        max-width: calc(100vw - 20px);
-      }
-      
-      .tarjeta-header {
-        padding: 6px 10px;
-      }
-      
-      .tarjeta-header .nombre {
-        font-size: 12px;
-      }
-      
-      .tarjeta-body {
-        padding: 8px 10px;
-      }
-      
-      .kpis {
-        gap: 4px;
-      }
-      
-      .kpi-box {
-        padding: 5px 6px;
-        font-size: 10px;
-      }
-      
-      .kpi-box .kpi-label {
-        font-size: 7px;
-      }
-      
-      .kpi-box .kpi-value {
-        font-size: 12px;
-      }
-      
-      .electricidad-pct {
-        font-size: 14px;
-      }
-      
-      /* Leyenda móvil */
-      .legend {
-        padding: 10px;
-        font-size: 11px;
-        max-width: calc(100vw - 20px);
-        max-height: 250px;
-        overflow-y: auto;
-      }
-      
-      .legend h4 {
-        font-size: 12px;
-        margin-bottom: 6px;
-      }
-      
-      .legend-color {
-        width: 16px;
-        height: 16px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      #header {
-        padding: 10px 12px;
-      }
-      
-      #header .logo-header {
-        width: 35px;
-      }
-      
-      #header h1 {
-        font-size: 16px;
-      }
-      
-      #header p {
-        font-size: 10px;
-      }
-      
-      #map {
-        height: calc(100vh - 70px);
-      }
-      
-      .leaflet-tooltip.tarjeta-barrio {
-        width: auto;
-        max-width: calc(100vw - 16px);
-      }
-      
-      .tarjeta-header .nombre {
-        font-size: 11px;
-      }
-      
-      .tarjeta-header .zona {
-        font-size: 9px;
-      }
-      
-      .kpi-box .kpi-value {
-        font-size: 11px;
-      }
-      
-      .seccion-titulo {
-        font-size: 7px;
-      }
-      
-      .datos-list {
-        font-size: 10px;
-      }
-      
-      .btn-informe {
-        padding: 6px 14px;
-        font-size: 12px;
-      }
-      
-      .legend {
-        padding: 8px;
-        font-size: 10px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -387,6 +247,29 @@
         salud: true,
         viviendas: 'Múltiples',
         material: 'Noble / Mixto'
+      }
+    },
+    {
+      nombre: 'Los Gurises',
+      color: '#d4711f',
+      colorClaro: '#fef1e6',
+      html: 'Relevamiento_Los_Gurises.html',
+      coords: [
+        [-31.37372618263515, -58.04994152590469],
+        [-31.37498294384376, -58.05021199471113],
+        [-31.37526242662019, -58.0484867623484],
+        [-31.37401543879032, -58.04820839669419],
+        [-31.37372618263515, -58.04994152590469]
+      ],
+      info: {
+        zona: 'Zona Noroeste',
+        edad: 'Nuevo (2016)',
+        origen: 'Post 2016',
+        electricidad: 15,
+        educacion: true,
+        salud: true,
+        viviendas: 'Múltiples',
+        material: '~80% noble'
       }
     }
   ];
