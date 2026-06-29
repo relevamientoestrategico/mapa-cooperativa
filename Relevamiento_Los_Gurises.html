@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relevamiento Los Gurises — Cooperativa Eléctrica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0066a1;
+      --primary-dark: #003d66;
+      --primary-light: #e6f2ff;
+      --accent: #0088cc;
+      --text: #1a2433;
+      --text-muted: #5a6a7a;
+      --border: #d4e4f7;
+      --bg: #f7f9fb;
+      --white: #ffffff;
+      --danger: #c62828;
+      --warning: #e65100;
+      --success: #2e7d32;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }
+
+    .header { background: linear-gradient(135deg, #003d66 0%, #0066a1 60%, #0088cc 100%); color: white; padding: 0; position: relative; overflow: hidden; }
+    .header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+    .header::after { content: ''; position: absolute; bottom: -80px; left: 40%; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+    .header-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 24px; padding: 28px 48px; }
+    .logo-wrap img { width: 64px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2)); }
+    .header-text h1 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; letter-spacing: 0.3px; margin-bottom: 4px; }
+    .header-text .subtitulo { font-size: 13px; opacity: 0.82; font-weight: 300; }
+    .header-text .fecha { font-size: 12px; opacity: 0.65; margin-top: 2px; font-weight: 300; }
+    .header-badge { margin-left: auto; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 10px 18px; text-align: center; backdrop-filter: blur(4px); }
+    .header-badge .zona-label { font-size: 10px; opacity: 0.75; text-transform: uppercase; letter-spacing: 1px; }
+    .header-badge .zona-val { font-size: 15px; font-weight: 600; margin-top: 2px; }
+
+    .nav-back { background: var(--white); border-bottom: 1px solid var(--border); padding: 10px 48px; }
+    .nav-back a { color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+    .nav-back a:hover { gap: 10px; }
+
+    .contenido { max-width: 960px; margin: 0 auto; padding: 40px 24px 60px; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+    .kpi-card { background: var(--white); border-radius: 10px; padding: 18px 16px; border-top: 3px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
+    .kpi-card .kpi-icono { font-size: 22px; margin-bottom: 6px; }
+    .kpi-card .kpi-val { font-size: 22px; font-weight: 700; color: var(--primary); line-height: 1.1; margin-bottom: 4px; }
+    .kpi-card .kpi-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; font-weight: 600; }
+
+    .seccion { background: var(--white); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+    .seccion-header { background: var(--primary); color: white; padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
+    .seccion-header .icono { font-size: 16px; }
+    .seccion-header h2 { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .seccion-body { padding: 20px; }
+    .seccion-body p { margin-bottom: 12px; font-size: 14.5px; color: var(--text); }
+    .seccion-body p:last-child { margin-bottom: 0; }
+
+    .alerta { background: #fff3e0; border-left: 4px solid var(--warning); border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #5d2f00; display: flex; gap: 10px; align-items: flex-start; }
+    .alerta .alerta-icono { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .alerta-roja { background: #fce8e6; border-left: 4px solid #c62828; border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #5d0000; display: flex; gap: 10px; align-items: flex-start; }
+    .info-box { background: #e3f2fd; border-left: 4px solid #1976d2; border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #0d2d4a; }
+
+    .tabla-datos { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .tabla-datos tr { border-bottom: 1px solid var(--border); }
+    .tabla-datos tr:last-child { border-bottom: none; }
+    .tabla-datos td { padding: 9px 12px; }
+    .tabla-datos td:first-child { color: var(--text-muted); font-weight: 600; width: 30%; }
+    .tabla-datos tr:hover td { background: var(--primary-light); }
+
+    .svc-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .svc-table th { background: var(--primary-light); color: var(--primary); font-size: 11px; text-transform: uppercase; padding: 10px 12px; text-align: left; letter-spacing: 0.4px; font-weight: 700; }
+    .svc-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+    .svc-table tr:last-child td { border-bottom: none; }
+    .svc-table tr:hover td { background: var(--primary-light); }
+
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .badge.si { background: #e6f4ea; color: #2e7d32; }
+    .badge.no { background: #fce8e6; color: #c62828; }
+    .badge.parcial { background: #fff8e1; color: #f57f17; }
+
+    .conclusion { background: var(--primary-light); border-radius: 10px; padding: 20px 24px; border-left: 5px solid var(--accent); margin-bottom: 24px; }
+    .conclusion h2 { font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+    .conclusion p { font-size: 14.5px; line-height: 1.75; color: var(--text); }
+
+    .equipo-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+    .equipo-chip { background: var(--primary-light); border: 1px solid #b3d9ff; color: var(--primary-dark); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 600; }
+
+    .galeria { background: white; border-radius: 10px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .galeria h2 { font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+    .galeria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .galeria-item { border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+    .galeria-item:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+    .galeria-item img { width: 100%; height: 240px; object-fit: cover; display: block; cursor: zoom-in; }
+
+    #lightbox-overlay { display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); justify-content: center; align-items: center; cursor: zoom-out; }
+    #lightbox-overlay.active { display: flex; }
+    #lightbox-overlay img { max-width: 92vw; max-height: 92vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    #lightbox-close-btn { position: fixed; top: 20px; right: 30px; color: white; font-size: 36px; font-weight: 300; cursor: pointer; line-height: 1; z-index: 100000; background: rgba(0,0,0,0.4); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; user-select: none; }
+    #lightbox-close-btn:hover { background: rgba(0,0,0,0.7); }
+
+    .footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); text-align: center; padding: 18px 24px; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Cooperativa"></div>
+    <div class="header-text">
+      <h1>Los Gurises</h1>
+      <div class="subtitulo">Relevamiento de Asentamiento</div>
+      <div class="fecha">22–25 de junio, 2026</div>
+    </div>
+    <div class="header-badge">
+      <div class="zona-label">Ubicación</div>
+      <div class="zona-val">Zona Noroeste</div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-back">
+  <a href="Mapa Relevamiento Asentamientos.html">← Volver al Mapa</a>
+</div>
+
+<div class="contenido">
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-icono">👨‍👩‍👧</div>
+      <div class="kpi-val">4.5</div>
+      <div class="kpi-lbl">Personas/Hogar</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icono">⚡</div>
+      <div class="kpi-val">~15%</div>
+      <div class="kpi-lbl">Conexión Legal</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icono">🏠</div>
+      <div class="kpi-val">~80%</div>
+      <div class="kpi-lbl">Material Noble</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icono">💰</div>
+      <div class="kpi-val">$802.164</div>
+      <div class="kpi-lbl">Ingreso Promedio</div>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">📍</span><h2>Información General</h2></div>
+    <div class="seccion-body">
+      <p>El barrio <strong>"Los Gurises"</strong> es un asentamiento popular ubicado en la zona noroeste de la ciudad, limita con San Miguel II y Barrio Sarmiento, compartiendo distintas actividades barriales y sociales. Algunos vecinos lo denominan <strong>"Barrio El Tero II"</strong> por estar ubicado detrás de la escuela del mismo nombre.</p>
+      <p>El relevamiento se realizó entre los días <strong>22 al 25 de junio de 2026</strong>, cubriendo el perímetro delimitado por las calles <strong>Dr. Florenza (sur), JJ Sola (norte), 59 (este) y María López (oeste)</strong>.</p>
+      <p>Es un barrio relativamente nuevo, cuyos inicios datan aproximadamente del año <strong>2016</strong>. En el sector relevado residen aproximadamente <strong>sesenta familias</strong>, aunque se observan lotes vacíos y otros en etapa de construcción, indicando expansión continua.</p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">🏗️</span><h2>Características de Vivienda e Infraestructura</h2></div>
+    <div class="seccion-body">
+      <p>Durante el relevamiento se observó gran cantidad de casas en construcción. Los vecinos reportan que los terrenos les fueron cedidos a través del municipio, pagándolos en cuotas. Todas las viviendas cuentan con <strong>pilares premoldeados</strong>, pero sin los correspondientes medidores.</p>
+      <p>Las viviendas en su mayoría son de <strong>material noble</strong> (~80%), resultado de autoconstrucción con ayuda municipal previo y durante la pandemia. Algunas unidades habitacionales son de madera o mixtas.</p>
+      <p>Respecto a infraestructura, el programa <strong>PROINEN</strong> fue implementado a finales de 2022 / principios de 2023. Era una operatoria conjunta entre Secretaría de Energía, Provincia, Municipio y distribuidoras, proponiendo mejorar la calidad de vida y formalizar el servicio eléctrico en condiciones seguras. El municipio local proveía el pilar premoldeado completo y permitía la instalación de líneas eléctricas para acceso a titularidad del servicio.</p>
+      <p>Las calles de acceso al barrio se encuentran en muy mal estado. Se observa cómo corre agua servida de desechos cloacales y cocina sobre las veredas, cercano a mangueras por donde circula el agua para higiene y cocción de alimentos, generando condiciones sanitarias preocupantes.</p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">⚡</span><h2>Servicio Eléctrico</h2></div>
+    <div class="seccion-body">
+      <div class="alerta-roja"><span class="alerta-icono">🚨</span><span>Aproximadamente el <strong>85% de las conexiones son irregulares</strong>. El análisis técnico detecta conexiones a 11 metros de altura directamente sobre la red segura, potencialmente realizadas con asistencia de cuadrillas internas, representando un riesgo estructural severo para la población.</span></div>
+      <p>En el sector permanecen un medidor trifásico y una caja de los antiguos medidores sociales, separados por aproximadamente 100 metros. Se han realizado mejoras importantes y los kits de instalación están listos para habilitar nuevas conexiones regulares.</p>
+      <p>Muchas familias manifiestan interés en acceder a un suministro eléctrico seguro y de calidad, con tensión estable de 220 V. El principal desafío es <strong>fortalecer la difusión de información</strong> sobre el proceso de regularización para que los vecinos se incorporen al servicio formal.</p>
+      <div class="info-box">ℹ️ Toda la población utiliza telefonía celular. El servicio de internet corresponde a Megacable, así como el servicio de televisión (también disponible DIRECTV). La zona cuenta con alumbrado público en casi toda su extensión.</div>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">🔧</span><h2>Servicios Públicos</h2></div>
+    <div class="seccion-body">
+      <table class="svc-table">
+        <thead><tr><th>Servicio</th><th>Estado</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>Cloacas</td><td><span class="badge no">Sin red</span></td><td>No existe. Vecinos utilizan pozo ciego o negro para depósito de aguas residuales</td></tr>
+          <tr><td>Agua corriente</td><td><span class="badge parcial">Por mangueras</span></td><td>Se abastecen mediante mangueras que llevan hasta sus viviendas. Situación vulnerable ante roturas</td></tr>
+          <tr><td>Alumbrado público</td><td><span class="badge si">Presente</span></td><td>Existe en casi toda la extensión del barrio</td></tr>
+          <tr><td>Transporte público</td><td><span class="badge parcial">Limitado</span></td><td>Líneas 3 y 4 pasan por calle Moulins</td></tr>
+          <tr><td>Recolección residuos</td><td><span class="badge no">Deficiente</span></td><td>Deben acercar basura hasta calle 59. Recolector martes, jueves y sábado. Baja altura de cables impide acceso de camión. Algunos queman basura o la entierran en pozos</td></tr>
+          <tr><td>Telefonía celular</td><td><span class="badge si">Disponible</span></td><td>Principal medio de comunicación</td></tr>
+          <tr><td>Internet y TV</td><td><span class="badge si">Disponible</span></td><td>Megacable, DirecTV prepago según disponibilidad económica</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">🏫</span><h2>Educación y Salud</h2></div>
+    <div class="seccion-body">
+      <table class="tabla-datos">
+        <tr><td>Educación primaria</td><td>Escuela Nº 3 Sarmiento (primaria). Escuela Primaria Nº 71 "Independencia" (también frecuentada por vecinos). Escuela Nº 19 Juana Azurduy en cercanías</td></tr>
+        <tr><td>Educación secundaria</td><td>Escuela Nº 19 Juana Azurduy (educación secundaria). Escuela Secundaria Técnica UNER dependiente de Facultad de Ciencias de la Alimentación ubicada en Polideportivo Víctor Oppel</td></tr>
+        <tr><td>Salud</td><td>Salita de atención primaria en Polideportivo Víctor Oppel con especialidades básicas para atención general</td></tr>
+        <tr><td>Equipamiento comunitario</td><td>Polideportivo "Víctor Oppel" como centro de actividades deportivas y de salud</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">💼</span><h2>Situación Económica</h2></div>
+    <div class="seccion-body">
+      <p>El <strong>ingreso promedio declarado por grupo familiar es de $802.164</strong>. Comparado con la canasta básica alimentaria del mes (aproximadamente $1.469.000), las familias se encuentran <strong>45,4% por debajo de ese monto</strong>, generando importantes carencias alimentarias.</p>
+      <p>La población laboralmente activa (edades 18–65) representa aproximadamente el <strong>35,18%</strong> del total. Predominan trabajos irregulares, changas y pequeños comercios instalados en las propias viviendas.</p>
+      <p>La mayoría carece de ingresos estables. La actividad económica predominante se compone de almacenes, quioscos y comercios de pequeña escala instalados en las viviendas. Ocasionalmente utilizan leña para cocinar; en la zona cercana existen algunos aserraderos.</p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">📊</span><h2>Nivel Educativo de la Población</h2></div>
+    <div class="seccion-body">
+      <p>La distribución de la población por nivel educativo máximo completado o en curso refleja una población mayoritariamente con educación primaria. Los datos indican acceso inicial a educación pero con altos niveles de incompletitud en ciclos superiores.</p>
+      <p>La carencia de educación terciaria entre la población adulta limita oportunidades de inserción laboral formal y estable, perpetuando ciclos de informalidad económica.</p>
+    </div>
+  </div>
+
+  <div class="conclusion">
+    <h2>Conclusión</h2>
+    <p>El barrio Los Gurises presenta un escenario de transición: viviendas de material noble en construcción conviven con carencias estructurales críticas en infraestructura de servicios. El problema más urgente es la situación eléctrica, con aproximadamente 85% de conexiones irregulares, junto con ausencia de red cloacal y acceso precario al agua. Las familias tienen ingresos 45% por debajo de la canasta básica, limitando su capacidad de acceso a servicios formalizados. La prioridad es fortalecer canales de regularización eléctrica y comunicación pública sobre beneficios del servicio formal.</p>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">👥</span><h2>Equipo de Trabajo</h2></div>
+    <div class="seccion-body">
+      <div class="equipo-grid">
+        <div class="equipo-chip">Tito Lampazzi</div>
+        <div class="equipo-chip">Laura Canali</div>
+        <div class="equipo-chip">Agostina Rettori</div>
+        <div class="equipo-chip">Nicolás Peri</div>
+        <div class="equipo-chip">Lucas Masso</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="galeria">
+    <h2>📷 Registro Fotográfico — Los Gurises</h2>
+    <div class="galeria-grid">
+      <div class="galeria-item"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Pilares premoldeados del barrio"></div>
+      <div class="galeria-item"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Medidor comunitario"></div>
+      <div class="galeria-item"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Altura del tendido eléctrico"></div>
+      <div class="galeria-item"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Estado de las calles"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Cooperativa Eléctrica · Relevamiento Estratégico de Asentamientos · Concordia, Entre Ríos · 2026</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var overlay = document.createElement('div'); overlay.id = 'lightbox-overlay';
+  var closeBtn = document.createElement('span'); closeBtn.id = 'lightbox-close-btn'; closeBtn.innerHTML = '&times;';
+  var imgEl = document.createElement('img'); imgEl.alt = 'Foto ampliada';
+  overlay.appendChild(closeBtn); overlay.appendChild(imgEl); document.body.appendChild(overlay);
+  var imgs = document.querySelectorAll('.galeria-item img');
+  for (var i = 0; i < imgs.length; i++) { imgs[i].addEventListener('click', function(e) { e.stopPropagation(); imgEl.src = this.src; overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }); }
+  function cerrar() { overlay.classList.remove('active'); document.body.style.overflow = ''; }
+  overlay.addEventListener('click', cerrar); closeBtn.addEventListener('click', cerrar);
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') cerrar(); });
+});
+</script>
+</body>
+</html>
