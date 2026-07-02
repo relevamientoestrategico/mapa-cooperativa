@@ -1004,7 +1004,7 @@ document.querySelectorAll('.basemap-btn').forEach(btn => {
    TOOLTIP HTML
    ════════════════════════════════════════════════════ */
 function tooltipHTML(b) {
-  const elecColor = b.info.electricidad >= 40 ? '#2e7d32' : (b.info.electricidad >= 15 ? '#f9a825' : '#c62828');
+  const elecColor = b.info.electricidad >= 40 ? '#2e7d32' : (b.info.electricidad > 0 ? '#f9a825' : '#c62828');
   const edBadge = b.info.educacion
     ? '<div class="tt-badge tt-badge-si">✓ Educación</div>'
     : '<div class="tt-badge tt-badge-no">✘ Sin educación</div>';
@@ -1104,10 +1104,10 @@ function openPanel(b){
   panelEmpty.style.display = 'none';
   panelContent.classList.add('active');
 
-  const elecColor = b.info.electricidad >= 40 ? '#2e7d32' : (b.info.electricidad >= 15 ? '#f9a825' : '#c62828');
+  const elecColor = b.info.electricidad >= 40 ? '#2e7d32' : (b.info.electricidad > 0 ? '#f9a825' : '#c62828');
   const elecDesc  = b.info.electricidad >= 40
     ? 'Cobertura formal mayoritaria. Riesgo técnico moderado.'
-    : b.info.electricidad >= 15
+    : b.info.electricidad > 0
       ? 'Cobertura formal parcial. Conexiones irregulares relevantes.'
       : 'Cobertura formal mínima. Predominio de conexiones irregulares.';
 
@@ -1184,7 +1184,7 @@ function applyFilters(){
     const matchZone  = !zone || b.info.zona === zone;
     const matchElec  = !elec ||
       (elec === 'alta'  && b.info.electricidad >= 40) ||
-      (elec === 'media' && b.info.electricidad >= 15 && b.info.electricidad < 40) ||
+      (elec === 'media' && b.info.electricidad > 0 && b.info.electricidad < 40) ||
       (elec === 'baja'  && b.info.electricidad < 15);
     const matchEduc  = !reqEduc  || b.info.educacion;
     const matchSalud = !reqSalud || b.info.salud;
