@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "27-de-noviembre",
+  "nombreVisible": "27 de Noviembre",
+  "color": "#1e6fa8",
+  "colorClaro": "#e8f1fb",
+  "zona": "Zona Noroeste",
+  "informeUrl": "Relevamiento 27 de Noviembre.html",
+  "estado": "publicado",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "indicadores": {
+    "edad": "22,41",
+    "origen": "Pandemia",
+    "electricidad": 0,
+    "educacion": true,
+    "salud": true,
+    "viviendas": "Múltiples",
+    "material": "85% madera"
+  }
+}

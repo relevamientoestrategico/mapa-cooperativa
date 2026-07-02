@@ -1,0 +1,53 @@
+/* ────────────────────────────────────────────────────────────
+   Tokens de diseño — Panel de Relevamientos
+   Verde institucional SOLO como acento, sobre blancos y grises.
+   Coherente con el prototipo aprobado.
+   ──────────────────────────────────────────────────────────── */
+:root {
+  /* Superficies */
+  --canvas:        #F6F7F9;
+  --surface:       #FFFFFF;
+  --surface-2:     #FAFBFC;
+
+  /* Bordes */
+  --border:        #E7E9ED;
+  --border-strong: #D8DCE2;
+
+  /* Texto */
+  --text:          #14181F;
+  --text-2:        #5B6472;
+  --muted:         #98A0AE;
+
+  /* Acento institucional */
+  --accent:        #0C8A5A;
+  --accent-soft:   #E7F4EE;
+  --accent-strong: #0A744C;
+
+  /* Semánticos */
+  --amber:         #B98900;
+  --amber-soft:    #FBF3E1;
+  --danger:        #C7362F;
+  --danger-soft:   #FBECEB;
+  --info:          #1E6FA8;
+  --info-soft:     #E4EFF7;
+
+  /* Sombras */
+  --shadow:    0 1px 2px rgba(16, 24, 40, .04), 0 4px 16px rgba(16, 24, 40, .06);
+  --shadow-lg: 0 8px 40px rgba(16, 24, 40, .12);
+
+  /* Radios */
+  --r:    12px;
+  --r-sm: 9px;
+  --r-lg: 16px;
+
+  /* Layout */
+  --sidebar-w:          232px;
+  --sidebar-w-collapsed: 62px;
+  --topbar-h:           60px;
+
+  /* Tipografía */
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Animación */
+  --ease: cubic-bezier(.2, .8, .2, 1);
+}

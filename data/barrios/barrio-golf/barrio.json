@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "barrio-golf",
+  "nombreVisible": "Barrio Golf",
+  "color": "#4a7c2f",
+  "colorClaro": "#f0f7e8",
+  "zona": "Zona Noroeste",
+  "informeUrl": "Relevamiento Barrio Golf.html",
+  "estado": "publicado",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "indicadores": {
+    "edad": "31,53",
+    "origen": "Años 90",
+    "electricidad": 10,
+    "educacion": false,
+    "salud": true,
+    "viviendas": "Múltiples",
+    "material": "71% noble"
+  }
+}

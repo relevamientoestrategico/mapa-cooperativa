@@ -1,0 +1,146 @@
+/* ────────────────────────────────────────────────────────────
+   ESTILOS ESPECÍFICOS POR PANTALLA
+   ──────────────────────────────────────────────────────────── */
+
+/* ─── Lista de barrios (grid) ─────────────────────────────── */
+.barrios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+.barrio-card {
+  padding: 18px;
+  cursor: pointer;
+  transition: transform .16s var(--ease), box-shadow .16s, border-color .16s;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  text-align: left;
+  display: block;
+  width: 100%;
+}
+.barrio-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-strong);
+}
+.barrio-card .top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.barrio-card .cdot { width: 26px; height: 26px; border-radius: 8px; }
+.barrio-card h3 { font-size: 16px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 5px; }
+.barrio-card .meta {
+  font-size: 12.5px; color: var(--muted);
+  display: flex; align-items: center; gap: 6px;
+}
+.barrio-card .meta .ico { width: 13px; height: 13px; stroke-width: 2; }
+
+/* ─── Hub del barrio ──────────────────────────────────────── */
+.hub-head {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.hub-head .cdot { width: 44px; height: 44px; border-radius: 12px; flex: none; }
+.hub-head h1 { font-size: 24px; font-weight: 700; letter-spacing: -.02em; }
+.hub-head .sub {
+  font-size: 13px; color: var(--text-2); margin-top: 3px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+.tile {
+  padding: 16px;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  text-align: left;
+  transition: transform .15s var(--ease), box-shadow .15s, border-color .15s;
+  display: flex; flex-direction: column; gap: 10px;
+  min-height: 112px;
+  cursor: pointer;
+}
+.tile:hover:not(.locked) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-strong);
+}
+.tile .ib {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--accent-soft); color: var(--accent-strong);
+  display: grid; place-items: center;
+}
+.tile .ib .ico { width: 19px; height: 19px; }
+.tile b { font-size: 14px; font-weight: 600; letter-spacing: -.01em; }
+.tile span { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+/* Modo bloqueado (sin conexión) */
+.tile.locked { opacity: .55; cursor: not-allowed; }
+.tile.locked .ib { background: var(--canvas); color: var(--muted); }
+.tile.locked .lock-mark {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.hub-actions {
+  display: flex; gap: 10px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+/* ─── Wizard de conexión (asistente visual) ───────────────── */
+.wiz {
+  padding: 4px 0;
+}
+.wiz-step {
+  display: flex; gap: 14px;
+  margin-bottom: 18px;
+}
+.wiz-step .num {
+  width: 26px; height: 26px; flex: none;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  display: grid; place-items: center;
+  font-weight: 700; font-size: 12.5px;
+  margin-top: 1px;
+}
+.wiz-step .body { flex: 1; min-width: 0; }
+.wiz-step h4 { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+.wiz-step p { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.wiz-step .link {
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--accent-strong);
+  text-decoration: underline; text-underline-offset: 2px;
+  font-weight: 500;
+}
+.wiz-step .link:hover { color: var(--accent); }
+.wiz-step .link .ico { width: 13px; height: 13px; stroke-width: 2; }
+
+.wiz-key {
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Modal de sesión (chip del topbar) ───────────────────── */
+.session-panel .row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+}
+.session-panel .row:last-of-type { border-bottom: none; }
+.session-panel .row .k { color: var(--text-2); }
+.session-panel .row .v { font-weight: 600; }
+.session-panel .row .v.mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+}

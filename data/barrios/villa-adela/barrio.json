@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "villa-adela",
+  "nombreVisible": "Villa Adela",
+  "color": "#b34000",
+  "colorClaro": "#fbe9e7",
+  "zona": "Zona Sur Oeste",
+  "informeUrl": "Relevamiento Villa Adela.html",
+  "estado": "publicado",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "indicadores": {
+    "edad": "31,24",
+    "origen": "Años 70",
+    "electricidad": 34,
+    "educacion": true,
+    "salud": true,
+    "viviendas": "Múltiples",
+    "material": "64% noble"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "los-gurises",
+  "nombreVisible": "Los Gurises",
+  "color": "#d4711f",
+  "colorClaro": "#fef1e6",
+  "zona": "Zona Noroeste",
+  "informeUrl": "Relevamiento_Los_Gurises.html",
+  "estado": "publicado",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "indicadores": {
+    "edad": "4,5 p/hog.",
+    "origen": "Post 2016",
+    "electricidad": 0,
+    "educacion": false,
+    "salud": false,
+    "viviendas": "Múltiples",
+    "material": "~80% noble"
+  }
+}

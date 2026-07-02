@@ -1,0 +1,39 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "barrio-golf",
+        "nombre": "Barrio Golf"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.0117083,
+              -31.3423317
+            ],
+            [
+              -58.0114293,
+              -31.3411084
+            ],
+            [
+              -58.0128562,
+              -31.3408473
+            ],
+            [
+              -58.0131567,
+              -31.3420981
+            ],
+            [
+              -58.0117083,
+              -31.3423317
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

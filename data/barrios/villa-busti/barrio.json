@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "villa-busti",
+  "nombreVisible": "Villa Busti",
+  "color": "#7b2d8b",
+  "colorClaro": "#f5e6f8",
+  "zona": "Zona Este",
+  "informeUrl": "Relevamiento Villa Busti.html",
+  "estado": "publicado",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "indicadores": {
+    "edad": "32,6",
+    "origen": "Años 90",
+    "electricidad": 35,
+    "educacion": true,
+    "salud": true,
+    "viviendas": "Múltiples",
+    "material": "~90% noble"
+  }
+}

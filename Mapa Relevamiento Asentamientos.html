@@ -827,133 +827,7 @@
    DATOS DE BARRIOS (9 total)
    Coordenadas en formato Leaflet [lat, lon]
    ════════════════════════════════════════════════════ */
-const barrios = [
-  {
-    nombre: 'Villa Adela',
-    color: '#b34000',
-    colorClaro: '#fbe9e7',
-    html: 'Relevamiento Villa Adela.html',
-    coords: [
-      [-31.4031536,-58.0675499],[-31.4036595,-58.0681842],[-31.4042753,-58.0689151],
-      [-31.403687,-58.0696125],[-31.4042639,-58.0702455],[-31.4047584,-58.0696662],
-      [-31.405436,-58.070503],[-31.4059763,-58.0698164],[-31.4057016,-58.0692638],
-      [-31.4054612,-58.0689286],[-31.405262,-58.0687274],[-31.4049644,-58.0686309],
-      [-31.4048317,-58.0685705],[-31.4047218,-58.0684565],[-31.4050057,-58.0681373],
-      [-31.4049873,-58.0681051],[-31.4049484,-58.0680883],[-31.404779,-58.0680126],
-      [-31.4046073,-58.0678825],[-31.4040241,-58.0674614],[-31.4035036,-58.0670657],
-      [-31.4031936,-58.0675338],[-31.4031536,-58.0675499]
-    ],
-    info: { zona: 'Zona Sur Oeste', edad: '31,24', origen: 'Años 70', electricidad: 34, educacion: true, salud: true, viviendas: 'Múltiples', material: '64% noble' }
-  },
-  {
-    nombre: 'Carretera La Cruz',
-    color: '#c8a800',
-    colorClaro: '#fff9e6',
-    html: 'Relevamiento Carretera La Cruz.html',
-    coords: [
-      [-31.4101678,-58.029694],[-31.4088492,-58.0309814],[-31.4082448,-58.0323011],
-      [-31.4102868,-58.0356485],[-31.411468,-58.0347258],[-31.4127041,-58.0363458],
-      [-31.4140226,-58.0348331],[-31.4101678,-58.029694]
-    ],
-    info: { zona: 'Zona Sur Oeste', edad: '27', origen: 'Años 90', electricidad: 0, educacion: false, salud: true, viviendas: 'Múltiples', material: '90% madera' }
-  },
-  {
-    nombre: 'Barrio Golf',
-    color: '#4a7c2f',
-    colorClaro: '#f0f7e8',
-    html: 'Relevamiento Barrio Golf.html',
-    coords: [
-      [-31.3423317,-58.0117083],[-31.3411084,-58.0114293],[-31.3408473,-58.0128562],
-      [-31.3420981,-58.0131567],[-31.3423317,-58.0117083]
-    ],
-    info: { zona: 'Zona Noroeste', edad: '31,53', origen: 'Años 90', electricidad: 10, educacion: false, salud: true, viviendas: 'Múltiples', material: '71% noble' }
-  },
-  {
-    nombre: '27 de Noviembre',
-    color: '#1e6fa8',
-    colorClaro: '#e8f1fb',
-    html: 'Relevamiento 27 de Noviembre.html',
-    coords: [
-      [-31.3564356,-58.0370357],[-31.3559775,-58.0369338],[-31.3556087,-58.0368453],
-      [-31.3547865,-58.0366522],[-31.3546101,-58.0377358],[-31.3534465,-58.0374783],
-      [-31.3515591,-58.0392056],[-31.3559752,-58.0403322],[-31.3562306,-58.0386853],
-      [-31.3564356,-58.0370357]
-    ],
-    info: { zona: 'Zona Noroeste', edad: '22,41', origen: 'Pandemia', electricidad: 0, educacion: true, salud: true, viviendas: 'Múltiples', material: '85% madera' }
-  },
-  {
-    nombre: 'Villa Busti',
-    color: '#7b2d8b',
-    colorClaro: '#f5e6f8',
-    html: 'Relevamiento Villa Busti.html',
-    coords: [
-      [-31.38794832796698,-58.00051566957797],
-      [-31.3843580624745,-57.99971444710767],
-      [-31.38342852403894,-58.0054982763065],
-      [-31.38736614054601,-58.00406693408082],
-      [-31.38794832796698,-58.00051566957797]
-    ],
-    info: { zona: 'Zona Este', edad: '32,6', origen: 'Años 90', electricidad: 35, educacion: true, salud: true, viviendas: 'Múltiples', material: '~90% noble' }
-  },
-  {
-    nombre: 'Barrio Nebel',
-    color: '#0077a8',
-    colorClaro: '#e6f4fa',
-    html: 'Relevamiento Barrio Nebel.html',
-    coords: [
-      [-31.393713,-57.9984819],[-31.3956957,-57.9963415],[-31.3952058,-57.9952525],
-      [-31.3945052,-57.9945659],[-31.3935435,-57.9942225],[-31.3930169,-57.9972374],
-      [-31.3929299,-57.9974573],[-31.393713,-57.9984819]
-    ],
-    info: { zona: 'Zona Sureste', edad: '30,8', origen: 'Post 2001', electricidad: 40, educacion: true, salud: true, viviendas: 'Múltiples', material: 'Noble / Mixto' }
-  },
-  {
-    nombre: 'Barrio Sarmiento',
-    color: '#c04a00',
-    colorClaro: '#fdebe0',
-    html: 'Relevamiento Barrio Sarmiento.html',
-    coords: [
-      [-31.3692969,-58.0508817],[-31.370703,-58.0511767],[-31.3710649,-58.0490631],
-      [-31.3699015,-58.0488432],[-31.3692603,-58.0486608],[-31.3687015,-58.048591],
-      [-31.368674,-58.0489827],[-31.3686923,-58.0490631],[-31.3687518,-58.0492723],
-      [-31.3688068,-58.0496049],[-31.3689809,-58.0501789],[-31.369274,-58.0506403],
-      [-31.3692969,-58.0508817]
-    ],
-    info: { zona: 'Zona Noroeste', edad: '27,9', origen: 'Años 90', electricidad: 38, educacion: true, salud: true, viviendas: 'Múltiples', material: '~76% noble' }
-  },
-  {
-    nombre: 'Barrio La Arrocera',
-    color: '#a0522d',
-    colorClaro: '#f5ede7',
-    html: 'Relevamiento Barrio La Arrocera.html',
-    coords: [
-      [-31.36870443835828,-58.05382902562434],
-      [-31.36824882854308,-58.0574675941624],
-      [-31.36848939181004,-58.05808566730234],
-      [-31.36918733670328,-58.0583398574435],
-      [-31.36998890294276,-58.05805851484991],
-      [-31.3704473692031,-58.05790059402896],
-      [-31.37156584346754,-58.05725117829246],
-      [-31.37200280536518,-58.05456091579686],
-      [-31.36870443835828,-58.05382902562434]
-    ],
-    info: { zona: 'Zona Noroeste', edad: '20,7', origen: '2019', electricidad: 0, educacion: false, salud: true, viviendas: 'Múltiples', material: '~80% madera' }
-  },
-  {
-    nombre: 'Los Gurises',
-    color: '#d4711f',
-    colorClaro: '#fef1e6',
-    html: 'Relevamiento_Los_Gurises.html',
-    coords: [
-      [-31.37372618263515,-58.04994152590469],
-      [-31.37498294384376,-58.05021199471113],
-      [-31.37526242662019,-58.04848676234840],
-      [-31.37401543879032,-58.04820839669419],
-      [-31.37372618263515,-58.04994152590469]
-    ],
-    info: { zona: 'Zona Noroeste', edad: '4,5 p/hog.', origen: 'Post 2016', electricidad: 0, educacion: false, salud: false, viviendas: 'Múltiples', material: '~80% noble' }
-  }
-];
+let barrios = [];
 
 /* ════════════════════════════════════════════════════
    INICIALIZAR MAPA
@@ -1004,7 +878,7 @@ document.querySelectorAll('.basemap-btn').forEach(btn => {
    TOOLTIP HTML
    ════════════════════════════════════════════════════ */
 function tooltipHTML(b) {
-  const elecColor = b.info.electricidad >= 40 ? '#2e7d32' : (b.info.electricidad > 0 ? '#f9a825' : '#c62828');
+  const elecColor = b.info.electricidad >= 40 ? '#2e7d32' : (b.info.electricidad >= 15 ? '#f9a825' : '#c62828');
   const edBadge = b.info.educacion
     ? '<div class="tt-badge tt-badge-si">✓ Educación</div>'
     : '<div class="tt-badge tt-badge-no">✘ Sin educación</div>';
@@ -1040,6 +914,7 @@ function tooltipHTML(b) {
 /* ════════════════════════════════════════════════════
    RENDER POLÍGONOS
    ════════════════════════════════════════════════════ */
+function renderAll(){
 const polygons = {};
 barrios.forEach(b => {
   const poly = L.polygon(b.coords, {
@@ -1104,10 +979,10 @@ function openPanel(b){
   panelEmpty.style.display = 'none';
   panelContent.classList.add('active');
 
-  const elecColor = b.info.electricidad >= 40 ? '#2e7d32' : (b.info.electricidad > 0 ? '#f9a825' : '#c62828');
+  const elecColor = b.info.electricidad >= 40 ? '#2e7d32' : (b.info.electricidad >= 15 ? '#f9a825' : '#c62828');
   const elecDesc  = b.info.electricidad >= 40
     ? 'Cobertura formal mayoritaria. Riesgo técnico moderado.'
-    : b.info.electricidad > 0
+    : b.info.electricidad >= 15
       ? 'Cobertura formal parcial. Conexiones irregulares relevantes.'
       : 'Cobertura formal mínima. Predominio de conexiones irregulares.';
 
@@ -1184,7 +1059,7 @@ function applyFilters(){
     const matchZone  = !zone || b.info.zona === zone;
     const matchElec  = !elec ||
       (elec === 'alta'  && b.info.electricidad >= 40) ||
-      (elec === 'media' && b.info.electricidad > 0 && b.info.electricidad < 40) ||
+      (elec === 'media' && b.info.electricidad >= 15 && b.info.electricidad < 40) ||
       (elec === 'baja'  && b.info.electricidad < 15);
     const matchEduc  = !reqEduc  || b.info.educacion;
     const matchSalud = !reqSalud || b.info.salud;
@@ -1218,6 +1093,7 @@ const conServ      = barrios.filter(b => b.info.educacion && b.info.salud).lengt
 document.getElementById('kpiZonas').textContent = totalBarrios;
 document.getElementById('kpiElec').textContent  = '~ ' + promedioElec + '%';
 document.getElementById('kpiServ').textContent  = `${conServ} / ${totalBarrios}`;
+}  /* fin renderAll */
 
 /* ════════════════════════════════════════════════════
    MOBILE
@@ -1231,6 +1107,39 @@ map.on('click', () => {
     document.getElementById('sidebar').classList.remove('open');
   }
 });
+
+/* ════════════════════════════════════════════════════
+   CARGA DE DATOS  ·  Módulo 1 — datos externalizados
+   Lee data/barrios/index.json y reconstruye `barrios`
+   con la MISMA forma que usa el resto del mapa.
+   ════════════════════════════════════════════════════ */
+async function cargarBarrios(){
+  const base = 'data/barrios/';
+  const idx = await fetch(base + 'index.json').then(r => r.json());
+  const publicados = idx.barrios.filter(b => b.estado === 'publicado');
+  return Promise.all(publicados.map(async entry => {
+    const j   = await fetch(base + entry.id + '/barrio.json').then(r => r.json());
+    const geo = await fetch(base + entry.id + '/geometria.geojson').then(r => r.json());
+    const ring = geo.features[0].geometry.coordinates[0];
+    const coords = ring.map(([lng, lat]) => [lat, lng]); // GeoJSON [lng,lat] -> Leaflet [lat,lng]
+    return {
+      nombre: j.nombreVisible,
+      color: j.color,
+      colorClaro: j.colorClaro,
+      html: j.informeUrl,
+      coords: coords,
+      info: Object.assign({ zona: j.zona }, j.indicadores)
+    };
+  }));
+}
+
+cargarBarrios()
+  .then(data => { barrios = data; renderAll(); })
+  .catch(err => {
+    console.error('No se pudieron cargar los datos de barrios:', err);
+    const el = document.getElementById('sbBarrios');
+    if (el) el.innerHTML = '<div style="padding:16px;color:#c62828;font-size:13px;">No se pudieron cargar los datos de los barrios.</div>';
+  });
 </script>
 
 </body>

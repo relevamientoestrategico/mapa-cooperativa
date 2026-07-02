@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "barrios": [
+    {
+      "id": "villa-adela",
+      "nombreVisible": "Villa Adela",
+      "color": "#b34000",
+      "estado": "publicado"
+    },
+    {
+      "id": "carretera-la-cruz",
+      "nombreVisible": "Carretera La Cruz",
+      "color": "#c8a800",
+      "estado": "publicado"
+    },
+    {
+      "id": "barrio-golf",
+      "nombreVisible": "Barrio Golf",
+      "color": "#4a7c2f",
+      "estado": "publicado"
+    },
+    {
+      "id": "27-de-noviembre",
+      "nombreVisible": "27 de Noviembre",
+      "color": "#1e6fa8",
+      "estado": "publicado"
+    },
+    {
+      "id": "villa-busti",
+      "nombreVisible": "Villa Busti",
+      "color": "#7b2d8b",
+      "estado": "publicado"
+    },
+    {
+      "id": "barrio-nebel",
+      "nombreVisible": "Barrio Nebel",
+      "color": "#0077a8",
+      "estado": "publicado"
+    },
+    {
+      "id": "barrio-sarmiento",
+      "nombreVisible": "Barrio Sarmiento",
+      "color": "#c04a00",
+      "estado": "publicado"
+    },
+    {
+      "id": "barrio-la-arrocera",
+      "nombreVisible": "Barrio La Arrocera",
+      "color": "#a0522d",
+      "estado": "publicado"
+    },
+    {
+      "id": "los-gurises",
+      "nombreVisible": "Los Gurises",
+      "color": "#d4711f",
+      "estado": "publicado"
+    }
+  ]
+}

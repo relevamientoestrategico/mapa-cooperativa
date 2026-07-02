@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "barrio-la-arrocera",
+  "nombreVisible": "Barrio La Arrocera",
+  "color": "#a0522d",
+  "colorClaro": "#f5ede7",
+  "zona": "Zona Noroeste",
+  "informeUrl": "Relevamiento Barrio La Arrocera.html",
+  "estado": "publicado",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "indicadores": {
+    "edad": "20,7",
+    "origen": "2019",
+    "electricidad": 0,
+    "educacion": false,
+    "salud": true,
+    "viviendas": "Múltiples",
+    "material": "~80% madera"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "barrio-sarmiento",
+  "nombreVisible": "Barrio Sarmiento",
+  "color": "#c04a00",
+  "colorClaro": "#fdebe0",
+  "zona": "Zona Noroeste",
+  "informeUrl": "Relevamiento Barrio Sarmiento.html",
+  "estado": "publicado",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "indicadores": {
+    "edad": "27,9",
+    "origen": "Años 90",
+    "electricidad": 38,
+    "educacion": true,
+    "salud": true,
+    "viviendas": "Múltiples",
+    "material": "~76% noble"
+  }
+}

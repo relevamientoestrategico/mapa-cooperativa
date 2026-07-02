@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "carretera-la-cruz",
+  "nombreVisible": "Carretera La Cruz",
+  "color": "#c8a800",
+  "colorClaro": "#fff9e6",
+  "zona": "Zona Sur Oeste",
+  "informeUrl": "Relevamiento Carretera La Cruz.html",
+  "estado": "publicado",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "indicadores": {
+    "edad": "27",
+    "origen": "Años 90",
+    "electricidad": 0,
+    "educacion": false,
+    "salud": true,
+    "viviendas": "Múltiples",
+    "material": "90% madera"
+  }
+}

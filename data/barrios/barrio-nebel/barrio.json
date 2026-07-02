@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "barrio-nebel",
+  "nombreVisible": "Barrio Nebel",
+  "color": "#0077a8",
+  "colorClaro": "#e6f4fa",
+  "zona": "Zona Sureste",
+  "informeUrl": "Relevamiento Barrio Nebel.html",
+  "estado": "publicado",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "indicadores": {
+    "edad": "30,8",
+    "origen": "Post 2001",
+    "electricidad": 40,
+    "educacion": true,
+    "salud": true,
+    "viviendas": "Múltiples",
+    "material": "Noble / Mixto"
+  }
+}
