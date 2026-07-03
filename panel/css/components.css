@@ -14,9 +14,15 @@
   transition: border-color .15s, background .15s, color .15s, transform .05s;
   white-space: nowrap;
 }
-.btn:hover { border-color: var(--muted); }
-.btn:active { transform: translateY(1px); }
-.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn:hover:not(:disabled) { border-color: var(--muted); }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: saturate(.8);
+}
+.btn.primary:disabled { background: var(--accent); border-color: var(--accent); }
 .btn .ico { width: 16px; height: 16px; }
 
 .btn.primary {

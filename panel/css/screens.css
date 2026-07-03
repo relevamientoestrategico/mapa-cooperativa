@@ -25,6 +25,17 @@
   box-shadow: var(--shadow-lg);
   border-color: var(--border-strong);
 }
+
+/* Tarjeta de borrador: borde punteado, sutilmente distinta */
+.barrio-card.is-draft {
+  border-style: dashed;
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+}
+.barrio-card.is-draft:hover {
+  border-color: var(--amber);
+}
+
 .barrio-card .top {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 14px;

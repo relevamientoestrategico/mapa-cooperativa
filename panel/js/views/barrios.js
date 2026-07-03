@@ -1,9 +1,12 @@
 /**
  * Vista: lista de barrios.
  *
- * Modo lectura: muestra solo barrios publicados.
- * Modo conectado: además muestra borradores (con badge) y el botón "Nuevo barrio"
- * (en Módulos 3+ se cablea el asistente).
+ * Ajustes de UX aplicados (revisión post-Módulo 2):
+ *   1. Título dinámico: "N barrios relevados" en vez de "Barrios".
+ *   2. Borradores al final de la grilla, con borde punteado.
+ *   3. Búsqueda oculta hasta que haya 10+ barrios.
+ *   4. Botón "Nuevo barrio" visible pero deshabilitado con tooltip
+ *      "Disponible en el próximo módulo".
  */
 
 import { el, mount, toast } from '../dom.js';
@@ -13,16 +16,22 @@ import { session, canEdit, onSessionChange } from '../auth.js';
 import { go } from '../router.js';
 import { openConnectWizard } from '../ui/connect-wizard.js';
 
+const UMBRAL_BUSQUEDA = 10;   // umbral a partir del cual la búsqueda aparece
+
 let allBarrios = [];
 let searchTerm = '';
 
 export async function renderBarrios(container) {
   container.innerHTML = '';
-  container.appendChild(buildHead());
-  container.appendChild(buildToolbar());
 
+  const headSlot = el('div', { id: 'barrios-head-slot' });
+  const toolbarSlot = el('div', { id: 'barrios-toolbar-slot' });
   const gridSlot = el('div', { id: 'barrios-grid-slot' });
+
+  container.appendChild(headSlot);
+  container.appendChild(toolbarSlot);
   container.appendChild(gridSlot);
+
   gridSlot.appendChild(el('div.loader-row', {}, [
     el('span.spinner'),
     'Cargando barrios…'
@@ -30,7 +39,7 @@ export async function renderBarrios(container) {
 
   try {
     allBarrios = await fetchIndex({ bustCache: canEdit() });
-    paintGrid();
+    paintAll();
   } catch (e) {
     mount(gridSlot, el('div.callout.error', {}, [
       el('span', { html: icons.alert() }).firstChild,
@@ -38,42 +47,77 @@ export async function renderBarrios(container) {
     ]));
   }
 
-  // Refrescar cuando cambia el estado de sesión (para mostrar/ocultar borradores)
-  onSessionChange(() => paintGrid());
+  onSessionChange(() => paintAll());
 }
 
-function buildHead() {
+/**
+ * Repinta todo (head + toolbar + grid) para reflejar cambios de sesión
+ * o de conteo de barrios en un futuro.
+ */
+function paintAll() {
+  paintHead();
+  paintToolbar();
+  paintGrid();
+}
+
+function paintHead() {
+  const slot = document.getElementById('barrios-head-slot');
+  if (!slot) return;
+
+  // Conteo visible: en lectura solo publicados; conectado, todos
+  const visibles = allBarrios.filter(b => b.estado === 'publicado' || canEdit());
+  const n = visibles.length;
+
+  const titulo = n === 0
+    ? 'Sin barrios todavía'
+    : `${n} ${n === 1 ? 'barrio relevado' : 'barrios relevados'}`;
+
   const head = el('div.page-head', {}, [
     el('div', {}, [
-      el('h1', { text: 'Barrios' }),
+      el('h1', { text: titulo }),
       el('p.sub', { text: 'Elegí un barrio para consultarlo o administrarlo.' })
     ]),
     el('div.spacer')
   ]);
 
+  // Botón "Nuevo barrio" — visible pero deshabilitado (llega en un módulo posterior)
   if (canEdit()) {
     head.appendChild(el('button.btn.primary', {
-      onClick: () => toast('El asistente de "Nuevo barrio" llega en el próximo módulo.', 'ok')
+      disabled: 'disabled',
+      title: 'Disponible en el próximo módulo',
+      'aria-disabled': 'true'
     }, [
       el('span', { html: icons.plus() }).firstChild,
       'Nuevo barrio'
     ]));
   }
 
-  return head;
+  slot.replaceChildren(head);
 }
 
-function buildToolbar() {
-  return el('div.toolbar', {}, [
+function paintToolbar() {
+  const slot = document.getElementById('barrios-toolbar-slot');
+  if (!slot) return;
+
+  // La búsqueda aparece solo cuando hay muchos barrios
+  if (allBarrios.length < UMBRAL_BUSQUEDA) {
+    slot.replaceChildren();
+    return;
+  }
+
+  const toolbar = el('div.toolbar', {}, [
     el('div.search', {}, [
       el('span', { html: icons.search(), style: { color: 'var(--muted)' } }).firstChild,
       el('input', {
         type: 'search',
         placeholder: 'Buscar barrio…',
+        value: searchTerm,
         onInput: (e) => { searchTerm = e.target.value.toLowerCase(); paintGrid(); }
       })
     ])
   ]);
+
+  slot.replaceChildren(toolbar);
 }
 
 function paintGrid() {
@@ -81,10 +125,17 @@ function paintGrid() {
   if (!slot) return;
 
   // Filtro por permisos + búsqueda
-  const list = allBarrios.filter(b => {
+  let list = allBarrios.filter(b => {
     if (b.estado !== 'publicado' && !canEdit()) return false;
     if (!searchTerm) return true;
     return b.nombreVisible.toLowerCase().includes(searchTerm);
+  });
+
+  // Ordenamiento: publicados primero, borradores al final
+  list = list.slice().sort((a, b) => {
+    const ap = a.estado === 'publicado' ? 0 : 1;
+    const bp = b.estado === 'publicado' ? 0 : 1;
+    return ap - bp;
   });
 
   slot.innerHTML = '';
@@ -105,16 +156,18 @@ function paintGrid() {
 
 function cardOf(b) {
   const isDraft = b.estado !== 'publicado';
-  return el('button.barrio-card', {
-    onClick: () => go(`barrio/${b.id}`)
-  }, [
-    el('div.top', {}, [
-      el('div.cdot', { style: { background: b.color } }),
-      el('span', {
-        class: `pill ${isDraft ? 'draft' : 'pub'}`,
-        html: `<span class="d"></span>${isDraft ? 'Borrador' : 'Publicado'}`
-      })
-    ]),
-    el('h3', { text: b.nombreVisible })
-  ]);
+  return el(
+    'button' + (isDraft ? '.barrio-card.is-draft' : '.barrio-card'),
+    { onClick: () => go(`barrio/${b.id}`) },
+    [
+      el('div.top', {}, [
+        el('div.cdot', { style: { background: b.color } }),
+        el('span', {
+          class: `pill ${isDraft ? 'draft' : 'pub'}`,
+          html: `<span class="d"></span>${isDraft ? 'Borrador' : 'Publicado'}`
+        })
+      ]),
+      el('h3', { text: b.nombreVisible })
+    ]
+  );
 }

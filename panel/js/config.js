@@ -8,7 +8,7 @@ export const CONFIG = {
   // Ajustar owner/repo antes de publicar.
   repo: {
     owner:  'relevamientoestrategico',
-    name: 'mapa-cooperativa',
+    name:   'Mapa-Cooperativa',
     branch: 'main',
     dataPath: 'data/barrios'
   },
