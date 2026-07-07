@@ -1,0 +1,68 @@
+╔══════════════════════════════════════════════════════════════════╗
+║  PANEL DE RELEVAMIENTOS — Cómo probar cambios en tu computadora  ║
+║  antes de subirlos a GitHub                                      ║
+╚══════════════════════════════════════════════════════════════════╝
+
+El panel necesita "servirse" desde un servidor local para funcionar
+correctamente (porque lee archivos de datos). No basta con abrir el
+index.html haciendo doble clic — Windows lo bloquea por seguridad.
+
+La buena noticia: es una única línea de comando, la misma que ya
+usás para la Consultoría de Procesos (F2).
+
+
+┌─ CÓMO PROBAR LOCALMENTE ─────────────────────────────────────────┐
+
+1. Abrí una terminal de Windows en la carpeta del repo local:
+     C:\Users\Nico Peri\Documents\GitHub\mapa-cooperativa
+
+   (En el Explorador de Archivos, entrás a esa carpeta, y en la
+    barra de dirección de arriba escribís "cmd" y apretás Enter.
+    Se abre una terminal ya parada en esa carpeta.)
+
+2. Ejecutá:
+
+     python -m http.server 8000
+
+3. Abrí en el navegador cualquiera de estas URLs:
+
+     http://localhost:8000/                            ← el mapa
+     http://localhost:8000/panel/                      ← el panel
+     http://localhost:8000/Mapa Relevamiento Asentamientos.html
+
+4. Para detener el servidor: en la terminal, Ctrl + C.
+
+└──────────────────────────────────────────────────────────────────┘
+
+
+┌─ EL FLUJO CON GITHUB DESKTOP ────────────────────────────────────┐
+
+Ahora que usás GitHub Desktop, el ciclo completo es:
+
+  1. Recibís un ZIP con actualizaciones.
+  2. Descomprimís y copiás el contenido dentro de la carpeta del
+     repo (reemplazando lo que corresponda).
+  3. Levantás el servidor local (python -m http.server 8000) y
+     probás en http://localhost:8000/panel/.
+  4. Si todo se ve bien, en GitHub Desktop apretás:
+        → "Commit to main"
+        → "Push origin"
+  5. En 1-2 minutos ya está online en GitHub Pages.
+
+  Ventaja: si algo se rompe, lo descubrís antes de subirlo.
+
+└──────────────────────────────────────────────────────────────────┘
+
+
+NOTAS
+─────
+- El puerto 8000 es solo una convención. Si estuviera ocupado,
+  probá 8080 o 8765.
+
+- El servidor local no necesita internet. Podés probar cambios
+  incluso sin conexión (la conexión con GitHub solo hace falta
+  para guardar y publicar).
+
+- El panel guarda tu clave de acceso en cada navegador por
+  separado. Si probás en localhost por primera vez, vas a tener
+  que volver a conectarte una vez.
