@@ -1,27 +1,511 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel de Relevamientos — Cooperativa Eléctrica</title>
-<meta name="description" content="Panel de administración de relevamientos de barrios.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/layout.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/screens.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Información Territorial — Cooperativa Eléctrica de Concordia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-base:        #0a1f17;
+      --bg-surface:     #0d2b1e;
+      --bg-card:        #112e22;
+      --bg-card-2:      #0e2619;
+
+      --border:         #1f4030;
+      --border-soft:    #163026;
+      --border-line:    rgba(255,255,255,0.06);
+
+      --text:           #e8efeb;
+      --text-strong:    #ffffff;
+      --text-muted:     #8aab9a;
+      --text-dim:       #5d7e6b;
+      --text-label:     #7a9a87;
+
+      --accent:         #00a651;
+      --accent-soft:    rgba(0,166,81,0.12);
+      --accent-border:  rgba(0,166,81,0.32);
+
+      --status-ok:      #34c47a;
+      --status-warn:    #d4a017;
+
+      --mono:           'JetBrains Mono', 'SF Mono', 'Courier New', monospace;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-base);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: 'tnum' 1;
+    }
+
+    /* Fondo: rejilla técnica muy sutil */
+    body {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+      background-size: 48px 48px;
+      background-position: -1px -1px;
+    }
+
+    /* ════════════════════════════════════════
+       TOPBAR de sistema
+    ════════════════════════════════════════ */
+    .system-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 38px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 22px;
+      font-size: 11px;
+      color: var(--text-muted);
+      z-index: 100;
+      letter-spacing: 0.3px;
+    }
+    .system-bar-id {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+      font-weight: 400;
+    }
+    .system-bar-id strong {
+      color: var(--text);
+      font-weight: 500;
+      margin-right: 4px;
+    }
+    .system-bar-sep {
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+      margin: 0 14px;
+    }
+    .system-bar-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.2px;
+    }
+    .system-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .led {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--status-ok);
+      box-shadow: 0 0 6px rgba(52,196,122,0.55);
+    }
+    .led.led-pulse {
+      animation: ledpulse 2.2s ease-in-out infinite;
+    }
+    @keyframes ledpulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    /* ════════════════════════════════════════
+       CONTENEDOR PRINCIPAL
+    ════════════════════════════════════════ */
+    .stage {
+      min-height: 100vh;
+      padding: 84px 24px 56px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .access-panel {
+      width: 100%;
+      max-width: 680px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    /* Marca de esquinas técnica */
+    .access-panel::before,
+    .access-panel::after,
+    .corner {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--accent);
+      opacity: 0.55;
+    }
+    .access-panel::before {
+      top: -1px; left: -1px;
+      border-right: none; border-bottom: none;
+    }
+    .access-panel::after {
+      top: -1px; right: -1px;
+      border-left: none; border-bottom: none;
+    }
+    .corner-bl {
+      bottom: -1px; left: -1px;
+      border-right: none; border-top: none;
+    }
+    .corner-br {
+      bottom: -1px; right: -1px;
+      border-left: none; border-top: none;
+    }
+
+    /* ── HEADER del panel ── */
+    .panel-header {
+      padding: 26px 36px 22px;
+      border-bottom: 1px solid var(--border);
+    }
+    .org-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .org-logo {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+      flex-shrink: 0;
+    }
+    .org-meta {
+      flex: 1;
+      min-width: 0;
+    }
+    .org-institucion {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-strong);
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+    .org-unidad {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+      line-height: 1.25;
+    }
+
+    .system-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2.2px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .system-title::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .module-title {
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text-strong);
+      letter-spacing: -0.3px;
+      line-height: 1.18;
+    }
+
+    /* ── BLOQUE descriptivo ── */
+    .description {
+      padding: 24px 36px 26px;
+      border-bottom: 1px solid var(--border);
+    }
+    .description p {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* ── TABLA de metadatos ── */
+    .system-info {
+      padding: 6px 36px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-block-title {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-label);
+      letter-spacing: 1.6px;
+      padding: 14px 0 12px;
+      text-transform: uppercase;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-line);
+      border: 1px solid var(--border-line);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .info-cell {
+      background: var(--bg-card-2);
+      padding: 13px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .info-key {
+      font-size: 11.5px;
+      color: var(--text-label);
+      font-weight: 500;
+    }
+    .info-val {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-strong);
+      font-weight: 500;
+      text-align: right;
+    }
+    .info-val.with-led {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    /* ── ACCIÓN de acceso ── */
+    .panel-action {
+      padding: 22px 36px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .access-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.2px;
+      line-height: 1.6;
+      max-width: 340px;
+    }
+    .access-hint strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .access-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent-soft);
+      color: var(--text-strong);
+      border: 1px solid var(--accent-border);
+      padding: 11px 22px;
+      border-radius: 3px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      transition: background 0.15s, border-color 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .access-btn:hover {
+      background: rgba(0,166,81,0.22);
+      border-color: var(--accent);
+    }
+    .access-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .access-btn svg {
+      width: 13px; height: 13px;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER del panel ── */
+    .panel-footer {
+      padding: 18px 36px 20px;
+      border-top: 1px solid var(--border-soft);
+      background: var(--bg-card-2);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.2px;
+    }
+    .footer-credit {
+      line-height: 1.55;
+    }
+    .footer-line-1 {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .footer-line-2 {
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+    .footer-place {
+      text-align: right;
+      line-height: 1.55;
+      color: var(--text-dim);
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 620px) {
+      .stage { padding: 72px 14px 40px; }
+      .panel-header,
+      .description,
+      .system-info,
+      .panel-action,
+      .panel-footer { padding-left: 22px; padding-right: 22px; }
+      .module-title { font-size: 22px; }
+      .info-grid { grid-template-columns: 1fr; }
+      .panel-action {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .access-btn {
+        justify-content: center;
+        padding: 13px 22px;
+      }
+      .panel-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .footer-place {
+        text-align: left;
+      }
+      .system-bar { padding: 0 14px; }
+      .system-bar-id { font-size: 9.5px; }
+      .system-bar-right { gap: 12px; font-size: 9.5px; }
+    }
+
+    @media (max-width: 420px) {
+      .system-bar-sep { display: none; }
+      .system-bar-id:nth-of-type(2) { display: none; }
+      .org-row { flex-wrap: wrap; }
+    }
+  </style>
 </head>
 <body>
-<div id="app">
-  <!-- Layout base: sidebar + main. Se renderiza desde JS para poder alternar
-       estados (solo lectura vs. conectado, colapso, mobile) sin acoplar HTML. -->
+
+<!-- System bar -->
+<div class="system-bar">
+  <span class="system-bar-id">Cooperativa Eléctrica de Concordia Ltda.</span>
+  <span class="system-bar-sep"></span>
+  <span class="system-bar-id">Concordia · Entre Ríos</span>
+  <div class="system-bar-right">
+    <span class="system-status">
+      <span class="led led-pulse"></span> Sistema operativo
+    </span>
+  </div>
 </div>
 
-<!-- Módulos como ES modules para mantener el código dividido y escalable.
-     Ver docs/ARQUITECTURA.md para el mapa completo del sistema. -->
-<script type="module" src="js/app.js"></script>
+<div class="stage">
+  <div>
+    <main class="access-panel">
+
+      <span class="corner corner-bl"></span>
+      <span class="corner corner-br"></span>
+
+      <!-- HEADER -->
+      <header class="panel-header">
+        <div class="org-row">
+          <img src="logo_cooperativa_transparente.png" alt="Cooperativa Eléctrica de Concordia" class="org-logo">
+          <div class="org-meta">
+            <div class="org-institucion">Cooperativa Eléctrica de Concordia Ltda.</div>
+            <div class="org-unidad">Unidad de Relevamiento Estratégico</div>
+          </div>
+        </div>
+
+        <div class="system-title">Visualizador de Información Territorial</div>
+        <h1 class="module-title">Relevamiento Estratégico de Asentamientos</h1>
+      </header>
+
+      <!-- DESCRIPCIÓN INSTITUCIONAL -->
+      <section class="description">
+        <p>
+          Esta plataforma constituye el visualizador oficial del Relevamiento Estratégico de Asentamientos desarrollado por la Cooperativa Eléctrica de Concordia Ltda. Su finalidad es integrar en un único entorno la información georreferenciada de cada asentamiento junto con sus respectivos informes técnicos, elaborados a partir del análisis de variables sociales, económicas y territoriales relevadas durante el trabajo de campo. Esta herramienta facilita una comprensión integral de la realidad de cada barrio, aportando información confiable para el diagnóstico, la planificación de intervenciones y el fortalecimiento de los procesos de toma de decisiones institucionales.
+        </p>
+      </section>
+
+      <!-- METADATOS DEL SISTEMA -->
+      <section class="system-info">
+        <div class="info-block-title">Estado del módulo</div>
+        <div class="info-grid">
+          <div class="info-cell">
+            <span class="info-key">Barrios relevados</span>
+            <span class="info-val">09</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-key">Informes técnicos</span>
+            <span class="info-val">09</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-key">Cobertura territorial</span>
+            <span class="info-val">4 zonas</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-key">Estado del sistema</span>
+            <span class="info-val with-led"><span class="led"></span>Operativo</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-key">Última actualización</span>
+            <span class="info-val">Junio 2026</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-key">Ámbito</span>
+            <span class="info-val">Concordia · ER</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACCIÓN -->
+      <section class="panel-action">
+        <div class="access-hint">
+          <strong>Herramienta institucional</strong> para la consulta y análisis de información territorial.<br>
+          Acceso al visualizador georreferencial e informes técnicos de campo.
+        </div>
+        <a href="Mapa Relevamiento Asentamientos.html" class="access-btn">
+          Acceder al visualizador
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="panel-footer">
+        <div class="footer-credit">
+          <div class="footer-line-1">Desarrollado por la Unidad de Relevamiento Estratégico</div>
+          <div class="footer-line-2">Cooperativa Eléctrica de Concordia Ltda.</div>
+        </div>
+        <div class="footer-place">
+          <div>Concordia · Entre Ríos</div>
+          <div>2026</div>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+</div>
+
 </body>
 </html>
