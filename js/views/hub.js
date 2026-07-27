@@ -21,7 +21,7 @@ const TAREAS = [
   { id: 'info',         label: 'Editar información general', hint: 'Nombre, zona y color',                icon: icons.edit,  route: true },
   { id: 'indicadores',  label: 'Editar indicadores',         hint: 'Los datos que se ven en la ficha',    icon: icons.chart, route: false },
   { id: 'informe',      label: 'Editar informe',             hint: 'Texto completo del relevamiento',     icon: icons.file,  route: false },
-  { id: 'imagenes',     label: 'Administrar imágenes',       hint: 'Fotos del barrio y galería',          icon: icons.image, route: false },
+  { id: 'imagenes',     label: 'Administrar imágenes',       hint: 'Fotos del barrio y galería',          icon: icons.image, route: true },
   { id: 'puntos',       label: 'Puntos de interés',          hint: 'Escuelas, comedores, salud',          icon: icons.pin,   route: false },
   { id: 'limites',      label: 'Actualizar límites',         hint: 'La zona dibujada en el mapa',         icon: icons.map,   route: false },
   { id: 'historial',    label: 'Ver historial',              hint: 'Relevamientos anteriores',            icon: icons.clock, route: false },
