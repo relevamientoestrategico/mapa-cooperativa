@@ -8,13 +8,13 @@ export const CONFIG = {
   // Ajustar owner/repo antes de publicar.
   repo: {
     owner:  'relevamientoestrategico',
-    name:   'Mapa-Cooperativa',
+    name:   'mapa-cooperativa',
     branch: 'main',
     dataPath: 'data/barrios'
   },
 
   // ── URL pública del mapa (para "Vista previa") ────────────
-  mapaPublicoUrl: 'https://relevamientoestrategico.github.io/Mapa-Cooperativa/',
+  mapaPublicoUrl: 'https://relevamientoestrategico.github.io/mapa-cooperativa/',
 
   // ── Claves de almacenamiento local ────────────────────────
   storage: {
@@ -36,5 +36,7 @@ export const paths = {
     `https://raw.githubusercontent.com/${CONFIG.repo.owner}/${CONFIG.repo.name}/${CONFIG.repo.branch}/${CONFIG.repo.dataPath}/${id}/barrio.json`,
   rawGeometria: (id) =>
     `https://raw.githubusercontent.com/${CONFIG.repo.owner}/${CONFIG.repo.name}/${CONFIG.repo.branch}/${CONFIG.repo.dataPath}/${id}/geometria.geojson`,
+  rawPuntos: (id) =>
+    `https://raw.githubusercontent.com/${CONFIG.repo.owner}/${CONFIG.repo.name}/${CONFIG.repo.branch}/${CONFIG.repo.dataPath}/${id}/puntos.geojson`,
   apiRoot: 'https://api.github.com'
 };

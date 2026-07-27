@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía del panel — Relevamientos Cooperativa Eléctrica</title>
+<style>
+  :root{--verde:#00a651;--tinta:#1a2b3c;--gris:#5a6b7b;--suave:#eef6f1;--borde:#dfe6ec;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+       color:var(--tinta);line-height:1.65;background:#fff;}
+  .wrap{max-width:1000px;margin:0 auto;padding:32px 24px;}
+  header{border-bottom:3px solid var(--verde);padding-bottom:20px;margin-bottom:24px;}
+  header h1{margin:0 0 6px;font-size:28px;}
+  header p{margin:0;color:var(--gris);font-size:15px;}
+  .cuerpo{display:grid;grid-template-columns:230px 1fr;gap:36px;align-items:start;}
+  nav{position:sticky;top:24px;}
+  nav ul{list-style:none;margin:0;padding:0;}
+  nav li{margin:0 0 2px;}
+  nav a{display:block;padding:7px 12px;border-radius:6px;color:var(--gris);text-decoration:none;font-size:13.5px;border-left:2px solid transparent;}
+  nav a:hover{background:var(--suave);color:var(--verde);}
+  nav li.tec{margin-top:10px;border-top:1px dashed var(--borde);padding-top:10px;}
+  nav li.tec a{font-style:italic;color:#98a5b2;}
+  section{margin-bottom:36px;scroll-margin-top:16px;}
+  section h2{font-size:21px;border-bottom:2px solid var(--suave);padding-bottom:8px;margin:0 0 14px;}
+  section h3{font-size:15.5px;margin:20px 0 6px;}
+  section p{font-size:14.5px;max-width:70ch;}
+  ul,ol{max-width:70ch;padding-left:22px;}
+  li{margin-bottom:7px;font-size:14.5px;}
+  .nota,.aviso{display:flex;gap:10px;padding:12px 14px;border-radius:8px;margin:8px 0 16px;font-size:14px;max-width:70ch;}
+  .nota{background:var(--suave);}
+  .aviso{background:#fff8e1;border:1px solid #ffe082;color:#5f4c00;}
+  section.tecnica{background:#f7f9fb;border:1px solid var(--borde);border-radius:10px;padding:22px 26px;margin-top:44px;}
+  footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--borde);color:var(--gris);font-size:12.5px;text-align:center;}
+  @media(max-width:760px){.cuerpo{grid-template-columns:1fr;}nav{position:static;}nav ul{display:flex;flex-wrap:wrap;gap:6px;}nav a{border:1px solid var(--borde);}}
+  @media print{
+    nav{display:none;}.cuerpo{grid-template-columns:1fr;}
+    section{page-break-inside:avoid;}header{border-color:#000;}
+    a{color:inherit;text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Guía del panel de relevamientos</h1>
+    <p>Cooperativa Eléctrica de Concordia — Unidad de Relevamiento Estratégico. Si es tu primera vez, leela de arriba a abajo: en una hora estás listo.</p>
+  </header>
+  <div class="cuerpo">
+    <nav aria-label="Índice">
+      <ul>
+      <li class=""><a href="#s-que-es">Qué es este panel</a></li>
+      <li class=""><a href="#s-primeros-pasos">Primeros pasos</a></li>
+      <li class=""><a href="#s-ciclo">El ciclo de trabajo: Guardar ≠ Publicar</a></li>
+      <li class=""><a href="#s-pantallas">Cada pantalla, una por una</a></li>
+      <li class=""><a href="#s-nuevo-barrio">Crear un barrio nuevo</a></li>
+      <li class=""><a href="#s-preguntas">Preguntas frecuentes</a></li>
+      <li class="tec"><a href="#s-tecnica">Sección técnica (para mantenimiento)</a></li>
+      </ul>
+    </nav>
+    <main>
+
+  <section id="s-que-es" class="">
+    <h2>Qué es este panel</h2>
+    <p>Este panel es la herramienta para mantener actualizado el mapa público de relevamientos de barrios de la Cooperativa Eléctrica. Todo lo que se edita acá —la información de cada barrio, sus indicadores, el informe, las fotos y el mapa— es lo que después ve cualquier persona en el mapa público.</p>
+    <p>No hace falta saber de programación ni de mapas. El panel está pensado para que cualquier integrante del equipo pueda cargar y corregir información con confianza.</p>
+    <div class="nota"><span>💡</span><span>Regla de oro: nada de lo que hagas se rompe por explorar. Podés mirar todo sin miedo. Los cambios recién se hacen públicos cuando vos lo decidís (más sobre esto en "El ciclo de trabajo").</span></div>
+  </section>
+
+  <section id="s-primeros-pasos" class="">
+    <h2>Primeros pasos</h2>
+    <h3>Modo lectura y modo edición</h3>
+    <p>Al entrar, el panel está en modo lectura: podés ver todos los barrios y su información, pero no modificarla. Para editar, necesitás conectarte con una clave de acceso.</p>
+    <h3>Conectarse</h3>
+    <ol><li>Hacé clic en el botón "Conectar" (arriba a la derecha).</li><li>Pegá la clave de acceso que te compartió el responsable del panel.</li><li>Listo: ahora los botones de edición se habilitan y aparece tu nombre arriba.</li></ol>
+    <div class="nota"><span>💡</span><span>La clave es personal y queda guardada solo en tu dispositivo. Si usás otra computadora o el celular, vas a tener que conectarte de nuevo ahí.</span></div>
+    <div class="aviso"><span>⚠️</span><span>Si en algún momento ves el mensaje "Tu clave de acceso ya no es válida", simplemente volvé a conectarte. Tus cambios sin guardar no se pierden por eso.</span></div>
+  </section>
+
+  <section id="s-ciclo" class="">
+    <h2>El ciclo de trabajo: Guardar ≠ Publicar</h2>
+    <p>Este es el concepto más importante del panel. Hay dos acciones distintas, y entender la diferencia te evita sorpresas.</p>
+    <h3>Guardar</h3>
+    <p>Cuando guardás, tus cambios quedan registrados de forma segura, pero todavía NO se ven en el mapa público. Es como guardar un borrador: podés seguir trabajando, cerrar el panel y volver más tarde, sin apuro.</p>
+    <h3>Publicar</h3>
+    <p>Cuando publicás, todos los cambios guardados de ese barrio pasan a ser visibles en el mapa público. Es el momento en que el trabajo "sale al aire".</p>
+    <div class="nota"><span>💡</span><span>En la práctica: editás una pantalla y Guardás. Editás otra y Guardás. Cuando el barrio está como querés, vas al hub del barrio y hacés clic en "Publicar cambios". Recién ahí lo ve el público.</span></div>
+    <div class="aviso"><span>⚠️</span><span>Hay una única excepción: el editor de mapa (límites y puntos). Ahí, por razones técnicas, Guardar publica los cambios de inmediato. El panel te lo avisa con un recuadro amarillo cuando estás en esa pantalla.</span></div>
+  </section>
+
+  <section id="s-pantallas" class="">
+    <h2>Cada pantalla, una por una</h2>
+    <p>Desde la lista de barrios, al entrar a un barrio llegás a su "hub": una pantalla con botones para cada cosa que podés editar. Estas son las opciones:</p>
+    <h3>Editar información general</h3>
+    <p>El nombre del barrio, la zona de la ciudad a la que pertenece, y el color con el que se marca en el mapa.</p>
+    <h3>Editar indicadores</h3>
+    <p>Los datos que aparecen en la ficha del barrio cuando alguien lo toca en el mapa: cobertura eléctrica, si tiene escuela y centro de salud, y datos libres como edad promedio, cantidad de viviendas, etc.</p>
+    <h3>Editar informe</h3>
+    <p>El texto completo del relevamiento: secciones, párrafos, conclusiones y galerías de fotos. Es el documento largo que se abre al pedir "ver informe" desde el mapa.</p>
+    <h3>Administrar imágenes</h3>
+    <p>Las fotos del barrio. Podés subir nuevas, reordenarlas y eliminarlas. El panel las optimiza solo para que pesen poco y carguen rápido.</p>
+    <h3>Editar mapa</h3>
+    <p>Los límites del barrio (el contorno en el mapa) y los puntos de interés (escuelas, comedores, centros de salud, etc.). Recordá: acá Guardar publica de inmediato.</p>
+    <h3>Ver historial</h3>
+    <p>El registro de quién cambió qué y cuándo. Útil para saber qué se tocó últimamente o quién hizo una modificación. No modifica nada: es solo para consultar.</p>
+    <h3>Vista previa</h3>
+    <p>Abre el mapa público en una pestaña nueva, para ver cómo quedó el barrio tal como lo ve la gente.</p>
+  </section>
+
+  <section id="s-nuevo-barrio" class="">
+    <h2>Crear un barrio nuevo</h2>
+    <p>Desde la lista de barrios, el botón "Nuevo barrio" abre un asistente que te guía en cuatro pasos:</p>
+    <ol><li>Identidad: el nombre del barrio, su zona y el color en el mapa.</li><li>Ubicación: dibujás el contorno del barrio haciendo clic en el mapa (un clic por cada punto, doble clic para cerrar).</li><li>Datos base: cobertura eléctrica, escuela, salud y algunos indicadores. Todo esto es opcional y se puede completar después.</li><li>Confirmación: revisás que todo esté bien y creás el barrio.</li></ol>
+    <div class="nota"><span>💡</span><span>El barrio nuevo se crea como borrador. No aparece en el mapa público hasta que lo publiques desde su hub. Así podés crearlo, completarlo con calma, y publicarlo cuando esté listo.</span></div>
+  </section>
+
+  <section id="s-preguntas" class="">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué no veo mis cambios en el mapa público?</h3>
+    <p>Casi siempre es porque guardaste pero todavía no publicaste. Andá al hub del barrio y hacé clic en "Publicar cambios". Si ya publicaste, tené en cuenta que el mapa público puede tardar uno o dos minutos en actualizarse.</p>
+    <h3>¿Qué hago si aparece un error de conexión al guardar?</h3>
+    <p>Revisá tu conexión a internet y volvé a intentar. Tranquilo: cuando aparece ese mensaje, tus cambios NO se perdieron, siguen en pantalla listos para guardarse de nuevo.</p>
+    <h3>¿Puedo deshacer algo que ya publiqué?</h3>
+    <p>No hay un botón de "deshacer publicación". Pero podés volver a editar el barrio, corregir lo que haga falta y publicar de nuevo. Si necesitás recuperar una versión anterior, consultá el historial para ver qué cambió, o pedile ayuda al responsable técnico.</p>
+    <h3>¿Qué pasa si dos personas editan el mismo barrio a la vez?</h3>
+    <p>Si alguien más guardó cambios mientras vos editabas, el panel te avisa con un mensaje y te pide refrescar la página antes de guardar, para no pisar el trabajo del otro. Tus cambios siguen en pantalla.</p>
+    <h3>¿Se puede romper algo?</h3>
+    <p>Es muy difícil. Antes de publicar, todo son borradores. Y cada acción importante te pide confirmación. Explorá con tranquilidad.</p>
+  </section>
+
+  <section id="s-tecnica" class="tecnica">
+    <h2>Sección técnica (para mantenimiento)</h2>
+    <div class="aviso"><span>⚠️</span><span>Esta sección es para quien mantiene el sistema. El equipo que solo carga contenido no necesita leerla.</span></div>
+    <h3>Arquitectura general</h3>
+    <p>El panel es una aplicación web sin servidor propio (no hay backend). Corre enteramente en el navegador y lee y escribe los datos directamente en el repositorio de GitHub mediante la API de Contents. La autenticación usa un token de acceso personal de grano fino (fine-grained PAT) con permiso de escritura sobre el repositorio.</p>
+    <h3>Dónde viven los datos</h3>
+    <ul><li>El repositorio es relevamientoestrategico/mapa-cooperativa, rama main.</li><li>Los datos de cada barrio están en data/barrios/{slug}/: barrio.json (información e indicadores), geometria.geojson (contorno), puntos.geojson (puntos de interés), informe.json (informe estructurado) y adjuntos/galeria/ (fotos).</li><li>El archivo data/barrios/index.json es la lista maestra de barrios: un barrio existe para el público solo si figura ahí.</li></ul>
+    <h3>Guardar vs Publicar, por dentro</h3>
+    <p>La mayoría de los editores guardan en archivos borrador y marcan el barrio como pendiente; publicar cambia el campo "estado" del barrio a "publicado" y hace visibles los datos. La excepción es el editor de mapa: los archivos geometria.geojson y puntos.geojson son la fuente de verdad pública directa, así que guardarlos equivale a publicar.</p>
+    <h3>Cómo agregar una persona al equipo</h3>
+    <p>Se le genera un token de acceso personal de grano fino en GitHub, con permiso de lectura y escritura de contenido limitado al repositorio del mapa, y se le comparte esa clave. La persona la pega en el panel al conectarse. Para revocar el acceso, se elimina o expira el token desde GitHub.</p>
+    <h3>Notas de mantenimiento</h3>
+    <ul><li>Toda la interfaz usa lenguaje humano a propósito: al agregar funciones nuevas, evitá términos técnicos (contorno en vez de polígono, punto en vez de vértice, etc.).</li><li>El principio Guardar ≠ Publicar debe mantenerse en cualquier editor nuevo, salvo que haya una razón técnica explícita para romperlo (como en el mapa).</li><li>Los mensajes de error de guardado pasan por manejarErrorGuardado() en dom.js, que unifica el texto para el usuario.</li></ul>
+  </section>
+      <footer>Guía generada para el equipo del panel. Podés imprimirla (Ctrl/Cmd + P) o guardarla como PDF.</footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

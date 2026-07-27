@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "barrio-la-arrocera",
   "nombreVisible": "Barrio La Arrocera",
   "color": "#a0522d",
@@ -9,13 +9,31 @@
   "estado": "publicado",
   "fechaActualizacion": null,
   "versionActual": null,
-  "indicadores": {
-    "edad": "20,7",
-    "origen": "2019",
+  "datosMapa": {
     "electricidad": 0,
     "educacion": false,
-    "salud": true,
-    "viviendas": "Múltiples",
-    "material": "~80% madera"
-  }
+    "salud": true
+  },
+  "indicadores": [
+    {
+      "id": "edad",
+      "etiqueta": "Edad promedio",
+      "valor": "20,7"
+    },
+    {
+      "id": "origen",
+      "etiqueta": "Origen",
+      "valor": "2019"
+    },
+    {
+      "id": "viviendas",
+      "etiqueta": "Viviendas relevadas",
+      "valor": "Múltiples"
+    },
+    {
+      "id": "material",
+      "etiqueta": "Material predominante",
+      "valor": "~80% madera"
+    }
+  ]
 }

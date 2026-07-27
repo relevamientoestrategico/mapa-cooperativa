@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "27-de-noviembre",
   "nombreVisible": "27 de Noviembre",
   "color": "#1e6fa8",
@@ -9,13 +9,31 @@
   "estado": "publicado",
   "fechaActualizacion": null,
   "versionActual": null,
-  "indicadores": {
-    "edad": "22,41",
-    "origen": "Pandemia",
+  "datosMapa": {
     "electricidad": 0,
     "educacion": true,
-    "salud": true,
-    "viviendas": "Múltiples",
-    "material": "85% madera"
-  }
+    "salud": true
+  },
+  "indicadores": [
+    {
+      "id": "edad",
+      "etiqueta": "Edad promedio",
+      "valor": "22,41"
+    },
+    {
+      "id": "origen",
+      "etiqueta": "Origen",
+      "valor": "Pandemia"
+    },
+    {
+      "id": "viviendas",
+      "etiqueta": "Viviendas relevadas",
+      "valor": "Múltiples"
+    },
+    {
+      "id": "material",
+      "etiqueta": "Material predominante",
+      "valor": "85% madera"
+    }
+  ]
 }

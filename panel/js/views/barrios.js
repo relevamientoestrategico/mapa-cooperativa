@@ -15,6 +15,7 @@ import { fetchIndex } from '../github.js';
 import { session, canEdit, onSessionChange } from '../auth.js';
 import { go } from '../router.js';
 import { openConnectWizard } from '../ui/connect-wizard.js';
+import { tieneCambios, onDraftsChange } from '../drafts.js';
 
 const UMBRAL_BUSQUEDA = 10;   // umbral a partir del cual la búsqueda aparece
 
@@ -48,6 +49,7 @@ export async function renderBarrios(container) {
   }
 
   onSessionChange(() => paintAll());
+  onDraftsChange(() => paintGrid());
 }
 
 /**
@@ -80,12 +82,10 @@ function paintHead() {
     el('div.spacer')
   ]);
 
-  // Botón "Nuevo barrio" — visible pero deshabilitado (llega en un módulo posterior)
+  // Botón "Nuevo barrio" — activo desde el Módulo 8
   if (canEdit()) {
     head.appendChild(el('button.btn.primary', {
-      disabled: 'disabled',
-      title: 'Disponible en el próximo módulo',
-      'aria-disabled': 'true'
+      onClick: () => go('nuevo-barrio')
     }, [
       el('span', { html: icons.plus() }).firstChild,
       'Nuevo barrio'
@@ -156,6 +156,8 @@ function paintGrid() {
 
 function cardOf(b) {
   const isDraft = b.estado !== 'publicado';
+  const conCambios = canEdit() && tieneCambios(b.id);
+
   return el(
     'button' + (isDraft ? '.barrio-card.is-draft' : '.barrio-card'),
     { onClick: () => go(`barrio/${b.id}`) },
@@ -167,7 +169,10 @@ function cardOf(b) {
           html: `<span class="d"></span>${isDraft ? 'Borrador' : 'Publicado'}`
         })
       ]),
-      el('h3', { text: b.nombreVisible })
+      el('div.name-row', {}, [
+        el('h3', { text: b.nombreVisible }),
+        conCambios ? el('span.change-dot', { title: 'Con cambios sin publicar' }) : null
+      ].filter(Boolean))
     ]
   );
 }

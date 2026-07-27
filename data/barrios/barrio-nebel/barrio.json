@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "barrio-nebel",
   "nombreVisible": "Barrio Nebel",
   "color": "#0077a8",
@@ -9,13 +9,31 @@
   "estado": "publicado",
   "fechaActualizacion": null,
   "versionActual": null,
-  "indicadores": {
-    "edad": "30,8",
-    "origen": "Post 2001",
+  "datosMapa": {
     "electricidad": 40,
     "educacion": true,
-    "salud": true,
-    "viviendas": "Múltiples",
-    "material": "Noble / Mixto"
-  }
+    "salud": true
+  },
+  "indicadores": [
+    {
+      "id": "edad",
+      "etiqueta": "Edad promedio",
+      "valor": "30,8"
+    },
+    {
+      "id": "origen",
+      "etiqueta": "Origen",
+      "valor": "Post 2001"
+    },
+    {
+      "id": "viviendas",
+      "etiqueta": "Viviendas relevadas",
+      "valor": "Múltiples"
+    },
+    {
+      "id": "material",
+      "etiqueta": "Material predominante",
+      "valor": "Noble / Mixto"
+    }
+  ]
 }

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual del administrador — Panel de Relevamientos</title>
+<style>
+  :root{--verde:#00a651;--oro:#f5a623;--tinta:#1a2b3c;--gris:#5a6b7b;--suave:#eef6f1;--borde:#dfe6ec;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--tinta);line-height:1.65;background:#fff;}
+  .wrap{max-width:1000px;margin:0 auto;padding:32px 24px;}
+  header{border-bottom:3px solid var(--verde);padding-bottom:20px;margin-bottom:24px;}
+  header .tag{display:inline-block;background:var(--oro);color:#4a3200;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;margin-bottom:10px;}
+  header h1{margin:0 0 6px;font-size:28px;}
+  header p{margin:0;color:var(--gris);font-size:15px;max-width:70ch;}
+  .cuerpo{display:grid;grid-template-columns:250px 1fr;gap:36px;align-items:start;}
+  nav{position:sticky;top:24px;}
+  nav ul{list-style:none;margin:0;padding:0;}
+  nav li{margin:0 0 2px;}
+  nav a{display:block;padding:6px 12px;border-radius:6px;color:var(--gris);text-decoration:none;font-size:13px;line-height:1.35;border-left:2px solid transparent;}
+  nav a:hover{background:var(--suave);color:var(--verde);}
+  section{margin-bottom:34px;scroll-margin-top:16px;}
+  section h2{font-size:20px;border-bottom:2px solid var(--suave);padding-bottom:8px;margin:0 0 14px;}
+  section h3{font-size:15px;margin:18px 0 5px;color:var(--tinta);}
+  section p{font-size:14.5px;max-width:72ch;}
+  ul,ol{max-width:72ch;padding-left:22px;}
+  li{margin-bottom:7px;font-size:14.5px;}
+  .nota,.aviso{display:flex;gap:10px;padding:12px 14px;border-radius:8px;margin:8px 0 16px;font-size:14px;max-width:72ch;}
+  .nota{background:var(--suave);}
+  .aviso{background:#fff8e1;border:1px solid #ffe082;color:#5f4c00;}
+  footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--borde);color:var(--gris);font-size:12.5px;text-align:center;}
+  @media(max-width:760px){.cuerpo{grid-template-columns:1fr;}nav{position:static;}nav ul{display:flex;flex-wrap:wrap;gap:6px;}nav a{border:1px solid var(--borde);}}
+  @media print{nav{display:none;}.cuerpo{grid-template-columns:1fr;}section{page-break-inside:avoid;}header{border-color:#000;}a{color:inherit;text-decoration:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="tag">Manual del administrador</span>
+    <h1>Mantenimiento del Panel de Relevamientos</h1>
+    <p>Cooperativa Eléctrica de Concordia — Unidad de Relevamiento Estratégico. Guía práctica de operación día a día: cómo mantener y actualizar el sistema sin depender de recordar cómo se construyó.</p>
+  </header>
+  <div class="cuerpo">
+    <nav aria-label="Índice"><ul>
+      <li><a href="#s-dos-formas">Dos formas de mantener el sistema</a></li>
+      <li><a href="#s-arranque">1. Poner el sistema en marcha en una computadora nueva</a></li>
+      <li><a href="#s-carpetas">2. Las carpetas y archivos que tenés que conocer</a></li>
+      <li><a href="#s-archivos">3. Qué guarda cada archivo y para qué sirve</a></li>
+      <li><a href="#s-abm">4. Cómo agregar, modificar o eliminar información</a></li>
+      <li><a href="#s-flujo">5. Flujo de trabajo recomendado para actualizar un barrio</a></li>
+      <li><a href="#s-publicar">6. Cómo publicar y verificar que quedó bien</a></li>
+      <li><a href="#s-errores">7. Errores comunes y cómo resolverlos</a></li>
+      <li><a href="#s-nunca">8. Qué NUNCA deberías editar manualmente</a></li>
+      <li><a href="#s-backup">9. Cómo hacer un backup antes de cambios importantes</a></li>
+      <li><a href="#s-estructura">10. Qué estructura de GitHub mantener</a></li>
+      <li><a href="#s-resumen">Resumen para pegar en la pared</a></li>
+    </ul></nav>
+    <main>
+
+  <section id="s-dos-formas">
+    <h2>Dos formas de mantener el sistema</h2>
+    <p>Hay dos maneras de mantener el sistema, y conviene tenerlas claras desde el principio porque casi todo lo demás depende de esta distinción.</p>
+    <h3>La forma normal (día a día)</h3>
+    <p>Usás el panel: la aplicación web. Hacés todo con clics, en lenguaje humano, sin tocar archivos. El 95% del tiempo trabajás así.</p>
+    <h3>La forma manual (emergencia)</h3>
+    <p>Entrás directo a GitHub y editás los archivos. Solo lo hacés si el panel está caído, si algo se rompió, o si necesitás recuperar una versión vieja. Es el "capó del auto": bueno saber abrirlo, pero no manejás con el capó abierto.</p>
+  </section>
+
+  <section id="s-arranque">
+    <h2>1. Poner el sistema en marcha en una computadora nueva</h2>
+    <div class="nota"><span>💡</span><span>No hay "instalación". El panel es una página web que vive en GitHub. No se instala nada en tu computadora.</span></div>
+    <p>Poner en marcha una computadora nueva significa simplemente poder acceder y poder editar:</p>
+    <ol><li>Abrir el panel en el navegador, usando la URL de GitHub Pages del repositorio (la misma de siempre). Con esto ya podés ver todo en modo lectura.</li><li>Tener a mano tu clave de acceso: el token de GitHub que empieza con github_pat_... Guardala en un gestor de contraseñas, no en un papel suelto.</li><li>Conectarte: botón "Conectar" arriba a la derecha, pegás la clave, listo. La clave queda guardada en ese navegador de esa computadora.</li></ol>
+    <p>Si usás otra computadora o el celular, tenés que conectarte de nuevo ahí. Es normal y es a propósito: la clave no viaja. No hay programas, ni servidores que prender, ni bases de datos.</p>
+    <div class="nota"><span>💡</span><span>Para la forma manual (emergencia) te conviene tener también GitHub Desktop instalado y tu sesión iniciada. No lo necesitás para el día a día; es tu herramienta de rescate.</span></div>
+  </section>
+
+  <section id="s-carpetas">
+    <h2>2. Las carpetas y archivos que tenés que conocer</h2>
+    <p>El repositorio es relevamientoestrategico/mapa-cooperativa. Adentro hay dos mundos que no conviene mezclar.</p>
+    <h3>Mundo 1 — Los datos (tu contenido, cambia seguido)</h3>
+    <ul><li>data/barrios/index.json — la lista maestra de todos los barrios.</li><li>data/barrios/villa-adela/barrio.json — info + indicadores del barrio.</li><li>data/barrios/villa-adela/geometria.geojson — el contorno (límites en el mapa).</li><li>data/barrios/villa-adela/puntos.geojson — escuelas, comedores, etc.</li><li>data/barrios/villa-adela/informe.json — el texto largo del relevamiento.</li><li>data/barrios/villa-adela/adjuntos/galeria/ — las fotos.</li></ul>
+    <p>Hay un directorio por cada barrio, todos con los mismos cinco archivos.</p>
+    <h3>Mundo 2 — El programa (casi nunca lo tocás)</h3>
+    <ul><li>panel/ — el código del panel de administración.</li><li>index.html — el archivo de arranque.</li><li>css/ y js/ — estilos y lógica del panel.</li><li>Mapa Relevamiento Asentamientos.html — el mapa público que ve la gente.</li></ul>
+    <div class="nota"><span>💡</span><span>Regla mental: si tenés que meter mano manualmente en algo, casi siempre es dentro de data/barrios/. El resto es maquinaria.</span></div>
+  </section>
+
+  <section id="s-archivos">
+    <h2>3. Qué guarda cada archivo y para qué sirve</h2>
+    <h3>index.json — La lista maestra</h3>
+    <p>Es el índice de todos los barrios. Un barrio existe para el público solo si figura acá. Guarda, por cada barrio, su identificador, el nombre visible, el color y si está publicado o en borrador.</p>
+    <div class="aviso"><span>⚠️</span><span>El id (por ejemplo villa-adela) es el identificador interno: es el nombre de la carpeta del barrio y no cambia nunca, aunque le cambies el nombre visible. Si borrás una línea de acá, ese barrio desaparece del mapa aunque su carpeta siga existiendo.</span></div>
+    <h3>barrio.json — La ficha del barrio</h3>
+    <p>Toda la información general y los indicadores. Es el archivo que más vas a editar. Incluye datosMapa (electricidad, educación, salud: los tres datos que colorean y filtran el mapa) e indicadores (los datos de la ficha que aparece al tocar el barrio).</p>
+    <h3>geometria.geojson — El contorno</h3>
+    <p>Los límites del barrio dibujados en el mapa: una lista de coordenadas que forman el polígono. Es de los más delicados: un número mal puesto deforma o rompe el dibujo. Se edita desde el editor de mapa del panel, nunca a mano.</p>
+    <h3>puntos.geojson — Los puntos de interés</h3>
+    <p>Las escuelas, comedores, centros de salud, etc., cada uno con su tipo, nombre y ubicación. Misma lógica que la geometría: se edita desde el panel.</p>
+    <h3>informe.json — El informe</h3>
+    <p>El texto largo del relevamiento, estructurado en bloques (secciones, párrafos, conclusiones, galerías). El panel lo convierte en la página HTML que se abre al pedir "ver informe". Editás el .json desde el panel; el HTML del informe se regenera solo.</p>
+    <h3>adjuntos/galeria/ — Las fotos</h3>
+    <p>Las imágenes del barrio, ya optimizadas por el panel al subirlas. Los nombres de archivo son códigos (un hash), a propósito, para que no haya repetidos. No los renombres.</p>
+  </section>
+
+  <section id="s-abm">
+    <h2>4. Cómo agregar, modificar o eliminar información</h2>
+    <p>La respuesta corta para los tres casos: desde el panel.</p>
+    <h3>Agregar un barrio nuevo</h3>
+    <p>Botón "Nuevo barrio" en la lista, y seguís el asistente de 4 pasos (identidad, contorno, datos, confirmación). Al terminar queda como borrador; lo completás con calma y lo publicás cuando esté listo.</p>
+    <h3>Modificar un barrio existente</h3>
+    <p>Entrás al barrio desde la lista, y en su hub elegís qué editar (información, indicadores, informe, imágenes, mapa). Guardás cada pantalla. Cuando terminaste, "Publicar cambios".</p>
+    <h3>Eliminar un barrio</h3>
+    <p>El panel no tiene botón de "borrar barrio", a propósito, porque borrar es peligroso. Si necesitás eliminar uno, es una de las pocas operaciones manuales legítimas: quitás la línea de ese barrio en index.json (con eso desaparece del mapa). La carpeta podés dejarla o borrarla. Hacelo con calma y con un backup previo.</p>
+  </section>
+
+  <section id="s-flujo">
+    <h2>5. Flujo de trabajo recomendado para actualizar un barrio</h2>
+    <p>Ejemplo real: te llegó información nueva de Villa Adela.</p>
+    <ol><li>Conectate al panel (si no lo estás).</li><li>Entrá al barrio desde la lista, al hub de Villa Adela.</li><li>Editá de a una pantalla. Ej: "Editar indicadores", actualizás edad y viviendas, Guardás. Volvés al hub. "Editar informe", corregís un párrafo, Guardás. Y así.</li><li>Revisá antes de publicar con "Vista previa".</li><li>Publicá: en el hub, "Publicar cambios". Recién ahí sale al público.</li><li>Verificá (ver sección 6).</li></ol>
+    <div class="nota"><span>💡</span><span>La clave del ritmo: Guardar seguido, Publicar al final. Guardar no tiene costo ni riesgo. Publicar es el momento consciente de "esto ya está listo".</span></div>
+    <div class="aviso"><span>⚠️</span><span>Excepción: en "Editar mapa", Guardar es Publicar (te lo avisa un recuadro amarillo). Dejá los cambios del mapa para cuando estés seguro.</span></div>
+  </section>
+
+  <section id="s-publicar">
+    <h2>6. Cómo publicar y verificar que quedó bien</h2>
+    <h3>Publicar</h3>
+    <p>Hub del barrio, "Publicar cambios". El botón está activo cuando hay algo pendiente; si dice "No hay cambios pendientes", ya está todo publicado.</p>
+    <h3>Verificar (hábito de 30 segundos, hacelo siempre)</h3>
+    <ol><li>Esperá 1 o 2 minutos: GitHub Pages tarda un poco en actualizar. Es el motivo #1 de falsas alarmas.</li><li>Abrí el mapa público (o "Vista previa"), idealmente en incógnito o con Ctrl+F5 para forzar recarga.</li><li>Confirmá que tu cambio aparece: el dato nuevo, el contorno corregido, la foto agregada.</li><li>Si fue un cambio de informe, abrí "ver informe" y revisá que el texto esté completo.</li></ol>
+    <p>Si después de 2-3 minutos y una recarga forzada no ves el cambio, pasás a diagnosticar (sección 7).</p>
+  </section>
+
+  <section id="s-errores">
+    <h2>7. Errores comunes y cómo resolverlos</h2>
+    <h3>"Publiqué pero no veo el cambio"</h3>
+    <p>El 90% de las veces falta esperar el minuto o dos de GitHub Pages, o el navegador muestra la versión vieja. Recargá forzado (Ctrl+F5) o probá en incógnito. Verificá que hayas hecho Publicar y no solo Guardar.</p>
+    <h3>"Error de conexión al guardar"</h3>
+    <p>Tu internet se cortó un momento. Tus cambios no se perdieron, siguen en pantalla. Esperá unos segundos y dale Guardar de nuevo.</p>
+    <h3>"Tu clave de acceso ya no es válida"</h3>
+    <p>El token expiró o fue revocado. Generá uno nuevo y reconectate. Tus cambios en pantalla siguen ahí.</p>
+    <h3>"Otra persona editó este barrio mientras yo editaba"</h3>
+    <p>Alguien guardó cambios en el mismo barrio al mismo tiempo. Refrescá la página, fijate qué cambió y volvé a aplicar lo tuyo. Para evitarlo: coordiná que dos personas no toquen el mismo barrio a la vez.</p>
+    <h3>"Rompí el contorno del mapa"</h3>
+    <p>Si fue desde el panel, usá "Descartar cambios" antes de guardar, o "Deshacer". Si ya lo publicaste, volvé a entrar al editor de mapa y corregilo. Si quedó irrecuperable, restaurás desde un backup.</p>
+    <h3>Generar una clave de acceso nueva</h3>
+    <p>En GitHub: Settings, Developer settings, Personal access tokens, Fine-grained tokens, Generate new token. Le das acceso de lectura y escritura de contenido (Contents) limitado al repositorio mapa-cooperativa. Copiás la clave (solo se ve una vez) y la guardás. Podés generar una distinta para cada persona del equipo.</p>
+  </section>
+
+  <section id="s-nunca">
+    <h2>8. Qué NUNCA deberías editar manualmente</h2>
+    <p>Regla general: si lo podés hacer desde el panel, hacelo desde el panel. Estos son los intocables:</p>
+    <ul><li>La carpeta panel/ y todo su contenido (.js, .css, index.html). Es el programa; tocarla a mano puede romper el panel entero.</li><li>El HTML del informe (archivos Relevamiento *.html). Se generan solos desde informe.json; si los editás a mano, el próximo guardado los pisa.</li><li>geometria.geojson y puntos.geojson a mano. Son geometría; un número mal puesto rompe el dibujo. Editalos desde el editor de mapa.</li><li>Los nombres de archivo de las fotos en adjuntos/galeria/. Son hashes a propósito.</li><li>El id de un barrio (nombre de su carpeta y su identificador en index.json). Cambiarlo desconecta todo. El nombre visible se cambia sin problema desde el panel; el id interno, jamás.</li></ul>
+    <div class="nota"><span>💡</span><span>Edición manual legítima, con cuidado y backup previo: quitar un barrio del index.json para eliminarlo, o restaurar un archivo desde una versión anterior.</span></div>
+  </section>
+
+  <section id="s-backup">
+    <h2>9. Cómo hacer un backup antes de cambios importantes</h2>
+    <p>GitHub ya es un backup permanente: cada guardado o publicación queda registrado en el historial y podés recuperarlo. Nunca perdés nada de forma definitiva. Aun así, antes de un cambio grande conviene una red extra.</p>
+    <h3>Opción rápida (recomendada)</h3>
+    <p>Descargá una copia completa del repositorio: en GitHub, botón verde "Code", "Download ZIP". Guardalo con la fecha en el nombre, por ejemplo mapa-cooperativa-2026-07-26.zip.</p>
+    <h3>Opción robusta (con GitHub Desktop)</h3>
+    <p>Tener el repositorio clonado ya es un backup vivo. Antes de un cambio grande, bajá la última versión ("Pull"). Cada commit es un punto al que podés volver.</p>
+    <h3>Recuperar una versión vieja de un archivo</h3>
+    <p>En GitHub, entrás al archivo, clic en "History", elegís la versión del día que querías, y podés ver o restaurar ese contenido. Es tu máquina del tiempo para el caso "ayer estaba bien y hoy se ve mal".</p>
+    <div class="nota"><span>💡</span><span>Recomendación concreta: un ZIP con fecha antes de cualquier operación manual. Toma diez segundos y te ahorra dolores de cabeza.</span></div>
+  </section>
+
+  <section id="s-estructura">
+    <h2>10. Qué estructura de GitHub mantener</h2>
+    <p>El sistema funciona porque hay cosas que se dan por sentadas. Si las mantenés, todo sigue andando:</p>
+    <ul><li>El repositorio se llama mapa-cooperativa y está en la cuenta relevamientoestrategico. Si lo renombrás o lo movés, hay que actualizar la configuración del panel (tarea de desarrollo).</li><li>La rama principal es main. Todo se lee y escribe ahí. No trabajes en otras ramas para el contenido.</li><li>GitHub Pages tiene que seguir activo (Settings, Pages), sirviendo desde main. Es lo que hace visible el mapa y el panel en la web.</li><li>La estructura data/barrios/{id}/ con sus cinco archivos es sagrada. El asistente los crea todos juntos para que ninguno falte.</li><li>index.json siempre en data/barrios/ y coherente con las carpetas: cada barrio listado debe tener su carpeta.</li><li>Los tokens de acceso con permiso de Contents sobre este repo son las llaves del equipo. Cuando alguien se va, revocás su token.</li></ul>
+  </section>
+
+  <section id="s-resumen">
+    <h2>Resumen para pegar en la pared</h2>
+    <ol><li>Trabajá desde el panel; la edición manual es solo para emergencias.</li><li>Guardá seguido, Publicá al final, y verificá después de 1-2 minutos.</li><li>Un ZIP con fecha antes de cualquier cambio grande, y nunca toques la carpeta panel/ ni el id de un barrio.</li></ol>
+  </section>
+      <footer>Manual del administrador del panel. Imprimilo (Ctrl/Cmd + P) o guardalo como PDF. Complementa la "Guía del panel" para el equipo.</footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

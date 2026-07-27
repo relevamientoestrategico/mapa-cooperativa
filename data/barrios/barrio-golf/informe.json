@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "barrioId": "barrio-golf",
+  "formato": "estructurado",
+  "titleTag": "Relevamiento Barrio Golf — Cooperativa Eléctrica",
+  "fuentesHref": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap",
+  "estilos": "\n    :root {\n      --primary: #4a7c2f;\n      --primary-dark: #2e5a1a;\n      --primary-light: #f0f7e8;\n      --accent: #7CB342;\n      --text: #1a2433;\n      --text-muted: #5a6a7a;\n      --border: #c8e0b0;\n      --bg: #f7f9fb;\n      --white: #ffffff;\n    }\n    * { margin: 0; padding: 0; box-sizing: border-box; }\n    body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }\n\n    .header { background: linear-gradient(135deg, #2e5a1a 0%, #4a7c2f 60%, #7CB342 100%); color: white; padding: 0; position: relative; overflow: hidden; }\n    .header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,0.06); }\n    .header::after { content: ''; position: absolute; bottom: -80px; left: 40%; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.04); }\n    .header-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 24px; padding: 28px 48px; }\n    .logo-wrap img { width: 64px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2)); }\n    .header-text h1 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; letter-spacing: 0.3px; margin-bottom: 4px; }\n    .header-text .subtitulo { font-size: 13px; opacity: 0.82; font-weight: 300; }\n    .header-text .fecha { font-size: 12px; opacity: 0.65; margin-top: 2px; font-weight: 300; }\n    .header-badge { margin-left: auto; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 10px 18px; text-align: center; backdrop-filter: blur(4px); }\n    .header-badge .zona-label { font-size: 10px; opacity: 0.75; text-transform: uppercase; letter-spacing: 1px; }\n    .header-badge .zona-val { font-size: 15px; font-weight: 600; margin-top: 2px; }\n\n    .nav-back { background: var(--white); border-bottom: 1px solid var(--border); padding: 10px 48px; }\n    .nav-back a { color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; }\n    .nav-back a:hover { gap: 10px; }\n\n    .contenido { max-width: 960px; margin: 0 auto; padding: 40px 24px 60px; }\n\n    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }\n    .kpi-card { background: var(--white); border-radius: 10px; padding: 18px 16px; border-top: 3px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }\n    .kpi-card .kpi-icono { font-size: 22px; margin-bottom: 6px; }\n    .kpi-card .kpi-val { font-size: 22px; font-weight: 700; color: var(--primary); line-height: 1.1; margin-bottom: 4px; }\n    .kpi-card .kpi-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; font-weight: 600; }\n\n    .seccion { background: var(--white); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }\n    .seccion-header { background: var(--primary); color: white; padding: 12px 20px; display: flex; align-items: center; gap: 10px; }\n    .seccion-header .icono { font-size: 16px; }\n    .seccion-header h2 { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }\n    .seccion-body { padding: 20px; }\n    .seccion-body p { margin-bottom: 12px; font-size: 14.5px; color: var(--text); }\n    .seccion-body p:last-child { margin-bottom: 0; }\n\n    .alerta { background: #fff8e1; border-left: 4px solid #f9a825; border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #5d3f00; display: flex; gap: 10px; align-items: flex-start; }\n\n    .tabla-datos { width: 100%; border-collapse: collapse; font-size: 13.5px; }\n    .tabla-datos tr { border-bottom: 1px solid var(--border); }\n    .tabla-datos tr:last-child { border-bottom: none; }\n    .tabla-datos td { padding: 9px 12px; }\n    .tabla-datos td:first-child { color: var(--text-muted); font-weight: 600; width: 30%; }\n    .tabla-datos tr:hover td { background: var(--primary-light); }\n\n    .svc-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }\n    .svc-table th { background: var(--primary-light); color: var(--primary-dark); font-size: 11px; text-transform: uppercase; padding: 10px 12px; text-align: left; letter-spacing: 0.4px; font-weight: 700; }\n    .svc-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }\n    .svc-table tr:last-child td { border-bottom: none; }\n    .svc-table tr:hover td { background: var(--primary-light); }\n\n    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }\n    .badge.si { background: #e6f4ea; color: #2e7d32; }\n    .badge.no { background: #fce8e6; color: #c62828; }\n    .badge.parcial { background: #fff8e1; color: #f57f17; }\n\n    .conclusion { background: var(--primary-light); border-radius: 10px; padding: 20px 24px; border-left: 5px solid var(--accent); margin-bottom: 24px; }\n    .conclusion h2 { font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }\n    .conclusion p { font-size: 14.5px; line-height: 1.75; color: var(--text); }\n\n    .equipo-grid { display: flex; gap: 12px; flex-wrap: wrap; }\n    .equipo-chip { background: var(--primary-light); border: 1px solid #a8d080; color: var(--primary-dark); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 600; }\n\n    .galeria { background: white; border-radius: 10px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }\n    .galeria h2 { font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }\n    .galeria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }\n    .galeria-item { border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }\n    .galeria-item:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }\n    .galeria-item img { width: 100%; height: 240px; object-fit: cover; display: block; cursor: zoom-in; }\n\n    #lightbox-overlay { display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); justify-content: center; align-items: center; cursor: zoom-out; }\n    #lightbox-overlay.active { display: flex; }\n    #lightbox-overlay img { max-width: 92vw; max-height: 92vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }\n    #lightbox-close-btn { position: fixed; top: 20px; right: 30px; color: white; font-size: 36px; font-weight: 300; cursor: pointer; z-index: 100000; background: rgba(0,0,0,0.4); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; user-select: none; }\n    #lightbox-close-btn:hover { background: rgba(0,0,0,0.7); }\n\n    .footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); text-align: center; padding: 18px 24px; font-size: 12px; }\n    @media (max-width: 680px) { .kpi-grid { grid-template-columns: 1fr 1fr; } .header-inner { flex-wrap: wrap; padding: 20px; } .contenido { padding: 24px 16px 40px; } .nav-back { padding: 10px 16px; } }\n  ",
+  "encabezado": {
+    "titulo": "Relevamiento Barrio Golf",
+    "subtitulo": "Cooperativa Eléctrica · Concordia, Entre Ríos",
+    "fecha": "Sector Noreste · Las Palmeras (S), Alvear (O), Laprida (E), Segundo Sombra (N)",
+    "zonaEtiqueta": "Zona",
+    "zonaValor": "Noroeste",
+    "logoSrc": "logo_cooperativa_transparente.png"
+  },
+  "navVolver": {
+    "href": "Mapa Relevamiento Asentamientos.html",
+    "texto": "← Volver al mapa"
+  },
+  "footer": "Cooperativa Eléctrica · Relevamiento Estratégico de Asentamientos · Concordia, Entre Ríos · 2026",
+  "lightbox": true,
+  "bloques": [
+    {
+      "id": "blq-01",
+      "tipo": "kpis",
+      "items": [
+        {
+          "icono": "👤",
+          "valor": "31,53",
+          "etiqueta": "Edad promedio"
+        },
+        {
+          "icono": "💰",
+          "valor": "$758 mil",
+          "etiqueta": "Ingreso prom. hogar"
+        },
+        {
+          "icono": "⚡",
+          "valor": "10%",
+          "etiqueta": "Conexión legal"
+        },
+        {
+          "icono": "📅",
+          "valor": "Años 90",
+          "etiqueta": "Origen del asentamiento"
+        }
+      ]
+    },
+    {
+      "id": "blq-02",
+      "tipo": "seccion",
+      "icono": "📍",
+      "titulo": "Introducción",
+      "contenido": [
+        {
+          "tipo": "parrafo",
+          "texto": "Se encuentra ubicado en el sector noreste de la ciudad. Las calles que lo delimitan son Las Palmeras al Sur, Alvear al Oeste, Laprida al Este y Segundo Sombra al Norte."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Este asentamiento se formó alrededor de los años 90. La mayoría de las personas que se establecieron en estos terrenos lo hicieron porque trabajan en el Golf Club, ayudando a sus socios con el traslado de carritos, búsqueda de pelotas, etc."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Son pocas familias porque se trata de una manzana y sus dos frentes. El 30% vive en viviendas construidas en madera, el resto de material, aunque muy precarias."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Se observa una zona de calles de tierra con deterioro evidente, en estado general malo y con presencia de pozos que lo hace casi inaccesible, dificultando el acceso a móviles de altura como los utilizados por la Cooperativa."
+        }
+      ]
+    },
+    {
+      "id": "blq-03",
+      "tipo": "seccion",
+      "icono": "⚡",
+      "titulo": "Servicio Eléctrico",
+      "contenido": [
+        {
+          "tipo": "alerta",
+          "estilo": "alerta",
+          "html": "<span>⚠️ Solo el <strong>10%</strong> de los residentes tiene la conexión eléctrica regularizada. El 90% restante está enganchado.</span>"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "El tendido de líneas tiene capacidad para realizar conexiones regulares, ya que hace varios años todos los habitantes tenían conexión legal. Existen transformadores en la zona: uno sobre Pampa Soler y otro sobre Avenida Independencia."
+        }
+      ]
+    },
+    {
+      "id": "blq-04",
+      "tipo": "seccion",
+      "icono": "🔧",
+      "titulo": "Servicios Públicos y Comunicación",
+      "contenido": [
+        {
+          "tipo": "tablaServicios",
+          "columnas": [
+            "Servicio",
+            "Estado",
+            "Detalle"
+          ],
+          "filas": [
+            [
+              "Cloacas",
+              "<span class=\"badge no\">Sin red</span>",
+              "Obra anunciada por CAFESG pendiente de ejecución"
+            ],
+            [
+              "Agua corriente",
+              "<span class=\"badge si\">Disponible</span>",
+              "Conexión en el lote, mayoría en la entrada. Trasladan agua al interior"
+            ],
+            [
+              "Alumbrado público",
+              "<span class=\"badge si\">Funciona</span>",
+              "Una luminaria por cuadra"
+            ],
+            [
+              "Transporte público",
+              "<span class=\"badge no\">Alejado</span>",
+              "Deben desplazarse hasta Av. Independencia"
+            ],
+            [
+              "Recolección residuos",
+              "<span class=\"badge no\">Deficiente</span>",
+              "Microbasurales en toda la zona. El más extenso en calle María Luisa Servin"
+            ],
+            [
+              "Telefonía celular",
+              "<span class=\"badge si\">Disponible</span>",
+              "Utilizada por la mayoría"
+            ],
+            [
+              "Internet",
+              "<span class=\"badge si\">Disponible</span>",
+              "Fibra óptica — Megacable"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-05",
+      "tipo": "seccion",
+      "icono": "🏫",
+      "titulo": "Educación y Salud",
+      "contenido": [
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            [
+              "Educación",
+              "No hay establecimientos escolares en la zona. Los vecinos asisten a escuelas de los barrios \"La Bianca\" o \"Villa Zorraquín\"."
+            ],
+            [
+              "Salud",
+              "Los vecinos asisten al CAPS La Bianca y al Hospital Masvernat ante situaciones complejas."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-06",
+      "tipo": "seccion",
+      "icono": "👨‍👩‍👧",
+      "titulo": "Información de las Familias",
+      "contenido": [
+        {
+          "tipo": "parrafo",
+          "texto": "La totalidad de los relevados corresponde a grupos familiares, sin encontrarse personas solas. Las viviendas son propias, construidas por los mismos vecinos, aunque precarias en su mayoría. Los terrenos son municipales, según lo expresado por los habitantes."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Tienen certificado de RENABAP que les permite acceder a servicios. La mayoría son adultos con pocos menores por familia. Sus ocupaciones se vinculan al trabajo en el Golf Club o en la fruta, generalmente changas, sin ingreso fijo mensual."
+        },
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            [
+              "Nivel educativo",
+              "63,16% nivel primario · 36,84% nivel secundario"
+            ],
+            [
+              "Material de viviendas",
+              "5 viviendas de material noble · 2 de madera"
+            ]
+          ],
+          "estiloInline": "margin-top:12px"
+        }
+      ]
+    },
+    {
+      "id": "blq-07",
+      "tipo": "conclusion",
+      "titulo": "Conclusión",
+      "parrafos": [
+        "Se trata de un asentamiento muy cercano a zonas urbanizadas y con todos los servicios indispensables, pero al estar ubicado en la parte trasera del Club Golf ha quedado escondido del resto del conjunto habitacional y ha sido poco auxiliado por las autoridades. La presencia de basurales y el deterioro de los accesos así lo demuestra."
+      ]
+    },
+    {
+      "id": "blq-08",
+      "tipo": "equipo",
+      "icono": "👥",
+      "titulo": "Equipo de Trabajo",
+      "nombres": [
+        "Lucas Masso",
+        "Agostina Rettori",
+        "Nicolás Peri",
+        "Laura Canali"
+      ]
+    },
+    {
+      "id": "blq-09",
+      "tipo": "galeria",
+      "titulo": "📷 Registro Fotográfico — Barrio Golf",
+      "imagenes": [
+        {
+          "src": "golf_1.jpg",
+          "alt": "Foto del relevamiento"
+        },
+        {
+          "src": "golf_2.jpg",
+          "alt": "Foto del relevamiento"
+        }
+      ]
+    }
+  ]
+}

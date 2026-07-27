@@ -18,14 +18,15 @@ import { onRouteChange, go } from '../router.js';
  */
 const NAV = [
   { group: 'PRINCIPAL', items: [
-    { id: 'barrios',    label: 'Barrios',        icon: icons.home,  active: true }
+    { id: 'barrios',    label: 'Barrios',           icon: icons.home,  active: true },
+    { id: 'historial',  label: 'Historial general', icon: icons.clock, active: true },
+    { id: 'ayuda',      label: 'Ayuda',             icon: icons.help,  active: true }
   ]},
   { group: 'PRÓXIMAMENTE', items: [
     { id: 'estadisticas',   label: 'Estadísticas',   icon: icons.chart,    active: false },
     { id: 'exportaciones',  label: 'Exportaciones',  icon: icons.download, active: false },
     { id: 'administradores',label: 'Administradores',icon: icons.users,    active: false },
-    { id: 'ajustes',        label: 'Ajustes',        icon: icons.gear,     active: false },
-    { id: 'ayuda',          label: 'Ayuda',          icon: icons.help,     active: false }
+    { id: 'ajustes',        label: 'Ajustes',        icon: icons.gear,     active: false }
   ]}
 ];
 

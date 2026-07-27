@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "villa-adela",
   "nombreVisible": "Villa Adela",
   "color": "#b34000",
@@ -9,13 +9,31 @@
   "estado": "publicado",
   "fechaActualizacion": null,
   "versionActual": null,
-  "indicadores": {
-    "edad": "31,24",
-    "origen": "Años 70",
+  "datosMapa": {
     "electricidad": 34,
     "educacion": true,
-    "salud": true,
-    "viviendas": "Múltiples",
-    "material": "64% noble"
-  }
+    "salud": true
+  },
+  "indicadores": [
+    {
+      "id": "edad",
+      "etiqueta": "Edad promedio",
+      "valor": "31,24"
+    },
+    {
+      "id": "origen",
+      "etiqueta": "Origen",
+      "valor": "Años 70"
+    },
+    {
+      "id": "viviendas",
+      "etiqueta": "Viviendas relevadas",
+      "valor": "Múltiples"
+    },
+    {
+      "id": "material",
+      "etiqueta": "Material predominante",
+      "valor": "64% noble"
+    }
+  ]
 }

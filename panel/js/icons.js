@@ -44,4 +44,9 @@ export const icons = {
   logout:    () => svg('<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>'),
   menu:      () => svg('<path d="M3 6h18M3 12h18M3 18h18"/>'),
   search:    () => svg('<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>'),
+  close:     () => svg('<path d="M18 6 6 18M6 6l12 12"/>'),
+  undo:      () => svg('<path d="M3 7v6h6M3 13a9 9 0 1 0 3-7"/>'),
+  redo:      () => svg('<path d="M21 7v6h-6M21 13a9 9 0 1 1-3-7"/>'),
+  move:      () => svg('<path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>'),
+  trash:     () => svg('<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>'),
 };

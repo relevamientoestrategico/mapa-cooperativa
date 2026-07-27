@@ -10,6 +10,13 @@ import { checkSession } from './auth.js';
 import { route, start } from './router.js';
 import { renderBarrios } from './views/barrios.js';
 import { renderHub }     from './views/hub.js';
+import { renderInfoEditor } from './views/info-editor.js';
+import { renderIndicadoresEditor } from './views/indicadores-editor.js';
+import { renderInformeEditor } from './views/informe-editor.js';
+import { renderMapaEditor } from './views/mapa-editor.js';
+import { renderHistorialBarrio, renderHistorialGlobal } from './views/historial.js';
+import { renderAsistenteNuevoBarrio } from './views/asistente-nuevo-barrio.js';
+import { renderAyuda } from './views/ayuda.js';
 
 async function boot() {
   mountShell();
@@ -18,8 +25,16 @@ async function boot() {
   // Si no hay clave guardada, resuelve inmediato en 'readonly'.
   checkSession();
 
-  route('barrios',       ()       => renderBarrios(getContentContainer()));
-  route('barrio/:id',    (params) => renderHub(getContentContainer(), params));
+  route('barrios',            ()       => renderBarrios(getContentContainer()));
+  route('barrio/:id',         (params) => renderHub(getContentContainer(), params));
+  route('barrio/:id/info',         (params) => renderInfoEditor(getContentContainer(), params));
+  route('barrio/:id/indicadores',  (params) => renderIndicadoresEditor(getContentContainer(), params));
+  route('barrio/:id/informe',      (params) => renderInformeEditor(getContentContainer(), params));
+  route('barrio/:id/mapa',         (params) => renderMapaEditor(getContentContainer(), params));
+  route('barrio/:id/historial',    (params) => renderHistorialBarrio(getContentContainer(), params));
+  route('historial',               ()       => renderHistorialGlobal(getContentContainer()));
+  route('nuevo-barrio',             ()       => renderAsistenteNuevoBarrio(getContentContainer()));
+  route('ayuda',                    ()       => renderAyuda(getContentContainer()));
 
   start();
 }

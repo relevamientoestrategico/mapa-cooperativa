@@ -1,26 +1,30 @@
 /**
  * Vista: Hub del barrio.
- * Muestra el barrio y las tareas disponibles. En modo lectura las tarjetas
- * se ven pero están bloqueadas con un tooltip claro.
+ *
+ * Módulo 3 agregó:
+ *   - Pill "Con cambios sin publicar" cuando hay borradores
+ *   - Botón "Publicar cambios" se activa solo si hay algo que publicar
+ *   - Enrutamiento a los editores (por ahora, solo "info")
  */
 
 import { el, mount, toast, fechaLarga } from '../dom.js';
 import { icons } from '../icons.js';
 import { fetchBarrio } from '../github.js';
-import { canEdit, onSessionChange } from '../auth.js';
+import { canEdit, session, onSessionChange } from '../auth.js';
 import { go } from '../router.js';
 import { openConnectWizard } from '../ui/connect-wizard.js';
 import { CONFIG } from '../config.js';
+import { tieneCambios, onDraftsChange } from '../drafts.js';
+import { abrirDialogoPublicar } from '../publish.js';
 
 const TAREAS = [
-  { id: 'info',         label: 'Editar información general', hint: 'Nombre, zona y color',                icon: icons.edit },
-  { id: 'indicadores',  label: 'Editar indicadores',         hint: 'Los datos que se ven en la ficha',    icon: icons.chart },
-  { id: 'informe',      label: 'Editar informe',             hint: 'Texto completo del relevamiento',     icon: icons.file },
-  { id: 'imagenes',     label: 'Administrar imágenes',       hint: 'Fotos del barrio y galería',          icon: icons.image },
-  { id: 'puntos',       label: 'Puntos de interés',          hint: 'Escuelas, comedores, salud',          icon: icons.pin },
-  { id: 'limites',      label: 'Actualizar límites',         hint: 'La zona dibujada en el mapa',         icon: icons.map },
-  { id: 'historial',    label: 'Ver historial',              hint: 'Relevamientos anteriores',            icon: icons.clock },
-  { id: 'preview',      label: 'Vista previa',               hint: 'Cómo se ve en el mapa público',       icon: icons.eye }
+  { id: 'info',         label: 'Editar información general', hint: 'Nombre, zona y color',                icon: icons.edit,  route: true },
+  { id: 'indicadores',  label: 'Editar indicadores',         hint: 'Los datos que se ven en la ficha',    icon: icons.chart, route: true },
+  { id: 'informe',      label: 'Editar informe',             hint: 'Texto completo del relevamiento',     icon: icons.file,  route: true },
+  { id: 'imagenes',     label: 'Administrar imágenes',       hint: 'Fotos del barrio y galería',          icon: icons.image, route: false },
+  { id: 'mapa',         label: 'Editar mapa',                hint: 'Límites del barrio y puntos de interés', icon: icons.map, route: true },
+  { id: 'historial',    label: 'Ver historial',              hint: 'Quién cambió qué y cuándo',           icon: icons.clock, route: true },
+  { id: 'preview',      label: 'Vista previa',               hint: 'Cómo se ve en el mapa público',       icon: icons.eye,   route: false }
 ];
 
 export async function renderHub(container, { id }) {
@@ -55,27 +59,40 @@ export async function renderHub(container, { id }) {
   container.appendChild(buildTiles(barrio));
   container.appendChild(buildActions(barrio));
 
-  // Repintar tiles al cambiar estado de sesión (sin recargar datos)
-  const unsubscribe = onSessionChange(() => {
-    // Sólo repinta si seguimos en esta vista
-    if (!document.body.contains(container)) { unsubscribe(); return; }
-    const tilesSlot = container.querySelector('.tiles');
-    if (tilesSlot) tilesSlot.replaceWith(buildTiles(barrio));
-    const actionsSlot = container.querySelector('.hub-actions');
-    if (actionsSlot) actionsSlot.replaceWith(buildActions(barrio));
-    const labelSlot = container.querySelector('.sec-label');
-    if (labelSlot) labelSlot.textContent = canEdit() ? '¿Qué querés hacer?' : 'Acciones disponibles';
-  });
+  // Repintar al cambiar sesión o borradores
+  const unsub1 = onSessionChange(() => repaint(container, barrio, unsub1, unsub2));
+  const unsub2 = onDraftsChange(() => repaint(container, barrio, unsub1, unsub2));
+}
+
+function repaint(container, barrio, unsub1, unsub2) {
+  if (!document.body.contains(container)) { unsub1(); unsub2(); return; }
+  const headSlot    = container.querySelector('.hub-head');
+  const tilesSlot   = container.querySelector('.tiles');
+  const actionsSlot = container.querySelector('.hub-actions');
+  const labelSlot   = container.querySelector('.sec-label');
+  if (headSlot)    headSlot.replaceWith(buildHead(barrio));
+  if (tilesSlot)   tilesSlot.replaceWith(buildTiles(barrio));
+  if (actionsSlot) actionsSlot.replaceWith(buildActions(barrio));
+  if (labelSlot)   labelSlot.textContent = canEdit() ? '¿Qué querés hacer?' : 'Acciones disponibles';
 }
 
 function buildHead(b) {
   const isDraft = b.estado !== 'publicado';
+  // La pill "Con cambios sin publicar" solo aporta información nueva
+  // cuando el barrio YA está publicado (isDraft=false) pero tiene
+  // cambios locales sin publicar todavía. Si el barrio es un borrador,
+  // la pill "Borrador" ya comunica lo mismo — mostrar ambas es redundante.
+  const conCambiosSinPublicar = canEdit() && !isDraft && tieneCambios(b.id);
+
   const subChildren = [
     el('span', { class: `pill ${isDraft ? 'draft' : 'pub'}`, html: `<span class="d"></span>${isDraft ? 'Borrador' : 'Publicado'}` }),
+    conCambiosSinPublicar
+      ? el('span', { class: 'pill pending', html: '<span class="d"></span>Con cambios sin publicar' })
+      : null,
     b.zona ? el('span', { text: b.zona }) : null,
     b.fechaActualizacion
-      ? el('span', { text: `Último relevamiento: ${fechaLarga(b.fechaActualizacion)}` })
-      : el('span', { text: 'Aún no se registró una fecha de relevamiento' })
+      ? el('span', { text: `Último cambio: ${fechaLarga(b.fechaActualizacion)}` })
+      : el('span', { text: 'Aún no se registró una fecha de cambio' })
   ].filter(Boolean);
 
   return el('div.hub-head', {}, [
@@ -91,14 +108,23 @@ function buildTiles(b) {
   const locked = !canEdit();
   const grid = el('div.tiles');
   for (const t of TAREAS) {
-    const isPreview = t.id === 'preview';       // "Vista previa" siempre disponible
-    const isHistorial = t.id === 'historial';   // "Historial" también en lectura
+    const isPreview = t.id === 'preview';
+    const isHistorial = t.id === 'historial';
     const isReadable = isPreview || isHistorial;
     const disabled = locked && !isReadable;
 
-    const tile = el('button' + (disabled ? '.tile.locked' : '.tile'), {
-      onClick: () => onTile(t, b, disabled),
-      title: disabled ? 'Conectate para editar' : t.label
+    // Tareas que aún no tienen editor implementado (todo menos "info" y "preview")
+    const notImpl = canEdit() && !t.route && t.id !== 'preview';
+
+    const cls = disabled ? '.tile.locked' : (notImpl ? '.tile.upcoming' : '.tile');
+
+    const tile = el('button' + cls, {
+      onClick: () => onTile(t, b, disabled, notImpl),
+      title: disabled
+        ? 'Conectate para editar'
+        : (notImpl ? 'Disponible en un próximo módulo' : t.label),
+      disabled: notImpl ? 'disabled' : null,
+      'aria-disabled': notImpl ? 'true' : null
     }, [
       el('div.ib', { html: t.icon() }),
       el('b', { text: t.label }),
@@ -111,28 +137,47 @@ function buildTiles(b) {
   return grid;
 }
 
-function onTile(t, b, disabled) {
-  if (disabled) {
-    openConnectWizard();
-    return;
-  }
-  if (t.id === 'preview') {
-    window.open(CONFIG.mapaPublicoUrl, '_blank', 'noopener');
-    return;
-  }
-  toast(`El editor de "${t.label.toLowerCase()}" se implementa en el próximo módulo.`, 'ok');
+function onTile(t, b, disabled, notImpl) {
+  if (disabled) { openConnectWizard(); return; }
+  if (notImpl) return;
+  if (t.id === 'preview') { window.open(CONFIG.mapaPublicoUrl, '_blank', 'noopener'); return; }
+  if (t.id === 'info') { go(`barrio/${b.id}/info`); return; }
+  if (t.id === 'indicadores') { go(`barrio/${b.id}/indicadores`); return; }
+  if (t.id === 'informe') { go(`barrio/${b.id}/informe`); return; }
+  if (t.id === 'mapa') { go(`barrio/${b.id}/mapa`); return; }
+  if (t.id === 'historial') { go(`barrio/${b.id}/historial`); return; }
 }
 
 function buildActions(b) {
   const row = el('div.hub-actions');
+
   if (canEdit()) {
+    // El botón se habilita en dos casos:
+    //  1. Hay cambios registrados en este dispositivo (localStorage).
+    //  2. El barrio nunca se publicó (estado 'borrador' viene del propio
+    //     index.json, que es información compartida entre dispositivos).
+    // Sin el punto 2, si alguien guarda cambios desde su laptop y después
+    // abre el panel en el celular, el botón aparece deshabilitado ahí
+    // aunque el barrio realmente tenga cambios sin publicar.
+    const cambiosLocales = tieneCambios(b.id);
+    const nuncaPublicado = b.estado !== 'publicado';
+    const conCambios = cambiosLocales || nuncaPublicado;
+
+    const btnPublicar = el('button.btn.primary', {
+      onClick: () => abrirDialogoPublicar({ id: b.id, nombreVisible: b.nombreVisible }),
+      title: conCambios
+        ? (nuncaPublicado && !cambiosLocales
+            ? 'Este barrio todavía no se publicó'
+            : 'Publicar los cambios pendientes')
+        : 'No hay cambios pendientes'
+    }, [
+      el('span', { html: icons.upload() }).firstChild,
+      'Publicar cambios'
+    ]);
+    if (!conCambios) btnPublicar.disabled = true;
+
     row.append(
-      el('button.btn.primary', {
-        onClick: () => toast('El flujo de publicar cambios llega en el próximo módulo.', 'ok')
-      }, [
-        el('span', { html: icons.upload() }).firstChild,
-        'Publicar cambios'
-      ]),
+      btnPublicar,
       el('button.btn', {
         onClick: () => window.open(CONFIG.mapaPublicoUrl, '_blank', 'noopener')
       }, [

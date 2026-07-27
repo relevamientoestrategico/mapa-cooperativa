@@ -56,6 +56,48 @@
 .pill.pub .d { background: var(--accent); }
 .pill.draft { background: var(--amber-soft); color: var(--amber); }
 .pill.draft .d { background: var(--amber); }
+.pill.pending { background: #FDF2E4; color: #A85C0B; border: 1px solid #F5D9B0; }
+.pill.pending .d { background: #F59E0B; }
+.pill.info  { background: var(--info-soft); color: #1B547E; }
+.pill.info .d { background: var(--info); }
+.pill.err   { background: var(--danger-soft); color: #8A2622; }
+.pill.err .d { background: var(--danger); }
+
+/* Indicador "Cambios sin guardar / guardando / guardado / error" ─────
+   Se renderiza al lado del botón Guardar en los editores. */
+.save-status {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12.5px; font-weight: 500;
+  color: var(--text-2);
+  min-height: 26px;
+  padding: 0 4px;
+}
+.save-status .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex: none;
+}
+.save-status.dirty  .dot { background: var(--amber); box-shadow: 0 0 0 3px var(--amber-soft); }
+.save-status.dirty  { color: var(--amber); font-weight: 600; }
+.save-status.saving .dot { background: var(--info); box-shadow: 0 0 0 3px var(--info-soft); }
+.save-status.saved  .dot { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.save-status.saved  { color: var(--accent-strong); font-weight: 600; }
+.save-status.error  .dot { background: var(--danger); box-shadow: 0 0 0 3px var(--danger-soft); }
+.save-status.error  { color: #8A2622; font-weight: 600; }
+.save-status .spinner {
+  width: 12px; height: 12px;
+  border: 2px solid var(--info-soft);
+  border-top-color: var(--info);
+}
+
+/* Punto de "cambios pendientes de publicar" en las tarjetas de barrios */
+.barrio-card .unpub-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 3px var(--amber-soft);
+  flex: none;
+  margin-left: 8px;
+  vertical-align: middle;
+}
 
 /* ─── Cards ───────────────────────────────────────────────── */
 .card {
@@ -231,4 +273,5 @@
   padding: 10px 13px;
 }
 .search input { border: none; outline: none; flex: 1; background: transparent; }
+.search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 .search input::placeholder { color: var(--muted); }

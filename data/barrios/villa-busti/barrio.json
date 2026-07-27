@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "villa-busti",
   "nombreVisible": "Villa Busti",
   "color": "#7b2d8b",
@@ -9,13 +9,31 @@
   "estado": "publicado",
   "fechaActualizacion": null,
   "versionActual": null,
-  "indicadores": {
-    "edad": "32,6",
-    "origen": "Años 90",
+  "datosMapa": {
     "electricidad": 35,
     "educacion": true,
-    "salud": true,
-    "viviendas": "Múltiples",
-    "material": "~90% noble"
-  }
+    "salud": true
+  },
+  "indicadores": [
+    {
+      "id": "edad",
+      "etiqueta": "Edad promedio",
+      "valor": "32,6"
+    },
+    {
+      "id": "origen",
+      "etiqueta": "Origen",
+      "valor": "Años 90"
+    },
+    {
+      "id": "viviendas",
+      "etiqueta": "Viviendas relevadas",
+      "valor": "Múltiples"
+    },
+    {
+      "id": "material",
+      "etiqueta": "Material predominante",
+      "valor": "~90% noble"
+    }
+  ]
 }

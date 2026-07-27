@@ -1009,6 +1009,20 @@ function openPanel(b){
   document.getElementById('pMat').textContent   = b.info.material;
   document.getElementById('pZone2').textContent = b.info.zona;
 
+  /* Indicadores adicionales (definidos desde el panel de administración):
+     se insertan como filas con el mismo estilo, antes de la fila Zona. */
+  const dataList = document.getElementById('pZone2').closest('.data-list');
+  dataList.querySelectorAll('.data-row-extra').forEach(r => r.remove());
+  const zonaRow = document.getElementById('pZone2').closest('.data-row');
+  for (const ind of (b.indicadoresExtra || [])) {
+    const row = document.createElement('div');
+    row.className = 'data-row data-row-extra';
+    const lbl = document.createElement('span'); lbl.className = 'data-label'; lbl.textContent = ind.etiqueta;
+    const val = document.createElement('span'); val.className = 'data-val';   val.textContent = ind.valor;
+    row.appendChild(lbl); row.appendChild(val);
+    dataList.insertBefore(row, zonaRow);
+  }
+
   const btn = document.getElementById('pInforme');
   btn.href = b.html;
   btn.style.background = `linear-gradient(135deg, ${b.color} 0%, ${shade(b.color, -20)} 100%)`;
@@ -1122,13 +1136,30 @@ async function cargarBarrios(){
     const geo = await fetch(base + entry.id + '/geometria.geojson').then(r => r.json());
     const ring = geo.features[0].geometry.coordinates[0];
     const coords = ring.map(([lng, lat]) => [lat, lng]); // GeoJSON [lng,lat] -> Leaflet [lat,lng]
+    // schema v2: datosMapa (semánticos) + indicadores (ficha libre)
+    const porId = {};
+    const extras = [];
+    for (const ind of (j.indicadores || [])) {
+      if (['edad','origen','viviendas','material'].includes(ind.id)) porId[ind.id] = ind.valor;
+      else extras.push(ind);
+    }
     return {
       nombre: j.nombreVisible,
       color: j.color,
       colorClaro: j.colorClaro,
       html: j.informeUrl,
       coords: coords,
-      info: Object.assign({ zona: j.zona }, j.indicadores)
+      info: {
+        zona: j.zona,
+        electricidad: (j.datosMapa || {}).electricidad ?? 0,
+        educacion: !!(j.datosMapa || {}).educacion,
+        salud: !!(j.datosMapa || {}).salud,
+        edad: porId.edad ?? '—',
+        origen: porId.origen ?? '—',
+        viviendas: porId.viviendas ?? '—',
+        material: porId.material ?? '—'
+      },
+      indicadoresExtra: extras
     };
   }));
 }
