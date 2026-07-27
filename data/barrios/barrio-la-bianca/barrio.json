@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 2,
+  "id": "barrio-la-bianca",
+  "nombreVisible": "Barrio La Bianca",
+  "color": "#8b6914",
+  "colorClaro": "#fdf3d7",
+  "zona": "Zona Noreste",
+  "informeUrl": "Relevamiento Barrio La Bianca.html",
+  "estado": "borrador",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "datosMapa": {
+    "electricidad": 65,
+    "educacion": true,
+    "salud": true
+  },
+  "indicadores": [
+    {
+      "id": "edad",
+      "etiqueta": "Edad promedio",
+      "valor": "27,4"
+    },
+    {
+      "id": "origen",
+      "etiqueta": "Origen",
+      "valor": "Años 80"
+    },
+    {
+      "id": "viviendas",
+      "etiqueta": "Viviendas relevadas",
+      "valor": "Múltiples viviendas"
+    },
+    {
+      "id": "material",
+      "etiqueta": "Material predominante",
+      "valor": "Vivienda material noble"
+    }
+  ]
+}
