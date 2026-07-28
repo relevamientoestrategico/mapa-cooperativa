@@ -14,7 +14,8 @@
 
 import { el, toast, manejarErrorGuardado, asociarLabel } from '../dom.js';
 import { icons } from '../icons.js';
-import { fetchFileWithSha, putJsonFile, putBinaryFile, fileExists, commitMessage } from '../github.js';
+import { fetchFileWithSha, putJsonFile, putTextFile, putBinaryFile, fileExists, commitMessage } from '../github.js';
+import { generarInformeHtml } from '../informe-render.js';
 import { canEdit } from '../auth.js';
 import { go } from '../router.js';
 import { dirty } from '../dirty.js';
@@ -60,9 +61,12 @@ export async function renderImagenesVista(container, { id }) {
       fetchFileWithSha(`data/barrios/${id}/informe.json`),
       fetchFileWithSha(`data/barrios/${id}/barrio.json`)
     ]);
-    informeData = JSON.parse(informeFile.decoded);
+    informeData = informeFile.data;
     informeSha = informeFile.sha;
-    barrio = JSON.parse(barrioFile.decoded);
+    barrio = barrioFile.data;
+    if (!informeData || !Array.isArray(informeData.bloques)) {
+      throw new Error('El informe de este barrio todavía no tiene contenido.');
+    }
   } catch (err) {
     loading.remove();
     container.appendChild(el('div.empty-state', {}, [
@@ -78,20 +82,22 @@ export async function renderImagenesVista(container, { id }) {
   const galerias = (informeData.bloques || []).filter(b => b.tipo === 'galeria');
 
   // Snapshot para dirty checking
-  const snapshotInicial = JSON.stringify(galerias.map(g => ({
-    titulo: g.titulo,
-    imagenes: (g.imagenes || []).filter(i => !i.__eliminar).map(i => i.id || i.src)
+  const instantanea = () => JSON.stringify(galerias.map(g => ({
+    titulo: g.titulo || '',
+    imagenes: (g.imagenes || [])
+      .filter(i => !i.__eliminar)
+      .map(i => `${i.id || i.src}|${i.caption || ''}`)
   })));
+
+  let snapshotGuardado = instantanea();
+  let dirtyPill = null;
 
   dirty.enable(false);
 
   function checkDirty() {
-    const actual = JSON.stringify(galerias.map(g => ({
-      titulo: g.titulo,
-      imagenes: (g.imagenes || []).filter(i => !i.__eliminar).map(i => i.id || i.src)
-    })));
-    const cambiado = actual !== snapshotInicial;
+    const cambiado = instantanea() !== snapshotGuardado;
     dirty.enable(cambiado);
+    if (dirtyPill) dirtyPill.style.visibility = cambiado ? 'visible' : 'hidden';
     return cambiado;
   }
 
@@ -283,7 +289,8 @@ export async function renderImagenesVista(container, { id }) {
   }
 
   // ── Footer: guardar ───────────────────────────────────────
-  const dirtyPill = el('span.dirty-pill', { text: 'Sin guardar' });
+  dirtyPill = el('span.dirty-pill', { text: 'Sin guardar' });
+  dirtyPill.style.visibility = 'hidden';
   const btnGuardar = el('button.btn.primary', {
     onClick: onSave
   }, ['Guardar']);
@@ -321,20 +328,51 @@ export async function renderImagenesVista(container, { id }) {
     }
 
     try {
-      const result = await putJsonFile({
+      // 1. Guardar la fuente de verdad
+      await putJsonFile({
         path: `data/barrios/${id}/informe.json`,
         content: informeLimpio,
         message: commitMessage(nombreVisible, 'imágenes actualizadas'),
         sha: informeSha
       });
-      informeSha = result.content.sha;
+
+      // 2. Regenerar el HTML público del informe (mismo paso que hace el
+      //    editor de informe). Sin esto, las fotos se guardan pero no
+      //    aparecen en el informe que ve la gente.
+      //    Si este paso falla, el guardado de los datos YA fue exitoso: no
+      //    lo reportamos como error total, solo avisamos que el informe
+      //    público quedó desactualizado.
+      const htmlPath = barrio.informeUrl;
+      let htmlOk = true;
+      if (htmlPath) {
+        try {
+          const html = generarInformeHtml(informeLimpio);
+          let htmlSha = null;
+          try {
+            const existing = await fetchFileWithSha(htmlPath);
+            htmlSha = existing.sha;
+          } catch { /* si no existe, se crea */ }
+          await putTextFile({
+            path: htmlPath,
+            text: html,
+            message: commitMessage(nombreVisible, 'informe público regenerado'),
+            sha: htmlSha
+          });
+        } catch (errHtml) {
+          htmlOk = false;
+          console.error('No se pudo regenerar el informe público:', errHtml);
+        }
+      }
+
+      snapshotGuardado = instantanea();
       marcarCambio(id, { tipo: 'imagenes', detalle: 'Imágenes actualizadas' });
       dirty.enable(false);
-      toast('Imágenes guardadas.', 'ok');
-
-      // Actualizar el snapshot para el dirty tracking
-      // (ahora el estado guardado es el actual)
-      setTimeout(() => go(`barrio/${id}`), 800);
+      if (htmlOk) {
+        toast('Imágenes guardadas.', 'ok');
+        setTimeout(() => go(`barrio/${id}`), 800);
+      } else {
+        toast('Las imágenes se guardaron, pero no se pudo actualizar el informe público. Abrí "Editar informe" y guardá para regenerarlo.', 'err');
+      }
     } catch (e) {
       manejarErrorGuardado(e);
     } finally {

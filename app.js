@@ -14,7 +14,6 @@ import { renderInfoEditor } from './views/info-editor.js';
 import { renderIndicadoresEditor } from './views/indicadores-editor.js';
 import { renderInformeEditor } from './views/informe-editor.js';
 import { renderImagenesVista } from './views/imagenes-vista.js';
-import { renderGaleriaEditor } from './views/galeria-editor.js';
 import { renderMapaEditor } from './views/mapa-editor.js';
 import { renderHistorialBarrio, renderHistorialGlobal } from './views/historial.js';
 import { renderAsistenteNuevoBarrio } from './views/asistente-nuevo-barrio.js';
@@ -33,7 +32,6 @@ async function boot() {
   route('barrio/:id/indicadores',  (params) => renderIndicadoresEditor(getContentContainer(), params));
   route('barrio/:id/informe',      (params) => renderInformeEditor(getContentContainer(), params));
   route('barrio/:id/imagenes',     (params) => renderImagenesVista(getContentContainer(), params));
-  route('barrio/:id/imagenes',     (params) => renderGaleriaEditor(getContentContainer(), params));
   route('barrio/:id/mapa',         (params) => renderMapaEditor(getContentContainer(), params));
   route('barrio/:id/historial',    (params) => renderHistorialBarrio(getContentContainer(), params));
   route('historial',               ()       => renderHistorialGlobal(getContentContainer()));
