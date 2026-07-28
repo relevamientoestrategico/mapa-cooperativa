@@ -17,6 +17,7 @@ import { renderMapaEditor } from './views/mapa-editor.js';
 import { renderHistorialBarrio, renderHistorialGlobal } from './views/historial.js';
 import { renderAsistenteNuevoBarrio } from './views/asistente-nuevo-barrio.js';
 import { renderAyuda } from './views/ayuda.js';
+import { renderImagenesVista } from './views/imagenes-vista.js';
 
 async function boot() {
   mountShell();
