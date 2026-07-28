@@ -31,6 +31,7 @@ async function boot() {
   route('barrio/:id/info',         (params) => renderInfoEditor(getContentContainer(), params));
   route('barrio/:id/indicadores',  (params) => renderIndicadoresEditor(getContentContainer(), params));
   route('barrio/:id/informe',      (params) => renderInformeEditor(getContentContainer(), params));
+  route('barrio/:id/imagenes',     (params) => renderImagenesVista(getContentContainer(), params));
   route('barrio/:id/mapa',         (params) => renderMapaEditor(getContentContainer(), params));
   route('barrio/:id/historial',    (params) => renderHistorialBarrio(getContentContainer(), params));
   route('historial',               ()       => renderHistorialGlobal(getContentContainer()));
