@@ -144,6 +144,7 @@ function onTile(t, b, disabled, notImpl) {
   if (t.id === 'info') { go(`barrio/${b.id}/info`); return; }
   if (t.id === 'indicadores') { go(`barrio/${b.id}/indicadores`); return; }
   if (t.id === 'informe') { go(`barrio/${b.id}/informe`); return; }
+  if (t.id === 'imagenes') { go(`barrio/${b.id}/imagenes`); return; }
   if (t.id === 'mapa') { go(`barrio/${b.id}/mapa`); return; }
   if (t.id === 'historial') { go(`barrio/${b.id}/historial`); return; }
 }
