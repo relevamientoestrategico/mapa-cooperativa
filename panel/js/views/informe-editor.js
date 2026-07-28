@@ -38,6 +38,43 @@ const NOMBRES_BLOQUE = {
   htmlPreservado: 'Contenido preservado'
 };
 
+/**
+ * Catálogo canónico de estados para la columna "Estado" de las tablas de
+ * servicios. Unifica el color con el significado: hasta ahora la misma
+ * etiqueta podía aparecer con clases distintas según el barrio.
+ *
+ * La clase CSS ('si' | 'parcial' | 'no') es la que define el color en el
+ * informe público. La etiqueta es el texto visible.
+ */
+const ESTADOS_SERVICIO = [
+  { clase: 'si',      etiqueta: 'Disponible'   },
+  { clase: 'parcial', etiqueta: 'Parcial'      },
+  { clase: 'no',      etiqueta: 'Sin servicio' }
+];
+
+function escaparHtml(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/** Extrae { clase, etiqueta } de una celda que contiene un badge HTML. */
+function leerBadge(celda) {
+  const s = String(celda ?? '');
+  const m = s.match(/<span\s+class="badge\s+([^"]*)"\s*>([\s\S]*?)<\/span>/i);
+  if (m) return { clase: m[1].trim(), etiqueta: m[2].replace(/<[^>]*>/g, '').trim() };
+  return { clase: '', etiqueta: s.replace(/<[^>]*>/g, '').trim() };
+}
+
+function armarBadge(clase, etiqueta) {
+  return `<span class="badge ${clase}">${escaparHtml(etiqueta)}</span>`;
+}
+
+/** ¿La celda ya usa una combinación del catálogo canónico? */
+function esCanonico(clase, etiqueta) {
+  return ESTADOS_SERVICIO.some(e => e.clase === clase && e.etiqueta === etiqueta);
+}
+
 function waitForSessionReady() {
   if (session.status !== 'checking') return Promise.resolve(session.status);
   return new Promise((resolve) => {
@@ -186,6 +223,191 @@ function buildForm(id, informeFile, barrioFile) {
     return chip;
   }
 
+  /**
+   * Editor de tabla de servicios: Servicio · Estado · Detalle.
+   * El Estado se edita con un selector del catálogo canónico. Las filas
+   * que vienen con etiquetas fuera del catálogo se conservan tal cual y
+   * se marcan visualmente; convertirlas es una decisión del usuario.
+   */
+  function renderTablaServicios(item, cont, k) {
+    item.columnas ||= ['Servicio', 'Estado', 'Detalle'];
+    item.filas ||= [];
+
+    const wrap = el('div.tbl-editor');
+
+    wrap.appendChild(el('div.tbl-head', {}, [
+      el('span.tbl-tipo', { text: 'Tabla de servicios' }),
+      el('div.spacer'),
+      el('button.del', {
+        type: 'button', title: 'Eliminar tabla',
+        onClick: () => {
+          if (!confirm('¿Eliminar la tabla de servicios completa?')) return;
+          cont.splice(k, 1); pintarBloques(); refreshDirty();
+        }
+      }, ['✕'])
+    ]));
+
+    const cabecera = el('div.tbl-row.tbl-row-head', {}, [
+      el('span', { text: 'Servicio' }),
+      el('span', { text: 'Estado' }),
+      el('span', { text: 'Detalle' }),
+      el('span', { text: '' })
+    ]);
+    wrap.appendChild(cabecera);
+
+    item.filas.forEach((fila, fi) => {
+      while (fila.length < 3) fila.push('');
+      const badge = leerBadge(fila[1]);
+      const canonico = esCanonico(badge.clase, badge.etiqueta);
+
+      const inpServicio = el('input.inp', {
+        value: fila[0] || '', placeholder: 'Servicio',
+        'aria-label': 'Nombre del servicio',
+        onInput: (e) => { fila[0] = e.target.value; refreshDirty(); }
+      });
+
+      // Selector de estado (define el color)
+      const sel = el('select.inp.tbl-estado', {
+        'aria-label': 'Estado del servicio',
+        onChange: (e) => {
+          const opt = ESTADOS_SERVICIO.find(x => x.clase === e.target.value);
+          if (opt) {
+            fila[1] = armarBadge(opt.clase, inpEtiqueta.value.trim() || opt.etiqueta);
+          }
+          refreshDirty(); pintarBloques();
+        }
+      });
+      for (const e of ESTADOS_SERVICIO) {
+        sel.appendChild(el('option', { value: e.clase, text: e.etiqueta }));
+      }
+      if (!badge.clase) {
+        sel.appendChild(el('option', { value: '', text: '— sin definir —' }));
+      }
+      sel.value = badge.clase || '';
+
+      // Etiqueta visible (permite conservar matices como "Por mangueras")
+      const inpEtiqueta = el('input.inp.tbl-etiqueta', {
+        value: badge.etiqueta || '', placeholder: 'Texto visible',
+        'aria-label': 'Texto que se muestra en el badge',
+        onInput: (e) => {
+          fila[1] = armarBadge(sel.value || 'parcial', e.target.value);
+          refreshDirty();
+        }
+      });
+
+      const inpDetalle = el('textarea.inp.tbl-detalle', {
+        rows: '2', placeholder: 'Detalle',
+        'aria-label': 'Detalle del servicio',
+        onInput: (e) => { fila[2] = e.target.value; autoGrow(e.target); refreshDirty(); }
+      });
+      inpDetalle.value = fila[2] || '';
+      requestAnimationFrame(() => autoGrow(inpDetalle));
+
+      const acciones = el('div.tbl-acciones', {}, [
+        el('button.mini-btn', {
+          type: 'button', title: 'Subir', disabled: fi === 0 ? 'disabled' : null,
+          onClick: () => { const [x] = item.filas.splice(fi, 1); item.filas.splice(fi - 1, 0, x); pintarBloques(); refreshDirty(); }
+        }, ['↑']),
+        el('button.mini-btn', {
+          type: 'button', title: 'Bajar', disabled: fi === item.filas.length - 1 ? 'disabled' : null,
+          onClick: () => { const [x] = item.filas.splice(fi, 1); item.filas.splice(fi + 1, 0, x); pintarBloques(); refreshDirty(); }
+        }, ['↓']),
+        el('button.del', {
+          type: 'button', title: 'Eliminar fila',
+          onClick: () => { item.filas.splice(fi, 1); pintarBloques(); refreshDirty(); }
+        }, ['✕'])
+      ]);
+
+      const estadoWrap = el('div.tbl-estado-wrap', {}, [sel, inpEtiqueta]);
+      if (!canonico && badge.etiqueta) {
+        estadoWrap.appendChild(el('span.tbl-aviso', {
+          title: 'Esta etiqueta no está en el catálogo estándar. Podés dejarla o elegir una opción del selector.',
+          text: 'fuera del estándar'
+        }));
+      }
+
+      wrap.appendChild(el('div.tbl-row', {}, [inpServicio, estadoWrap, inpDetalle, acciones]));
+    });
+
+    if (!item.filas.length) {
+      wrap.appendChild(el('div.tbl-vacio', { text: 'La tabla no tiene filas todavía.' }));
+    }
+
+    wrap.appendChild(el('button.btn.sm', {
+      type: 'button', style: { marginTop: '10px' },
+      onClick: () => {
+        item.filas.push(['', armarBadge('si', 'Disponible'), '']);
+        pintarBloques(); refreshDirty();
+      }
+    }, [el('span', { html: icons.plus() }).firstChild, 'Agregar fila']));
+
+    return wrap;
+  }
+
+  /** Editor de tabla de datos: dos columnas (etiqueta / valor), sin encabezado. */
+  function renderTablaDatos(item, cont, k) {
+    item.filas ||= [];
+    const wrap = el('div.tbl-editor');
+
+    wrap.appendChild(el('div.tbl-head', {}, [
+      el('span.tbl-tipo', { text: 'Tabla de datos' }),
+      el('div.spacer'),
+      el('button.del', {
+        type: 'button', title: 'Eliminar tabla',
+        onClick: () => {
+          if (!confirm('¿Eliminar la tabla de datos completa?')) return;
+          cont.splice(k, 1); pintarBloques(); refreshDirty();
+        }
+      }, ['✕'])
+    ]));
+
+    item.filas.forEach((fila, fi) => {
+      while (fila.length < 2) fila.push('');
+
+      const inpEtiqueta = el('input.inp', {
+        value: fila[0] || '', placeholder: 'Concepto',
+        'aria-label': 'Concepto',
+        onInput: (e) => { fila[0] = e.target.value; refreshDirty(); }
+      });
+
+      const inpValor = el('textarea.inp.tbl-detalle', {
+        rows: '2', placeholder: 'Valor o descripción',
+        'aria-label': 'Valor',
+        onInput: (e) => { fila[1] = e.target.value; autoGrow(e.target); refreshDirty(); }
+      });
+      inpValor.value = fila[1] || '';
+      requestAnimationFrame(() => autoGrow(inpValor));
+
+      const acciones = el('div.tbl-acciones', {}, [
+        el('button.mini-btn', {
+          type: 'button', title: 'Subir', disabled: fi === 0 ? 'disabled' : null,
+          onClick: () => { const [x] = item.filas.splice(fi, 1); item.filas.splice(fi - 1, 0, x); pintarBloques(); refreshDirty(); }
+        }, ['↑']),
+        el('button.mini-btn', {
+          type: 'button', title: 'Bajar', disabled: fi === item.filas.length - 1 ? 'disabled' : null,
+          onClick: () => { const [x] = item.filas.splice(fi, 1); item.filas.splice(fi + 1, 0, x); pintarBloques(); refreshDirty(); }
+        }, ['↓']),
+        el('button.del', {
+          type: 'button', title: 'Eliminar fila',
+          onClick: () => { item.filas.splice(fi, 1); pintarBloques(); refreshDirty(); }
+        }, ['✕'])
+      ]);
+
+      wrap.appendChild(el('div.tbl-row.tbl-row-2', {}, [inpEtiqueta, inpValor, acciones]));
+    });
+
+    if (!item.filas.length) {
+      wrap.appendChild(el('div.tbl-vacio', { text: 'La tabla no tiene filas todavía.' }));
+    }
+
+    wrap.appendChild(el('button.btn.sm', {
+      type: 'button', style: { marginTop: '10px' },
+      onClick: () => { item.filas.push(['', '']); pintarBloques(); refreshDirty(); }
+    }, [el('span', { html: icons.plus() }).firstChild, 'Agregar fila']));
+
+    return wrap;
+  }
+
   function renderSeccion(b, i) {
     const card = el('div.sec-card');
     const head = el('div.sec-card-head', {}, [
@@ -225,6 +447,10 @@ function buildForm(id, informeFile, barrioFile) {
         ]);
         body.appendChild(wrap);
         requestAnimationFrame(() => autoGrow(ta));
+      } else if (item.tipo === 'tablaServicios') {
+        body.appendChild(renderTablaServicios(item, b.contenido, k));
+      } else if (item.tipo === 'tablaDatos') {
+        body.appendChild(renderTablaDatos(item, b.contenido, k));
       } else {
         const nombre = NOMBRES_BLOQUE[item.tipo] || item.tipo;
         body.appendChild(el('div.item-chip', {}, [
@@ -234,15 +460,37 @@ function buildForm(id, informeFile, barrioFile) {
       }
     });
 
-    body.appendChild(el('button.btn.sm', {
-      type: 'button', style: { marginTop: '8px' },
-      onClick: () => {
-        b.contenido.push({ tipo: 'parrafo', texto: '' });
-        pintarBloques(); refreshDirty();
-        const tas = card.querySelectorAll('textarea');
-        if (tas.length) tas[tas.length - 1].focus();
-      }
-    }, [el('span', { html: icons.plus() }).firstChild, 'Agregar párrafo']));
+    body.appendChild(el('div.sec-add-row', {}, [
+      el('button.btn.sm', {
+        type: 'button',
+        onClick: () => {
+          b.contenido.push({ tipo: 'parrafo', texto: '' });
+          pintarBloques(); refreshDirty();
+          const tas = card.querySelectorAll('textarea');
+          if (tas.length) tas[tas.length - 1].focus();
+        }
+      }, [el('span', { html: icons.plus() }).firstChild, 'Agregar párrafo']),
+
+      el('button.btn.sm', {
+        type: 'button',
+        onClick: () => {
+          b.contenido.push({
+            tipo: 'tablaServicios',
+            columnas: ['Servicio', 'Estado', 'Detalle'],
+            filas: [['', armarBadge('si', 'Disponible'), '']]
+          });
+          pintarBloques(); refreshDirty();
+        }
+      }, [el('span', { html: icons.plus() }).firstChild, 'Agregar tabla de servicios']),
+
+      el('button.btn.sm', {
+        type: 'button',
+        onClick: () => {
+          b.contenido.push({ tipo: 'tablaDatos', filas: [['', '']] });
+          pintarBloques(); refreshDirty();
+        }
+      }, [el('span', { html: icons.plus() }).firstChild, 'Agregar tabla de datos'])
+    ]));
 
     card.appendChild(body);
     return card;
@@ -340,7 +588,24 @@ function buildForm(id, informeFile, barrioFile) {
       if ((b.tipo === 'seccion' || b.tipo === 'conclusion') && Array.isArray(b.contenido)) {
         b.contenido = b.contenido
           .filter(c => c.tipo !== 'parrafo' || String(c.texto || '').trim())
-          .map(c => c.tipo === 'parrafo' ? { ...c, texto: String(c.texto || '').trimEnd() } : c);
+          .map(c => c.tipo === 'parrafo' ? { ...c, texto: String(c.texto || '').trimEnd() } : c)
+          // Tablas: descartar filas totalmente vacías (una fila recién
+          // agregada y no completada no debe llegar al informe público).
+          .map(c => {
+            const texto = (celda) => String(celda ?? '').replace(/<[^>]*>/g, '').trim();
+            if (c.tipo === 'tablaServicios' && Array.isArray(c.filas)) {
+              // El badge de Estado siempre tiene un valor por defecto, así que
+              // NO cuenta para decidir si la fila tiene contenido: una fila
+              // recién agregada y no completada debe descartarse.
+              return { ...c, filas: c.filas.filter(f => texto(f?.[0]) || texto(f?.[2])) };
+            }
+            if (c.tipo === 'tablaDatos' && Array.isArray(c.filas)) {
+              return { ...c, filas: c.filas.filter(f => texto(f?.[0]) || texto(f?.[1])) };
+            }
+            return c;
+          })
+          // Una tabla sin ninguna fila útil se elimina del informe.
+          .filter(c => !((c.tipo === 'tablaServicios' || c.tipo === 'tablaDatos') && !(c.filas || []).length));
       }
       if (b.tipo === 'conclusion' && Array.isArray(b.parrafos)) {
         b.parrafos = b.parrafos
