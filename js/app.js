@@ -13,7 +13,6 @@ import { renderHub }     from './views/hub.js';
 import { renderInfoEditor } from './views/info-editor.js';
 import { renderIndicadoresEditor } from './views/indicadores-editor.js';
 import { renderInformeEditor } from './views/informe-editor.js';
-import { renderGaleriaEditor } from './views/galeria-editor.js';
 import { renderMapaEditor } from './views/mapa-editor.js';
 import { renderHistorialBarrio, renderHistorialGlobal } from './views/historial.js';
 import { renderAsistenteNuevoBarrio } from './views/asistente-nuevo-barrio.js';
