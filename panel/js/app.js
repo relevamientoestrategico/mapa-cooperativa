@@ -48,3 +48,4 @@ boot().catch(err => {
       <p style="color:#5B6472;font-size:14px">Recargá la página. Si el problema persiste, avisá a soporte.</p>
     </div>`;
 });
+
