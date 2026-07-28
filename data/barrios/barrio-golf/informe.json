@@ -103,7 +103,7 @@
           "filas": [
             [
               "Cloacas",
-              "<span class=\"badge no\">Sin red</span>",
+              "<span class=\"badge no\">Sin servicio</span>",
               "Obra anunciada por CAFESG pendiente de ejecución"
             ],
             [
@@ -118,12 +118,12 @@
             ],
             [
               "Transporte público",
-              "<span class=\"badge no\">Alejado</span>",
+              "<span class=\"badge parcial\">Alejado</span>",
               "Deben desplazarse hasta Av. Independencia"
             ],
             [
               "Recolección residuos",
-              "<span class=\"badge no\">Deficiente</span>",
+              "<span class=\"badge parcial\">Deficiente</span>",
               "Microbasurales en toda la zona. El más extenso en calle María Luisa Servin"
             ],
             [
