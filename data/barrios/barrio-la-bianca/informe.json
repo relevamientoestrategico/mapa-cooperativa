@@ -175,7 +175,44 @@
       "id": "blq-gal-1785327253859",
       "tipo": "galeria",
       "titulo": "Registro Fotográfico — Barrio La Bianca",
-      "imagenes": []
+      "imagenes": [
+        {
+          "id": "ed17e68399",
+          "src": "data/barrios/barrio-la-bianca/adjuntos/galeria/ed17e68399.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "id": "b34701c666",
+          "src": "data/barrios/barrio-la-bianca/adjuntos/galeria/b34701c666.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "id": "0a27ffd65e",
+          "src": "data/barrios/barrio-la-bianca/adjuntos/galeria/0a27ffd65e.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "id": "700e7647d2",
+          "src": "data/barrios/barrio-la-bianca/adjuntos/galeria/700e7647d2.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "id": "3aa8b3ac24",
+          "src": "data/barrios/barrio-la-bianca/adjuntos/galeria/3aa8b3ac24.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "id": "5438d16282",
+          "src": "data/barrios/barrio-la-bianca/adjuntos/galeria/5438d16282.jpg",
+          "alt": "",
+          "caption": ""
+        }
+      ]
     }
   ]
 }
