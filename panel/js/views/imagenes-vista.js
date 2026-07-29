@@ -106,9 +106,52 @@ export async function renderImagenesVista(container, { id }) {
   container.appendChild(el('h1', { text: `Imágenes de ${nombreVisible}` }));
 
   if (!galerias.length) {
+    if (!canEdit()) {
+      container.appendChild(el('div.callout.info', {}, [
+        el('span', { html: icons.info() }).firstChild,
+        el('span', { text: 'Este barrio todavía no tiene galerías de fotos.' })
+      ]));
+      return;
+    }
+
+    // El barrio no tiene galería: ofrecemos crearla acá mismo sin
+    // obligar al usuario a ir al editor de informe.
+    const crearBtn = el('button.btn.primary', {
+      onClick: async () => {
+        crearBtn.disabled = true;
+        crearBtn.textContent = 'Creando…';
+        try {
+          const nuevoBloque = {
+            id: `blq-gal-${Date.now()}`,
+            tipo: 'galeria',
+            titulo: `Registro Fotográfico — ${nombreVisible}`,
+            imagenes: []
+          };
+          informeData.bloques.push(nuevoBloque);
+          await putJsonFile({
+            path: `data/barrios/${id}/informe.json`,
+            content: informeData,
+            message: commitMessage(nombreVisible, 'galería creada'),
+            sha: informeSha
+          });
+          marcarCambio(id, { tipo: 'imagenes', detalle: 'Galería creada' });
+          toast('Galería creada. Recargando…', 'ok');
+          setTimeout(() => renderImagenesVista(container, { id }), 600);
+        } catch (err) {
+          manejarErrorGuardado(err);
+          crearBtn.disabled = false;
+          crearBtn.textContent = 'Crear galería de fotos';
+        }
+      }
+    }, ['Crear galería de fotos']);
+
     container.appendChild(el('div.callout.info', {}, [
       el('span', { html: icons.info() }).firstChild,
-      el('span', { text: 'Este barrio todavía no tiene galerías de fotos. Las galerías se crean desde el editor de informe, agregando un bloque de tipo "Galería". Una vez que exista al menos una, acá vas a poder administrar las fotos.' })
+      el('div', {}, [
+        el('p', { text: 'Este barrio todavía no tiene galería de fotos.' }),
+        el('p', { text: 'Podés crear una ahora y empezar a subir fotos.' }),
+        crearBtn
+      ])
     ]));
     return;
   }
