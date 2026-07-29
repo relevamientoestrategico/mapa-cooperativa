@@ -24,11 +24,150 @@
       "id": "blq-01",
       "tipo": "seccion",
       "icono": "📝",
-      "titulo": "Informe pendiente",
+      "titulo": "Introducción",
       "contenido": [
         {
           "tipo": "parrafo",
-          "texto": "Este informe está pendiente de completar. Editalo desde el hub del barrio."
+          "texto": "El sector relevado, corresponde al perímetro delimitado por las calles San \nJuan al oeste, al este, es terreno baldío, al norte Antártida Argentina, y al \nsur Chubut."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Está ubicado en la zona noreste de la ciudad.  Cercana al rio Uruguay, \naproximadamente 5 cuadras. Y de la playa Los Tomates, que algunos vecinos \nutilizan para la pesca, utilizando esa ocupación como medio de vida."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Este asentamiento se relaciona con el Barrio La Bianca, tiene sus orígenes en el año 1980, fecha de la inauguración. Con el correr de los años y de distintas administraciones municipales, el barrio quedó conectado al sistema de cloacas. Por lo dicho, quedaron todos esos terrenos, que pertenecían al IAPV sin destino aparente, y fueron comenzando a instalarse muchos comercios, y luego extendiéndose hacia el lado del rio Uruguay habitando en ellos familias."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Se pueden delimitar dos \nsectores con marcadas diferencias, las viviendas más cercanas a la calle San \nJuan, en su mayoría son de material, con techos de chapas de zinc, \nrevocadas y con mejoras. Las que están más al límite Este, son de madera, \nprecarias, con techos de chapas asfálticas y sin mejoras."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Las calles se encuentran en muy mal estado. Las condiciones de salubridad son malas, dado que las aguas servidas de baños y cocina corren por ellas. Además de lo mencionado, son intransitables para el tránsito de vehículos comunes. Mas aún de los que pertenecen a empresas de servicios. También se ven en este sector, huertas, y hornos de ladrillos que utilizan los vecinos como medio de vida."
+        }
+      ]
+    },
+    {
+      "id": "blq-ms5zisdh",
+      "tipo": "seccion",
+      "icono": "📌",
+      "titulo": "Servicio Eléctrico",
+      "contenido": [
+        {
+          "tipo": "parrafo",
+          "texto": "Las líneas eléctricas que recorren las calles Chubut y Antártida \nArgentina, se realizaron como consecuencia de la solicitud de las flias. \nresidentes. En un principio, Electrotecnia del municipio no lo permitía por \nser terrenos provinciales, pero luego de tratativas, se solucionó este \naspecto, y se realizaron los tendidos correspondientes. En primer lugar, por \ncalle Chubut, y años mas tarde, de acuerdo a la instalación de nuevos \nvecinos, por calle Antártida Argentina."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "De un total de 60 familias que \nresiden en  el lugar, encontramos 37 conexiones activas de electricidad, lo \nque representa un 60% aproximado. Asimismo, informamos que del 100% \nde conexiones activas un 69% tiene el subsidio otorgado en la tarifa de \nelectricidad. Y, un 31 % esta con la factura eléctrica sin subsidio."
+        }
+      ]
+    },
+    {
+      "id": "blq-ms5zlw8h",
+      "tipo": "seccion",
+      "icono": "📌",
+      "titulo": "Servicios Públicos y Comunicación",
+      "contenido": [
+        {
+          "tipo": "tablaServicios",
+          "columnas": [
+            "Servicio",
+            "Estado",
+            "Detalle"
+          ],
+          "filas": [
+            [
+              "Cloacas",
+              "<span class=\"badge no\">Sin servicio</span>",
+              "En la zona recorrida no cuentan con red cloacal, por lo que los vecinos \nutilizan los denominados “pozo ciego” o “pozo negro” para la filtración de \naguas residuales. "
+            ],
+            [
+              "Agua corriente",
+              "<span class=\"badge si\">Disponible</span>",
+              "Todas las viviendas poseen agua corriente, a través de mangueras, las \ncuales se pueden observar en las calles hasta las entradas de sus respectivos \nhogares. "
+            ],
+            [
+              "Alumbrado público",
+              "<span class=\"badge si\">Disponible</span>",
+              "Se observa alumbrado público en la zona recorrida, sin embargo, nos \ninforman que son de baja intensidad por lo que de noche suele ser bastante \noscuro. "
+            ],
+            [
+              "Transporte Público",
+              "<span class=\"badge si\">Disponible</span>",
+              "Los habitantes, utilizan las líneas de colectivos 7 y 9. "
+            ],
+            [
+              "Recolección residuos",
+              "<span class=\"badge parcial\">Limitado</span>",
+              "Los vecinos nos comentan que acercan los residuos a los contenedores que \nse ubican en calle San juan y Antártida Argentina, también que usan la \nquema de basura como método para eliminar dichos residuos. También, \nalgunos vecinos informaron que la entierran. "
+            ],
+            [
+              "Telefonía celular",
+              "<span class=\"badge si\">Disponible</span>",
+              "Se verifico el uso generalizado de teléfonos móviles como medio principal de comunicación. "
+            ],
+            [
+              "TV",
+              "<span class=\"badge si\">Disponible</span>",
+              ""
+            ],
+            [
+              "Internet",
+              "<span class=\"badge si\">Disponible</span>",
+              "En el barrio se identificó la presencia del servicio de internet brindado por la empresa Megacable"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-ms6028z4",
+      "tipo": "seccion",
+      "icono": "📌",
+      "titulo": "Educación y Salud",
+      "contenido": [
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            [
+              "Educación primaria",
+              "Escuela número 69 “Malvinas Argentinas “"
+            ],
+            [
+              "Educación secundaria",
+              "Escuela número 2 “José Gervasio Artigas”"
+            ],
+            [
+              "Salud",
+              "En cercanías, se encuentra el denominado centro de salud “la Bianca”, dicho establecimiento brinda cobertura de especialidades básicas como ser clínica médica, pediatría, ginecología, obstetricia, etc. además de contar con una ambulancia permanente en caso de urgencias."
+            ],
+            [
+              "Otros",
+              "Se encuentran la comisaría 6ta y el registro civil para llevar a cabo sus \ntrámites brindando así mayor facilidad a los vecinos para gestionar los \nmismos, también clubes como el club social y deportivo “la Bianca” y \nplazoletas y plazas para uso recreativo del barrio. \nEl barrio La Bianca posee cajero automático. Esto les beneficia, por la \ncercanía."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-ms606w4v",
+      "tipo": "seccion",
+      "icono": "📌",
+      "titulo": "Información de las familias",
+      "contenido": [
+        {
+          "tipo": "parrafo",
+          "texto": "Con referencia a la situación económica de los vecinos, el promedio \nde ingresos que se informa en los gráficos que adjuntamos al final de este \ninforme, nos da un importe bajo, de $446.000. El motivo del número, es \nporque hubo algunos grupos familiares entrevistados, (caso de empleados \nmunicipales y docentes, con ingresos estables, pero que no quisieron \ndetallar el monto. Tampoco informaron un promedio los pescadores."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Está construido sobre terrenos, que originalmente estaban destinados a las \npiletas de decantación de efluentes del complejo habitacional barrio 708 \nviviendas. Esto tiene sus orígenes en el año 1980, fecha de la inauguración."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "En la zona recorrida, se observan pocos quioscos instalados en las \nviviendas. Pero, como está lindero al barrio La Bianca, concurren al   mismo \nporque tienen la oferta de todo tipo de comercios."
         }
       ]
     }
