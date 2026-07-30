@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "barrioId": "barrio-la-colina",
+  "formato": "estructurado",
+  "titleTag": "Relevamiento Barrio La Colina — Cooperativa Eléctrica",
+  "fuentesHref": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap",
+  "estilos": "",
+  "encabezado": {
+    "titulo": "Relevamiento Barrio La Colina",
+    "subtitulo": "Cooperativa Eléctrica de Concordia — Unidad de Relevamiento Estratégico",
+    "fecha": "",
+    "zonaEtiqueta": "Zona",
+    "zonaValor": "Zona Noroeste",
+    "logoSrc": "logo_cooperativa_transparente.png"
+  },
+  "navVolver": {
+    "href": "Mapa Relevamiento Asentamientos.html",
+    "texto": "← Volver al mapa"
+  },
+  "footer": "",
+  "lightbox": false,
+  "bloques": [
+    {
+      "id": "blq-01",
+      "tipo": "seccion",
+      "icono": "📝",
+      "titulo": "Informe pendiente",
+      "contenido": [
+        {
+          "tipo": "parrafo",
+          "texto": "Este informe está pendiente de completar. Editalo desde el hub del barrio."
+        }
+      ]
+    }
+  ]
+}
