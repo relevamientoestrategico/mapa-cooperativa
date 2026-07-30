@@ -60,6 +60,12 @@
       "nombreVisible": "Barrio La Bianca",
       "color": "#8b6914",
       "estado": "publicado"
+    },
+    {
+      "id": "barrio-la-colina",
+      "nombreVisible": "Barrio La Colina",
+      "color": "#2e7d32",
+      "estado": "borrador"
     }
   ]
 }
