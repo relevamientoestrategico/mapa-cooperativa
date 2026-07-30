@@ -389,7 +389,7 @@ export async function renderImagenesVista(container, { id }) {
       let htmlOk = true;
       if (htmlPath) {
         try {
-          const html = generarInformeHtml(informeLimpio);
+          const html = generarInformeHtml(informeLimpio, barrio);
           let htmlSha = null;
           try {
             const existing = await fetchFileWithSha(htmlPath);

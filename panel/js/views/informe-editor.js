@@ -489,7 +489,23 @@ function buildForm(id, informeFile, barrioFile) {
           b.contenido.push({ tipo: 'tablaDatos', filas: [['', '']] });
           pintarBloques(); refreshDirty();
         }
-      }, [el('span', { html: icons.plus() }).firstChild, 'Agregar tabla de datos'])
+      }, [el('span', { html: icons.plus() }).firstChild, 'Agregar tabla de datos']),
+
+      el('button.btn.sm', {
+        type: 'button',
+        onClick: () => {
+          // La galería es un bloque de primer nivel (como la sección misma),
+          // no un contenido dentro de la sección. Se inserta justo debajo
+          // de la sección actual.
+          state.bloques.splice(i + 1, 0, {
+            id: `blq-gal-${Date.now()}`,
+            tipo: 'galeria',
+            titulo: `Registro Fotográfico — ${state.encabezado?.titulo || 'Barrio'}`,
+            imagenes: []
+          });
+          pintarBloques(); refreshDirty();
+        }
+      }, [el('span', { html: icons.plus() }).firstChild, 'Agregar galería'])
     ]));
 
     card.appendChild(body);
@@ -624,7 +640,7 @@ function buildForm(id, informeFile, barrioFile) {
       });
 
       // 2. Regenerar y guardar el HTML público
-      const html = generarInformeHtml(contenidoParaGuardar);
+      const html = generarInformeHtml(contenidoParaGuardar, barrio);
       const htmlPath = barrio.informeUrl;
       let htmlSha = null;
       try {
