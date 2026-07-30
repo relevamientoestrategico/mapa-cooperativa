@@ -454,15 +454,15 @@
         <div class="info-grid">
           <div class="info-cell">
             <span class="info-key">Barrios relevados</span>
-            <span class="info-val">09</span>
+            <span class="info-val" id="stat-barrios">09</span>
           </div>
           <div class="info-cell">
             <span class="info-key">Informes técnicos</span>
-            <span class="info-val">09</span>
+            <span class="info-val" id="stat-informes">09</span>
           </div>
           <div class="info-cell">
             <span class="info-key">Cobertura territorial</span>
-            <span class="info-val">4 zonas</span>
+            <span class="info-val" id="stat-zonas">4 zonas</span>
           </div>
           <div class="info-cell">
             <span class="info-key">Estado del sistema</span>
@@ -470,7 +470,7 @@
           </div>
           <div class="info-cell">
             <span class="info-key">Última actualización</span>
-            <span class="info-val">Junio 2026</span>
+            <span class="info-val" id="stat-actualizacion">Junio 2026</span>
           </div>
           <div class="info-cell">
             <span class="info-key">Ámbito</span>
@@ -507,5 +507,57 @@
   </div>
 </div>
 
+
+  <script>
+    // Estadísticas del módulo: se calculan solas a partir de
+    // data/barrios/index.json y barrio.json de cada barrio, el mismo
+    // dato que usa el mapa. Si agregás o quitás barrios, estos números
+    // se actualizan sin tocar este archivo.
+    (async function actualizarEstadisticas() {
+      const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio',
+                     'agosto','septiembre','octubre','noviembre','diciembre'];
+      try {
+        const idx = await fetch('data/barrios/index.json?t=' + Date.now()).then(r => r.json());
+        const publicados = (idx.barrios || []).filter(b => b.estado === 'publicado');
+
+        const elBarrios = document.getElementById('stat-barrios');
+        const elInformes = document.getElementById('stat-informes');
+        if (elBarrios) elBarrios.textContent = String(publicados.length).padStart(2, '0');
+        if (elInformes) elInformes.textContent = String(publicados.length).padStart(2, '0');
+
+        // Zonas únicas y fecha más reciente: piden leer cada barrio.json
+        const detalles = await Promise.all(publicados.map(b =>
+          fetch(`data/barrios/${b.id}/barrio.json?t=` + Date.now())
+            .then(r => r.ok ? r.json() : null)
+            .catch(() => null)
+        ));
+
+        const zonas = new Set();
+        let fechaMasReciente = null;
+        for (const d of detalles) {
+          if (!d) continue;
+          if (d.zona) zonas.add(d.zona.trim());
+          if (d.fechaActualizacion) {
+            const f = new Date(d.fechaActualizacion);
+            if (!isNaN(f) && (!fechaMasReciente || f > fechaMasReciente)) fechaMasReciente = f;
+          }
+        }
+
+        const elZonas = document.getElementById('stat-zonas');
+        if (elZonas && zonas.size) {
+          elZonas.textContent = `${zonas.size} zona${zonas.size === 1 ? '' : 's'}`;
+        }
+
+        const elFecha = document.getElementById('stat-actualizacion');
+        if (elFecha && fechaMasReciente) {
+          elFecha.textContent = `${MESES[fechaMasReciente.getMonth()].charAt(0).toUpperCase()}${MESES[fechaMasReciente.getMonth()].slice(1)} ${fechaMasReciente.getFullYear()}`;
+        }
+      } catch (err) {
+        // Si algo falla (red, formato inesperado), se deja el valor
+        // estático que ya está en el HTML. Nunca rompe la página.
+        console.warn('No se pudieron actualizar las estadísticas del módulo:', err);
+      }
+    })();
+  </script>
 </body>
 </html>
