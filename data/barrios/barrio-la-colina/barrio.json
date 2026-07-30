@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 2,
+  "id": "barrio-la-colina",
+  "nombreVisible": "Barrio La Colina",
+  "color": "#2e7d32",
+  "colorClaro": "#e8f5e9",
+  "zona": "Zona Noroeste",
+  "informeUrl": "Relevamiento Barrio La Colina.html",
+  "estado": "borrador",
+  "fechaActualizacion": null,
+  "versionActual": null,
+  "datosMapa": {
+    "electricidad": 41,
+    "educacion": false,
+    "salud": false
+  },
+  "indicadores": [
+    {
+      "id": "edad",
+      "etiqueta": "Edad promedio",
+      "valor": "27,1"
+    },
+    {
+      "id": "origen",
+      "etiqueta": "Origen",
+      "valor": "1978"
+    },
+    {
+      "id": "viviendas",
+      "etiqueta": "Viviendas relevadas",
+      "valor": "Multiples Viviendas relevadas"
+    },
+    {
+      "id": "material",
+      "etiqueta": "Material predominante",
+      "valor": "Vivienda material noble"
+    }
+  ]
+}
