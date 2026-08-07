@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relevamiento Barrio La Colina — Cooperativa Eléctrica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #0e3910;
+      --primary-light: #e8f5e9;
+      --accent: #37c33e;
+      --border: #bae8bc;
+      --text: #1a2433;
+      --text-muted: #5a6a7a;
+      --bg: #f7f9fb;
+      --white: #ffffff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }
+
+    .header { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--accent) 100%); color: white; padding: 0; position: relative; overflow: hidden; }
+    .header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+    .header::after { content: ''; position: absolute; bottom: -80px; left: 40%; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+    .header-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 24px; padding: 28px 48px; }
+    .logo-wrap img { width: 64px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2)); }
+    .header-text h1 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; letter-spacing: 0.3px; margin-bottom: 4px; }
+    .header-text .subtitulo { font-size: 13px; opacity: 0.82; font-weight: 300; }
+    .header-text .fecha { font-size: 12px; opacity: 0.65; margin-top: 2px; font-weight: 300; }
+    .header-badge { margin-left: auto; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 10px 18px; text-align: center; backdrop-filter: blur(4px); }
+    .header-badge .zona-label { font-size: 10px; opacity: 0.75; text-transform: uppercase; letter-spacing: 1px; }
+    .header-badge .zona-val { font-size: 15px; font-weight: 600; margin-top: 2px; }
+
+    .nav-back { background: var(--white); border-bottom: 1px solid var(--border); padding: 10px 48px; }
+    .nav-back a { color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+    .nav-back a:hover { gap: 10px; }
+
+    .contenido { max-width: 960px; margin: 0 auto; padding: 40px 24px 60px; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+    .kpi-card { background: var(--white); border-radius: 10px; padding: 18px 16px; border-top: 3px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
+    .kpi-card .kpi-icono { font-size: 22px; margin-bottom: 6px; }
+    .kpi-card .kpi-val { font-size: 22px; font-weight: 700; color: var(--primary); line-height: 1.1; margin-bottom: 4px; }
+    .kpi-card .kpi-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; font-weight: 600; }
+
+    .seccion { background: var(--white); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+    .seccion-header { background: var(--primary); color: white; padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
+    .seccion-header .icono { font-size: 16px; }
+    .seccion-header h2 { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .seccion-body { padding: 20px; }
+    .seccion-body p { margin-bottom: 12px; font-size: 14.5px; color: var(--text); }
+    .seccion-body p:last-child { margin-bottom: 0; }
+
+    .alerta { background: #fff8e1; border-left: 4px solid #f9a825; border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #5d3f00; display: flex; gap: 10px; align-items: flex-start; }
+    .alerta-roja { background: #fce8e6; border-left: 4px solid #c62828; border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #5d0000; display: flex; gap: 10px; align-items: flex-start; }
+
+    .tabla-datos { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .tabla-datos tr { border-bottom: 1px solid var(--border); }
+    .tabla-datos tr:last-child { border-bottom: none; }
+    .tabla-datos td { padding: 9px 12px; }
+    .tabla-datos td:first-child { color: var(--text-muted); font-weight: 600; width: 30%; }
+    .tabla-datos tr:hover td { background: var(--primary-light); }
+
+    .svc-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .svc-table th { background: var(--primary-light); color: var(--primary-dark); font-size: 11px; text-transform: uppercase; padding: 10px 12px; text-align: left; letter-spacing: 0.4px; font-weight: 700; }
+    .svc-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+    .svc-table tr:last-child td { border-bottom: none; }
+    .svc-table tr:hover td { background: var(--primary-light); }
+
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .badge.si { background: #e6f4ea; color: #2e7d32; }
+    .badge.no { background: #fce8e6; color: #c62828; }
+    .badge.parcial { background: #fff8e1; color: #f57f17; }
+
+    .conclusion { background: var(--primary-light); border-radius: 10px; padding: 20px 24px; border-left: 5px solid var(--accent); margin-bottom: 24px; }
+    .conclusion h2 { font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+    .conclusion p { font-size: 14.5px; line-height: 1.75; color: var(--text); }
+
+    .equipo-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+    .equipo-chip { background: var(--primary-light); border: 1px solid var(--border); color: var(--primary-dark); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 600; }
+
+    .galeria { background: white; border-radius: 10px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .galeria h2 { font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+    .galeria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .galeria-item { border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+    .galeria-item:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+    .galeria-item img { width: 100%; height: 240px; object-fit: cover; display: block; cursor: zoom-in; }
+    .galeria-caption { padding: 10px 14px; font-size: 13px; color: var(--text-muted); background: var(--white); }
+
+    #lightbox-overlay { display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); justify-content: center; align-items: center; cursor: zoom-out; }
+    #lightbox-overlay.active { display: flex; }
+    #lightbox-overlay img { max-width: 92vw; max-height: 92vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    #lightbox-close-btn { position: fixed; top: 20px; right: 30px; color: white; font-size: 36px; font-weight: 300; cursor: pointer; z-index: 100000; background: rgba(0,0,0,0.4); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; user-select: none; }
+    #lightbox-close-btn:hover { background: rgba(0,0,0,0.7); }
+
+    .footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); text-align: center; padding: 18px 24px; font-size: 12px; }
+    @media (max-width: 680px) { .kpi-grid { grid-template-columns: 1fr 1fr; } .header-inner { flex-wrap: wrap; padding: 20px; } .contenido { padding: 24px 16px 40px; } .nav-back { padding: 10px 16px; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-wrap"><img src="logo_cooperativa_transparente.png" alt="Cooperativa Eléctrica"></div>
+    <div class="header-text">
+      <h1>Relevamiento — Barrio La Colina</h1>
+      <div class="subtitulo">Cooperativa Eléctrica y Otros Servicios de Concordia Ltda.</div>
+      <div class="fecha">Relevamiento realizado entre el 29 de junio y el 2 de julio de 2026 · Informe N° 10</div>
+    </div>
+    <div class="header-badge">
+      <div class="zona-label">Zona</div>
+      <div class="zona-val">Noroeste</div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-back">
+  <a href="Mapa Relevamiento Asentamientos.html">← Volver al mapa</a>
+</div>
+
+<div class="contenido">
+
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-icono">🏠</div><div class="kpi-val">138</div><div class="kpi-lbl">Familias residentes</div></div>
+    <div class="kpi-card"><div class="kpi-icono">⚡</div><div class="kpi-val">41%</div><div class="kpi-lbl">Conexión legal</div></div>
+    <div class="kpi-card"><div class="kpi-icono">💰</div><div class="kpi-val">$1.068.000</div><div class="kpi-lbl">Ingreso promedio</div></div>
+    <div class="kpi-card"><div class="kpi-icono">📋</div><div class="kpi-val">84,2%</div><div class="kpi-lbl">Con subsidio eléctrico</div></div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">📍</span><h2>Información General del Barrio</h2></div>
+    <div class="seccion-body">
+      <p>El barrio <em>La Colina</em> tiene sus orígenes en el año <em>1978</em>. En esa época, a raíz de un juicio de un particular contra el municipio por la ocupación de lotes privados en calle Rawson y C. Veiga, la intendencia trasladó a <em>14 familias</em> que residían allí, adjudicándoles un lote en lo que ahora se denomina así. No había agua corriente —la extraían de una bomba colocada al efecto— ni cloacas. Toda la zona estaba deshabitada, mientras que enfrente se construía el barrio municipal San Miguel II.</p>
+      <p>Con el transcurso del tiempo, el lugar se fue poblando. En la actualidad su perímetro comprende: <em>Boulevard Yuquerí</em> al este, <em>Avenida Frondizi</em> al sur, <em>calle Ricardo Rojas</em> al norte y al oeste no tiene límite de calle pues se convierte en monte. El relevamiento se centró en las calles Ricardo Rojas, Mendiburu, Enriqueta Tavella y los terrenos baldíos al oeste.</p>
+      <p>Se encuentra incorporado al <em>Registro Nacional de Barrios Populares (RENABAP)</em>. Dicha certificación habilita a los habitantes del barrio a poder realizar trámites de regularización dominial y los autoriza al otorgamiento de servicios a su nombre.</p>
+      <div class="alerta"><span class="alerta-icono">⚠️</span>
+<span>Los terrenos, en sus orígenes fueron municipales, aunque con el correr de los años un sector más al oeste fue dominio del <strong>Instituto Autárquico de Planeamiento y Vivienda (IAPV)</strong> de la provincia. En los años 90 se otorgaron subsidios de autoconstrucción, por lo que muchas familias lograron modificar los materiales de construcción de sus viviendas. Algunos vecinos entrevistados comentaron que están pagando el terreno al IAPV, aunque este dato no fue confirmado por la institución.</span></div>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">📊</span><h2>Situación Socio-Económica</h2></div>
+    <div class="seccion-body">
+      <p>Los ingresos promedios relevados son de <em>$1.068.000 por familia</em>. Se da la particularidad de que hay varias familias con empleos públicos, un empleado de CTM, y grupos familiares numerosos con asignaciones familiares, lo que eleva el promedio. No obstante, no se debe perder de vista que el importe de la canasta básica para junio de 2026 es de <em>$1.498.741</em> para cuatro personas.</p>
+      <div class="canasta-card" style="margin: 14px 0;">
+<div class="can-titulo">Análisis Canasta Básica · Junio 2026</div>
+<div class="canasta-vals">
+<div class="canasta-val">
+<div class="cv-label">Canasta básica</div>
+<div class="cv-num">$1.498.741</div>
+</div>
+<div class="canasta-val">
+<div class="cv-label">Ingreso prom. hogar</div>
+<div class="cv-num">$1.068.000</div>
+</div>
+<div class="canasta-brecha">⚠ 28,7% por debajo de la canasta</div>
+</div>
+</div>
+      <p>El total de familias que residen en el perímetro relevado es de <em>138</em>. De acuerdo a los datos de la Sub Dirección Comercial, la cantidad de socios activos en el circuito del barrio es de <em>57</em>, lo que significa que las conexiones activas representan el <em>41%</em> de las familias residentes.</p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">⚡</span><h2>Situación Eléctrica</h2></div>
+    <div class="seccion-body">
+      <div class="elec-container">
+<div class="elec-gauge">
+<svg height="80" viewbox="0 0 80 80" width="80">
+<circle cx="40" cy="40" fill="none" r="32" stroke="#e0e0e0" stroke-width="8"></circle>
+<circle cx="40" cy="40" fill="none" r="32" stroke="#f9a825" stroke-dasharray="82.39 200.96" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<span class="elec-pct" style="color:#f9a825;">41%</span>
+</div>
+<div class="elec-info">
+<div class="elec-titulo">Conexión legal estimada: 41%</div>
+<div class="elec-desc">De las 138 familias residentes, 57 poseen conexión activa registrada por la Cooperativa. Del total de conexiones activas, el 84,21% tiene subsidio otorgado y el 15,79% no lo tiene.</div>
+<div class="elec-barra-wrap">
+<div class="elec-barra-label"><span>Legal (41%)</span><span>Irregular (59%)</span></div>
+<div class="elec-barra"><div class="elec-barra-fill" style="width: 41%; background: linear-gradient(90deg, #f9a825, #fbc02d);"></div></div>
+</div>
+</div>
+</div>
+      <div class="alerta-critica"><span class="alerta-icono">🚨</span>
+<span>En la intersección de calles <strong>Dr. Del Cerro y 60</strong> se observa tendido de red segura en poste de 11 metros. Por debajo de dicha red se detectan entrecruzamientos de conductores que conectan de casilla a casilla. Coexisten domicilios normalizados con medidor y acometida reglamentaria junto a domicilios sin seguridad eléctrica, con conexiones irregulares, sin protecciones y alto índice de hurto de energía. La situación varía <strong>metro a metro</strong>.</span></div>
+      <p>Se detectan <em>conexiones irregulares</em> con derivaciones aéreas entre viviendas que no cumplen con AEA 90364. Usuarios con medidor realizan <em>enganches parciales</em> para alimentar cargas de alto consumo: equipos de aire acondicionado frío/calor, calefones eléctricos, estufas y otras cargas resistivas, generando sobrecarga de red.</p>
+      <p>El 15,79% de conexiones activas sin subsidio podría deberse a desconocimiento del trámite o incapacidad para realizarlo. Se recomienda evaluar nuevas campañas de difusión, dado que al tenerlo otorgado baja notablemente el importe de la factura, lo que podría mejorar la recaudación de la CEC.</p>
+      <table class="tabla-datos">
+        <tr><td>Riesgo eléctrico</td><td><span class="tag tag-critico">Electrocuciones por cables sin aislación ni altura reglamentaria</span></td></tr>
+        <tr><td>Riesgo de incendio</td><td><span class="tag tag-critico">Sobrecalentamiento de conductores por sobrecarga</span></td></tr>
+        <tr><td>Riesgo operativo</td><td><span class="tag tag-no">Daños a la red y cortes por fallas en conexiones precarias</span></td></tr>
+        <tr><td>Pérdida comercial</td><td><span class="tag tag-no">Consumo no registrado por la distribuidora</span></td></tr>
+        <tr><td>Recomendación urgente</td><td>Normalización de acometidas y retiro de entrecruzamientos en calles Dr. Del Cerro y 60</td></tr>
+        <tr><td>Inspección domiciliaria</td><td>Verificación de usuarios con medidor para detectar enganches internos y consumos no declarados</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">🔧</span><h2>Servicios e Infraestructura</h2></div>
+    <div class="seccion-body">
+      <div class="servicios-grid" style="margin-bottom: 16px;">
+<div class="servicio-item servicio-si">
+<span class="srv-icono">💧</span>Agua corriente <span class="tag tag-si">Red + mangueras</span>
+</div>
+<div class="servicio-item servicio-si">
+<span class="srv-icono">🚿</span>Cloaca <span class="tag tag-si">Casi toda la zona</span>
+</div>
+<div class="servicio-item servicio-no">
+<span class="srv-icono">🔥</span>Gas natural <span class="tag tag-no">Garrafa / leña</span>
+</div>
+<div class="servicio-item servicio-si">
+<span class="srv-icono">🌐</span>Internet <span class="tag tag-si">Megacable</span>
+</div>
+<div class="servicio-item servicio-parcial">
+<span class="srv-icono">🗑️</span>Residuos <span class="tag tag-parcial">3 veces/semana</span>
+</div>
+<div class="servicio-item servicio-si">
+<span class="srv-icono">🚌</span>Transporte <span class="tag tag-si">Líneas 3 y 4</span>
+</div>
+</div>
+      <table class="tabla-datos">
+        <tr><td>Agua corriente</td><td>Zona con red; en el sector más nuevo, distribución mediante mangueras que atraviesan las calles superficialmente.</td></tr>
+        <tr><td>Cloacas</td><td>La zona recorrida casi en toda su extensión cuenta con redes cloacales.</td></tr>
+        <tr><td>Gas</td><td>Sin red de gas natural. Se utiliza gas envasado y cocción con leña.</td></tr>
+        <tr><td>Internet y TV</td><td>Empresa Megacable presente en el barrio. Todas las personas encuestadas utilizan telefonía celular.</td></tr>
+        <tr><td>Recolección de residuos</td><td>Tres veces por semana. Los vecinos acercan la basura al contenedor en calle Vera Peñaloza. Se observan basurales en calle República Árabe Siria y las vías, además de microbasurales en casi todo el perímetro.</td></tr>
+        <tr><td>Alumbrado público</td><td><span class="tag tag-parcial">Parcial — algunos sectores sin funcionamiento correcto</span></td></tr>
+        <tr><td>Transporte público</td><td>Líneas 3 y 4 recorren la zona.</td></tr>
+        <tr><td>Estado de calles</td><td>Calles de tierra, algunas más transitables que otras, dificultosas para móviles de altura de empresas de servicios.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">🏫</span><h2>Educación y Salud</h2></div>
+    <div class="seccion-body">
+      <table class="tabla-datos">
+        <tr><td>Establecimiento educativo</td><td>Sin establecimientos dentro del barrio. Los vecinos concurren a escuelas cercanas: <strong>Escuela N° 19 "Juana Azurduy"</strong> (secundaria) y <strong>Escuela N° 3 "Sarmiento"</strong> (primaria) en Barrio Sarmiento, y <strong>Escuela N° 75 "2 de Abril"</strong> (primaria, doble escolaridad) en calle Ricardo Rojas y Jorge Odiard. También se cuenta con la <strong>Escuela Secundaria Técnica</strong> de la UNER (Fac. de Ciencias de la Alimentación) en el Centro Víctor Opel.</td></tr>
+        <tr><td>Establecimiento de salud</td><td>Sin salas de atención primaria dentro del barrio. Los vecinos concurren al <strong>Centro de Salud del Polideportivo Víctor Opel</strong> (dificultad para conseguir turnos), al <strong>Centro de Salud San Miguel</strong>, y al <strong>Hospital Carrillo</strong>. Para tratamientos específicos, al <strong>Hospital Masvernat</strong>.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">🏠</span><h2>Condiciones de Vivienda</h2></div>
+    <div class="seccion-body">
+      <p>En el sector conviven dos tipos de construcciones: las de <em>material noble</em> (viviendas más antiguas mejoradas gracias a subsidios de autoconstrucción del Estado en los años 90) y las <em>casillas de madera precarias</em> (más nuevas, hacia el oeste). Las primeras cuentan con servicios de agua corriente y cloacas; las segundas reciben el agua a través de mangueras que van por la calle.</p>
+      <table class="tabla-datos">
+        <tr><td>Material predominante</td><td><span class="tag tag-si">Material noble (sector consolidado)</span> / <span class="tag tag-no">Madera precaria (sector oeste)</span></td></tr>
+        <tr><td>Subsidios de autoconstrucción</td><td>Otorgados por el IAPV en los años 90 — mejoras en material, techos de cinc</td></tr>
+        <tr><td>Situación dominial</td><td>Terrenos originalmente municipales, luego IAPV. Incorporado al RENABAP. Algunos vecinos pagan el terreno al IAPV.</td></tr>
+        <tr><td>Riesgo hídrico</td><td><span class="tag tag-parcial">Calles de tierra dificultan desplazamiento en épocas de lluvia</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">👥</span><h2>Equipo de Trabajo</h2></div>
+    <div class="seccion-body">
+      <div class="equipo-grid">
+        <div class="equipo-chip">Tito Lampazzi</div>
+        <div class="equipo-chip">Nicolas Peri</div>
+        <div class="equipo-chip">Agostina Rettori</div>
+        <div class="equipo-chip">Laura Canali</div>
+        <div class="equipo-chip">Lucas Masso</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="galeria">
+    <div class="galeria-header"><span class="icono">📷</span><h2>Registro Fotográfico de Campo</h2></div>
+    <div class="galeria-grid">
+      <div class="galeria-item"><img src="data/barrios/barrio-la-colina/adjuntos/galeria/a1c3f70e21.png" alt="Calle de tierra con cercos de madera y residuos en el sector oeste del barrio"><div class="galeria-caption">Calle de tierra con cercos de madera y residuos en el sector oeste del barrio</div></div>
+      <div class="galeria-item"><img src="data/barrios/barrio-la-colina/adjuntos/galeria/b2d4e81f32.png" alt="Estado de las calles internas del barrio"><div class="galeria-caption">Estado de las calles internas del barrio</div></div>
+      <div class="galeria-item"><img src="data/barrios/barrio-la-colina/adjuntos/galeria/c3e5f92a43.png" alt="Tendido eléctrico con entrecruzamiento de conductores"><div class="galeria-caption">Tendido eléctrico con entrecruzamiento de conductores</div></div>
+      <div class="galeria-item"><img src="data/barrios/barrio-la-colina/adjuntos/galeria/d4f6a03b54.png" alt="Caja de la empresa Megacable en poste del barrio"><div class="galeria-caption">Caja de la empresa Megacable en poste del barrio</div></div>
+      <div class="galeria-item"><img src="data/barrios/barrio-la-colina/adjuntos/galeria/e5a7b14c65.png" alt="Contraste de la situación en tendido: viviendas de material junto a conexiones precarias"><div class="galeria-caption">Contraste de la situación en tendido: viviendas de material junto a conexiones precarias</div></div>
+      <div class="galeria-item"><img src="data/barrios/barrio-la-colina/adjuntos/galeria/a7c9d36e87.jpg" alt="Vista general del barrio con postación y cableado aéreo"><div class="galeria-caption">Vista general del barrio con postación y cableado aéreo</div></div>
+    </div>
+  </div>
+
+  <div id="lb-overlay" onclick="lbClose()">
+<div id="lb-close" onclick="lbClose()">✕</div>
+<img alt="" id="lb-img" src=""/>
+</div>
+
+  <script>
+    function lbOpen(src) {
+      document.getElementById('lb-img').src = src;
+      document.getElementById('lb-overlay').classList.add('active');
+    }
+    function lbClose() {
+      document.getElementById('lb-overlay').classList.remove('active');
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') lbClose();
+    });
+  </script>
+
+  <div class="disclaimer">
+<strong>Nota metodológica:</strong> La información contenida en este informe corresponde a una <em>estimación territorial de carácter exploratorio</em>, basada en observaciones de campo y entrevistas zonales realizadas entre el 29 de junio y el 2 de julio de 2026. Los datos presentados tienen carácter orientativo y no constituyen un censo ni un relevamiento estadístico de carácter exhaustivo. Los valores expresados en porcentaje reflejan proporciones observadas en la muestra zonal relevada.
+</div>
+
+</div>
+
+<div class="footer">Cooperativa Eléctrica · Relevamiento Estratégico de Asentamientos · Concordia, Entre Ríos · 2026</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var overlay = document.createElement('div'); overlay.id = 'lightbox-overlay';
+  var closeBtn = document.createElement('span'); closeBtn.id = 'lightbox-close-btn'; closeBtn.innerHTML = '&times;';
+  var imgEl = document.createElement('img'); imgEl.alt = 'Foto ampliada';
+  overlay.appendChild(closeBtn); overlay.appendChild(imgEl); document.body.appendChild(overlay);
+  var imgs = document.querySelectorAll('.galeria-item img');
+  for (var i = 0; i < imgs.length; i++) { imgs[i].addEventListener('click', function(e) { e.stopPropagation(); imgEl.src = this.src; overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }); }
+  function cerrar() { overlay.classList.remove('active'); document.body.style.overflow = ''; }
+  overlay.addEventListener('click', cerrar); closeBtn.addEventListener('click', cerrar);
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') cerrar(); });
+});
+</script>
+</body>
+</html>
