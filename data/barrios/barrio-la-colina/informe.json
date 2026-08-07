@@ -6,31 +6,259 @@
   "fuentesHref": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap",
   "estilos": "",
   "encabezado": {
-    "titulo": "Relevamiento Barrio La Colina",
-    "subtitulo": "Cooperativa Eléctrica de Concordia — Unidad de Relevamiento Estratégico",
-    "fecha": "",
+    "titulo": "Relevamiento — Barrio La Colina",
+    "subtitulo": "Cooperativa Eléctrica y Otros Servicios de Concordia Ltda.",
+    "fecha": "Relevamiento realizado entre el 29 de junio y el 2 de julio de 2026 · Informe N° 10",
     "zonaEtiqueta": "Zona",
-    "zonaValor": "Zona Noroeste",
+    "zonaValor": "Suroeste",
     "logoSrc": "logo_cooperativa_transparente.png"
   },
   "navVolver": {
     "href": "Mapa Relevamiento Asentamientos.html",
     "texto": "← Volver al mapa"
   },
-  "footer": "",
-  "lightbox": false,
+  "footer": "Cooperativa Eléctrica · Relevamiento Estratégico de Asentamientos · Concordia, Entre Ríos · 2026",
+  "lightbox": true,
   "bloques": [
     {
       "id": "blq-01",
+      "tipo": "kpis",
+      "items": [
+        {
+          "icono": "🏠",
+          "valor": "138",
+          "etiqueta": "Familias residentes"
+        },
+        {
+          "icono": "⚡",
+          "valor": "41%",
+          "etiqueta": "Conexión legal"
+        },
+        {
+          "icono": "💰",
+          "valor": "$1.068.000",
+          "etiqueta": "Ingreso promedio"
+        },
+        {
+          "icono": "📋",
+          "valor": "84,2%",
+          "etiqueta": "Con subsidio eléctrico"
+        }
+      ]
+    },
+    {
+      "id": "blq-02",
       "tipo": "seccion",
-      "icono": "📝",
-      "titulo": "Informe pendiente",
+      "icono": "📍",
+      "titulo": "Información General del Barrio",
       "contenido": [
         {
           "tipo": "parrafo",
-          "texto": "Este informe está pendiente de completar. Editalo desde el hub del barrio."
+          "texto": "El barrio *La Colina* tiene sus orígenes en el año *1978*. En esa época, a raíz de un juicio de un particular contra el municipio por la ocupación de lotes privados en calle Rawson y C. Veiga, la intendencia trasladó a *14 familias* que residían allí, adjudicándoles un lote en lo que ahora se denomina así. No había agua corriente —la extraían de una bomba colocada al efecto— ni cloacas. Toda la zona estaba deshabitada, mientras que enfrente se construía el barrio municipal San Miguel II."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Con el transcurso del tiempo, el lugar se fue poblando. En la actualidad su perímetro comprende: *Boulevard Yuquerí* al este, *Avenida Frondizi* al sur, *calle Ricardo Rojas* al norte y al oeste no tiene límite de calle pues se convierte en monte. El relevamiento se centró en las calles Ricardo Rojas, Mendiburu, Enriqueta Tavella y los terrenos baldíos al oeste."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Se encuentra incorporado al *Registro Nacional de Barrios Populares (RENABAP)*. Dicha certificación habilita a los habitantes del barrio a poder realizar trámites de regularización dominial y los autoriza al otorgamiento de servicios a su nombre."
+        },
+        {
+          "tipo": "alerta",
+          "estilo": "alerta",
+          "html": "<span class=\"alerta-icono\">⚠️</span>\n<span>Los terrenos, en sus orígenes fueron municipales, aunque con el correr de los años un sector más al oeste fue dominio del <strong>Instituto Autárquico de Planeamiento y Vivienda (IAPV)</strong> de la provincia. En los años 90 se otorgaron subsidios de autoconstrucción, por lo que muchas familias lograron modificar los materiales de construcción de sus viviendas. Algunos vecinos entrevistados comentaron que están pagando el terreno al IAPV, aunque este dato no fue confirmado por la institución.</span>"
         }
       ]
+    },
+    {
+      "id": "blq-03",
+      "tipo": "seccion",
+      "icono": "📊",
+      "titulo": "Situación Socio-Económica",
+      "contenido": [
+        {
+          "tipo": "parrafo",
+          "texto": "Los ingresos promedios relevados son de *$1.068.000 por familia*. Se da la particularidad de que hay varias familias con empleos públicos, un empleado de CTM, y grupos familiares numerosos con asignaciones familiares, lo que eleva el promedio. No obstante, no se debe perder de vista que el importe de la canasta básica para junio de 2026 es de *$1.498.741* para cuatro personas."
+        },
+        {
+          "tipo": "htmlPreservado",
+          "html": "<div class=\"canasta-card\" style=\"margin: 14px 0;\">\n<div class=\"can-titulo\">Análisis Canasta Básica · Junio 2026</div>\n<div class=\"canasta-vals\">\n<div class=\"canasta-val\">\n<div class=\"cv-label\">Canasta básica</div>\n<div class=\"cv-num\">$1.498.741</div>\n</div>\n<div class=\"canasta-val\">\n<div class=\"cv-label\">Ingreso prom. hogar</div>\n<div class=\"cv-num\">$1.068.000</div>\n</div>\n<div class=\"canasta-brecha\">⚠ 28,7% por debajo de la canasta</div>\n</div>\n</div>"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "El total de familias que residen en el perímetro relevado es de *138*. De acuerdo a los datos de la Sub Dirección Comercial, la cantidad de socios activos en el circuito del barrio es de *57*, lo que significa que las conexiones activas representan el *41%* de las familias residentes."
+        }
+      ]
+    },
+    {
+      "id": "blq-04",
+      "tipo": "seccion",
+      "icono": "⚡",
+      "titulo": "Situación Eléctrica",
+      "contenido": [
+        {
+          "tipo": "htmlPreservado",
+          "html": "<div class=\"elec-container\">\n<div class=\"elec-gauge\">\n<svg height=\"80\" viewbox=\"0 0 80 80\" width=\"80\">\n<circle cx=\"40\" cy=\"40\" fill=\"none\" r=\"32\" stroke=\"#e0e0e0\" stroke-width=\"8\"></circle>\n<circle cx=\"40\" cy=\"40\" fill=\"none\" r=\"32\" stroke=\"#f9a825\" stroke-dasharray=\"82.39 200.96\" stroke-linecap=\"round\" stroke-width=\"8\"></circle>\n</svg>\n<span class=\"elec-pct\" style=\"color:#f9a825;\">41%</span>\n</div>\n<div class=\"elec-info\">\n<div class=\"elec-titulo\">Conexión legal estimada: 41%</div>\n<div class=\"elec-desc\">De las 138 familias residentes, 57 poseen conexión activa registrada por la Cooperativa. Del total de conexiones activas, el 84,21% tiene subsidio otorgado y el 15,79% no lo tiene.</div>\n<div class=\"elec-barra-wrap\">\n<div class=\"elec-barra-label\"><span>Legal (41%)</span><span>Irregular (59%)</span></div>\n<div class=\"elec-barra\"><div class=\"elec-barra-fill\" style=\"width: 41%; background: linear-gradient(90deg, #f9a825, #fbc02d);\"></div></div>\n</div>\n</div>\n</div>"
+        },
+        {
+          "tipo": "alerta",
+          "estilo": "alerta-critica",
+          "html": "<span class=\"alerta-icono\">🚨</span>\n<span>En la intersección de calles <strong>Dr. Del Cerro y 60</strong> se observa tendido de red segura en poste de 11 metros. Por debajo de dicha red se detectan entrecruzamientos de conductores que conectan de casilla a casilla. Coexisten domicilios normalizados con medidor y acometida reglamentaria junto a domicilios sin seguridad eléctrica, con conexiones irregulares, sin protecciones y alto índice de hurto de energía. La situación varía <strong>metro a metro</strong>.</span>"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Se detectan *conexiones irregulares* con derivaciones aéreas entre viviendas que no cumplen con AEA 90364. Usuarios con medidor realizan *enganches parciales* para alimentar cargas de alto consumo: equipos de aire acondicionado frío/calor, calefones eléctricos, estufas y otras cargas resistivas, generando sobrecarga de red."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "El 15,79% de conexiones activas sin subsidio podría deberse a desconocimiento del trámite o incapacidad para realizarlo. Se recomienda evaluar nuevas campañas de difusión, dado que al tenerlo otorgado baja notablemente el importe de la factura, lo que podría mejorar la recaudación de la CEC."
+        },
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            ["Riesgo eléctrico", "<span class=\"tag tag-critico\">Electrocuciones por cables sin aislación ni altura reglamentaria</span>"],
+            ["Riesgo de incendio", "<span class=\"tag tag-critico\">Sobrecalentamiento de conductores por sobrecarga</span>"],
+            ["Riesgo operativo", "<span class=\"tag tag-no\">Daños a la red y cortes por fallas en conexiones precarias</span>"],
+            ["Pérdida comercial", "<span class=\"tag tag-no\">Consumo no registrado por la distribuidora</span>"],
+            ["Recomendación urgente", "Normalización de acometidas y retiro de entrecruzamientos en calles Dr. Del Cerro y 60"],
+            ["Inspección domiciliaria", "Verificación de usuarios con medidor para detectar enganches internos y consumos no declarados"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-05",
+      "tipo": "seccion",
+      "icono": "🔧",
+      "titulo": "Servicios e Infraestructura",
+      "contenido": [
+        {
+          "tipo": "htmlPreservado",
+          "html": "<div class=\"servicios-grid\" style=\"margin-bottom: 16px;\">\n<div class=\"servicio-item servicio-si\">\n<span class=\"srv-icono\">💧</span>Agua corriente <span class=\"tag tag-si\">Red + mangueras</span>\n</div>\n<div class=\"servicio-item servicio-si\">\n<span class=\"srv-icono\">🚿</span>Cloaca <span class=\"tag tag-si\">Casi toda la zona</span>\n</div>\n<div class=\"servicio-item servicio-no\">\n<span class=\"srv-icono\">🔥</span>Gas natural <span class=\"tag tag-no\">Garrafa / leña</span>\n</div>\n<div class=\"servicio-item servicio-si\">\n<span class=\"srv-icono\">🌐</span>Internet <span class=\"tag tag-si\">Megacable</span>\n</div>\n<div class=\"servicio-item servicio-parcial\">\n<span class=\"srv-icono\">🗑️</span>Residuos <span class=\"tag tag-parcial\">3 veces/semana</span>\n</div>\n<div class=\"servicio-item servicio-si\">\n<span class=\"srv-icono\">🚌</span>Transporte <span class=\"tag tag-si\">Líneas 3 y 4</span>\n</div>\n</div>"
+        },
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            ["Agua corriente", "Zona con red; en el sector más nuevo, distribución mediante mangueras que atraviesan las calles superficialmente."],
+            ["Cloacas", "La zona recorrida casi en toda su extensión cuenta con redes cloacales."],
+            ["Gas", "Sin red de gas natural. Se utiliza gas envasado y cocción con leña."],
+            ["Internet y TV", "Empresa Megacable presente en el barrio. Todas las personas encuestadas utilizan telefonía celular."],
+            ["Recolección de residuos", "Tres veces por semana. Los vecinos acercan la basura al contenedor en calle Vera Peñaloza. Se observan basurales en calle República Árabe Siria y las vías, además de microbasurales en casi todo el perímetro."],
+            ["Alumbrado público", "<span class=\"tag tag-parcial\">Parcial — algunos sectores sin funcionamiento correcto</span>"],
+            ["Transporte público", "Líneas 3 y 4 recorren la zona."],
+            ["Estado de calles", "Calles de tierra, algunas más transitables que otras, dificultosas para móviles de altura de empresas de servicios."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-06",
+      "tipo": "seccion",
+      "icono": "🏫",
+      "titulo": "Educación y Salud",
+      "contenido": [
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            ["Establecimiento educativo", "Sin establecimientos dentro del barrio. Los vecinos concurren a escuelas cercanas: <strong>Escuela N° 19 \"Juana Azurduy\"</strong> (secundaria) y <strong>Escuela N° 3 \"Sarmiento\"</strong> (primaria) en Barrio Sarmiento, y <strong>Escuela N° 75 \"2 de Abril\"</strong> (primaria, doble escolaridad) en calle Ricardo Rojas y Jorge Odiard. También se cuenta con la <strong>Escuela Secundaria Técnica</strong> de la UNER (Fac. de Ciencias de la Alimentación) en el Centro Víctor Opel."],
+            ["Establecimiento de salud", "Sin salas de atención primaria dentro del barrio. Los vecinos concurren al <strong>Centro de Salud del Polideportivo Víctor Opel</strong> (dificultad para conseguir turnos), al <strong>Centro de Salud San Miguel</strong>, y al <strong>Hospital Carrillo</strong>. Para tratamientos específicos, al <strong>Hospital Masvernat</strong>."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-07",
+      "tipo": "seccion",
+      "icono": "🏠",
+      "titulo": "Condiciones de Vivienda",
+      "contenido": [
+        {
+          "tipo": "parrafo",
+          "texto": "En el sector conviven dos tipos de construcciones: las de *material noble* (viviendas más antiguas mejoradas gracias a subsidios de autoconstrucción del Estado en los años 90) y las *casillas de madera precarias* (más nuevas, hacia el oeste). Las primeras cuentan con servicios de agua corriente y cloacas; las segundas reciben el agua a través de mangueras que van por la calle."
+        },
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            ["Material predominante", "<span class=\"tag tag-si\">Material noble (sector consolidado)</span> / <span class=\"tag tag-no\">Madera precaria (sector oeste)</span>"],
+            ["Subsidios de autoconstrucción", "Otorgados por el IAPV en los años 90 — mejoras en material, techos de cinc"],
+            ["Situación dominial", "Terrenos originalmente municipales, luego IAPV. Incorporado al RENABAP. Algunos vecinos pagan el terreno al IAPV."],
+            ["Riesgo hídrico", "<span class=\"tag tag-parcial\">Calles de tierra dificultan desplazamiento en épocas de lluvia</span>"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-08",
+      "tipo": "equipo",
+      "icono": "👥",
+      "titulo": "Equipo de Trabajo",
+      "nombres": [
+        "Tito Lampazzi",
+        "Nicolas Peri",
+        "Agostina Rettori",
+        "Laura Canali",
+        "Lucas Masso"
+      ]
+    },
+    {
+      "id": "blq-09",
+      "tipo": "galeria",
+      "titulo": "Registro Fotográfico de Campo",
+      "icono": "📷",
+      "imagenes": [
+        {
+          "id": "a1c3f70e21",
+          "src": "data/barrios/barrio-la-colina/adjuntos/galeria/a1c3f70e21.png",
+          "alt": "Calle de tierra con cercos de madera y residuos en el sector oeste del barrio",
+          "caption": "Calle de tierra con cercos de madera y residuos en el sector oeste del barrio"
+        },
+        {
+          "id": "b2d4e81f32",
+          "src": "data/barrios/barrio-la-colina/adjuntos/galeria/b2d4e81f32.png",
+          "alt": "Estado de las calles internas del barrio",
+          "caption": "Estado de las calles internas del barrio"
+        },
+        {
+          "id": "c3e5f92a43",
+          "src": "data/barrios/barrio-la-colina/adjuntos/galeria/c3e5f92a43.png",
+          "alt": "Tendido eléctrico con entrecruzamiento de conductores",
+          "caption": "Tendido eléctrico con entrecruzamiento de conductores"
+        },
+        {
+          "id": "d4f6a03b54",
+          "src": "data/barrios/barrio-la-colina/adjuntos/galeria/d4f6a03b54.png",
+          "alt": "Caja de la empresa Megacable en poste del barrio",
+          "caption": "Caja de la empresa Megacable en poste del barrio"
+        },
+        {
+          "id": "e5a7b14c65",
+          "src": "data/barrios/barrio-la-colina/adjuntos/galeria/e5a7b14c65.png",
+          "alt": "Contraste de la situación en tendido: viviendas de material junto a conexiones precarias",
+          "caption": "Contraste de la situación en tendido: viviendas de material junto a conexiones precarias"
+        },
+        {
+          "id": "a7c9d36e87",
+          "src": "data/barrios/barrio-la-colina/adjuntos/galeria/a7c9d36e87.jpg",
+          "alt": "Vista general del barrio con postación y cableado aéreo",
+          "caption": "Vista general del barrio con postación y cableado aéreo"
+        }
+      ]
+    },
+    {
+      "id": "blq-10",
+      "tipo": "htmlPreservado",
+      "html": "<div id=\"lb-overlay\" onclick=\"lbClose()\">\n<div id=\"lb-close\" onclick=\"lbClose()\">✕</div>\n<img alt=\"\" id=\"lb-img\" src=\"\"/>\n</div>"
+    },
+    {
+      "id": "blq-11",
+      "tipo": "htmlPreservado",
+      "html": "<script>\n    function lbOpen(src) {\n      document.getElementById('lb-img').src = src;\n      document.getElementById('lb-overlay').classList.add('active');\n    }\n    function lbClose() {\n      document.getElementById('lb-overlay').classList.remove('active');\n    }\n    document.addEventListener('keydown', function(e) {\n      if (e.key === 'Escape') lbClose();\n    });\n  </script>"
+    },
+    {
+      "id": "blq-12",
+      "tipo": "htmlPreservado",
+      "html": "<div class=\"disclaimer\">\n<strong>Nota metodológica:</strong> La información contenida en este informe corresponde a una <em>estimación territorial de carácter exploratorio</em>, basada en observaciones de campo y entrevistas zonales realizadas entre el 29 de junio y el 2 de julio de 2026. Los datos presentados tienen carácter orientativo y no constituyen un censo ni un relevamiento estadístico de carácter exhaustivo. Los valores expresados en porcentaje reflejan proporciones observadas en la muestra zonal relevada.\n</div>"
     }
   ]
 }
