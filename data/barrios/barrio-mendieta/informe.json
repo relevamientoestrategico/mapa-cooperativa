@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "barrioId": "barrio-mendieta",
+  "formato": "estructurado",
+  "titleTag": "Relevamiento Barrio Mendieta — Cooperativa Eléctrica",
+  "fuentesHref": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap",
+  "estilos": "",
+  "encabezado": {
+    "titulo": "Relevamiento — Barrio Mendieta",
+    "subtitulo": "Cooperativa Eléctrica y Otros Servicios de Concordia Ltda.",
+    "fecha": "Relevamiento realizado entre el 13 y el 16 de julio de 2026 · Informe N° 11",
+    "zonaEtiqueta": "Zona",
+    "zonaValor": "Sur Oeste",
+    "logoSrc": "logo_cooperativa_transparente.png"
+  },
+  "navVolver": {
+    "href": "Mapa Relevamiento Asentamientos.html",
+    "texto": "← Volver al mapa"
+  },
+  "footer": "Cooperativa Eléctrica · Relevamiento Estratégico de Asentamientos · Concordia, Entre Ríos · 2026",
+  "lightbox": true,
+  "bloques": [
+    {
+      "id": "blq-01",
+      "tipo": "kpis",
+      "items": [
+        {
+          "icono": "🏠",
+          "valor": "~80",
+          "etiqueta": "Familias residentes"
+        },
+        {
+          "icono": "⚡",
+          "valor": "81%",
+          "etiqueta": "Conexión legal"
+        },
+        {
+          "icono": "🏗️",
+          "valor": "65",
+          "etiqueta": "Conexiones tramitadas"
+        },
+        {
+          "icono": "📅",
+          "valor": "1986",
+          "etiqueta": "Origen del barrio"
+        }
+      ]
+    },
+    {
+      "id": "blq-02",
+      "tipo": "seccion",
+      "icono": "📍",
+      "titulo": "Información General del Barrio",
+      "contenido": [
+        {
+          "tipo": "parrafo",
+          "texto": "El barrio *Mendieta* está ubicado en la *zona suroeste* de Concordia, cercano a Villa Adela. Se accede por *Av. Frondizi*, pasando el puente Yuquerí y desviando hacia la derecha por *calle Capitán Rojas*."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Los orígenes del barrio arrancan alrededor del año *1986*, cuando se estableció en el lugar el Sr. Mendieta y su familia. Luego, los hijos fueron creciendo y formando sus propios grupos familiares, y así se fue extendiendo y agrandando el barrio."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Los terrenos eran privados y pertenecían a un empresario de la ciudad. A principios del año *2000*, residían en el lugar *14 familias*. En ese entonces, no contaban con el servicio de agua potable, por lo que el municipio abastecía a los vecinos una vez por semana y llenaban dos barriles. En relación a la electricidad, solo había un medidor comunitario, ubicado frente a la cancha de fútbol, lejos del conglomerado de viviendas, y tenían muy baja tensión."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "A partir del *2010*, en los caminos de acceso al barrio, se comenzaron a instalar varios aserraderos, lo que, al tener una fuente de trabajo cercana, hizo que muchas familias se vinieran a instalar en el lugar. Se fue extendiendo hacia el oeste y se comenzaron a delimitar algunas calles internas. En la actualidad residen cerca de *80 familias*."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Posteriormente, el municipio regularizó el dominio de los terrenos, que dejaron de ser privados y pasaron a la órbita municipal. A partir de allí se fueron dando condiciones para poder brindar el servicio eléctrico bajo condiciones de seguridad para todos los vecinos."
+        }
+      ]
+    },
+    {
+      "id": "blq-03",
+      "tipo": "seccion",
+      "icono": "📊",
+      "titulo": "Situación Socio-Económica",
+      "contenido": [
+        {
+          "tipo": "parrafo",
+          "texto": "La mayoría de los vecinos trabajan en *aserraderos de la zona*, aunque todos son empleos *no registrados* con pago semanal. El monto informado es entre *$150.000 y $250.000 por semana*."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Se dan casos de personas jubiladas y pensionadas con la mínima, trabajos informales en servicio doméstico (aproximadamente *$200.000 semanales*), y como ingreso estable en la mayoría de los hogares donde hay niños tienen la *AUH*."
+        },
+        {
+          "tipo": "alerta",
+          "estilo": "alerta",
+          "html": "<span class=\"alerta-icono\">⚠️</span>\n<span>Si bien la situación en este barrio no es de tanta carencia, pues tienen acceso al trabajo, en general las familias tienen las <strong>necesidades básicas insatisfechas</strong> si se considera el monto de la canasta básica total.</span>"
+        }
+      ]
+    },
+    {
+      "id": "blq-04",
+      "tipo": "seccion",
+      "icono": "⚡",
+      "titulo": "Situación Eléctrica",
+      "contenido": [
+        {
+          "tipo": "htmlPreservado",
+          "html": "<div class=\"elec-container\">\n<div class=\"elec-gauge\">\n<svg height=\"80\" viewbox=\"0 0 80 80\" width=\"80\">\n<circle cx=\"40\" cy=\"40\" fill=\"none\" r=\"32\" stroke=\"#e0e0e0\" stroke-width=\"8\"></circle>\n<circle cx=\"40\" cy=\"40\" fill=\"none\" r=\"32\" stroke=\"#2e7d32\" stroke-dasharray=\"162.86 200.96\" stroke-linecap=\"round\" stroke-width=\"8\"></circle>\n</svg>\n<span class=\"elec-pct\" style=\"color:#2e7d32;\">81%</span>\n</div>\n<div class=\"elec-info\">\n<div class=\"elec-titulo\">Conexión legal estimada: 81%</div>\n<div class=\"elec-desc\">De las aproximadamente 80 familias residentes, 65 realizaron trámites de conexión a partir del proyecto de normalización de la Cooperativa en 2023. Las bajadas y acometidas se encuentran normalizadas.</div>\n<div class=\"elec-barra-wrap\">\n<div class=\"elec-barra-label\"><span>Legal (81%)</span><span>Irregular (19%)</span></div>\n<div class=\"elec-barra\"><div class=\"elec-barra-fill\" style=\"width: 81%; background: linear-gradient(90deg, #2e7d32, #43a047);\"></div></div>\n</div>\n</div>\n</div>"
+        },
+        {
+          "tipo": "htmlPreservado",
+          "html": "<div class=\"alerta-verde\"><span class=\"alerta-icono\">✅</span>\n<span>El estado general del tendido eléctrico es <strong>bueno</strong>. Es de lo mejor encontrado hasta el momento en cuanto a normalización. Se verificó una altura de línea segura de <strong>11 metros</strong> en las calles con tendido norte-sur, perpendiculares a la entrada por calle Capitán Rojas.</span></div>"
+        },
+        {
+          "tipo": "alerta",
+          "estilo": "alerta",
+          "html": "<span class=\"alerta-icono\">⚠️</span>\n<span>Se observaron <strong>enganches ilegales parciales</strong> en viviendas que cuentan con suministro normalizado. Estos enganches se utilizan exclusivamente para alimentar <strong>artefactos de mayor consumo</strong> (aire acondicionado, calefones eléctricos, estufas).</span>"
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "En las calles con orientación *este-oeste* no hay tendido de red. La Cooperativa Eléctrica ocupa varios metros de cable hasta llegar a los domicilios. Se recomienda revisar periódicamente estas extensiones para que no pierdan altura y cumplan con las distancias de seguridad según *AEA 90364 cap. 5*."
+        },
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            ["Estado general", "<span class=\"tag tag-si\">Bueno — mejor barrio en normalización hasta el momento</span>"],
+            ["Altura de línea", "<span class=\"tag tag-si\">11 metros verificados en calles norte-sur</span>"],
+            ["Acometidas", "<span class=\"tag tag-si\">Normalizadas con pilares reglamentarios</span>"],
+            ["Sistema anti hurto", "<span class=\"tag tag-si\">Implementado</span>"],
+            ["Enganches parciales", "<span class=\"tag tag-parcial\">Detectados en viviendas normalizadas para cargas de alto consumo</span>"],
+            ["Calles este-oeste", "<span class=\"tag tag-parcial\">Sin tendido de red — extensiones largas de cable</span>"],
+            ["Recomendación", "Mantener altura de 11m y revisar periódicamente extensiones este-oeste"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-05",
+      "tipo": "seccion",
+      "icono": "🔧",
+      "titulo": "Servicios e Infraestructura",
+      "contenido": [
+        {
+          "tipo": "htmlPreservado",
+          "html": "<div class=\"servicios-grid\" style=\"margin-bottom: 16px;\">\n<div class=\"servicio-item servicio-si\">\n<span class=\"srv-icono\">💧</span>Agua <span class=\"tag tag-si\">Bomba comunitaria</span>\n</div>\n<div class=\"servicio-item servicio-no\">\n<span class=\"srv-icono\">🚿</span>Cloaca <span class=\"tag tag-no\">Sin servicio</span>\n</div>\n<div class=\"servicio-item servicio-no\">\n<span class=\"srv-icono\">🔥</span>Gas natural <span class=\"tag tag-no\">Sin servicio</span>\n</div>\n<div class=\"servicio-item servicio-si\">\n<span class=\"srv-icono\">🌐</span>Internet <span class=\"tag tag-si\">Megacable</span>\n</div>\n<div class=\"servicio-item servicio-parcial\">\n<span class=\"srv-icono\">🗑️</span>Residuos <span class=\"tag tag-parcial\">1-2 veces/semana</span>\n</div>\n<div class=\"servicio-item servicio-no\">\n<span class=\"srv-icono\">🚌</span>Transporte <span class=\"tag tag-no\">No llega</span>\n</div>\n</div>"
+        },
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            ["Agua", "A través de una bomba comunitaria. Históricamente no contaban con agua potable; el municipio abastecía una vez por semana."],
+            ["Cloacas", "<span class=\"tag tag-critico\">Sin servicio cloacal.</span> El camión municipal pasa a vaciar los pozos pero no con la periodicidad necesaria. Las aguas servidas corren por las veredas."],
+            ["Gas", "Sin red de gas natural."],
+            ["Internet y comunicación", "Empresa Megacable presente en el barrio. Los vecinos utilizan telefonía celular."],
+            ["Recolección de residuos", "<span class=\"tag tag-parcial\">1 a 2 veces por semana.</span> El resto de los días amontonan en los domicilios o queman."],
+            ["Alumbrado público", "<span class=\"tag tag-parcial\">Parcial — no están las luminarias en todos los sectores.</span> Algunos vecinos se muestran disgustados porque en la factura tienen cargado el ítem correspondiente."],
+            ["Transporte público", "<span class=\"tag tag-critico\">No llega al barrio.</span> Los vecinos que no tienen motos o movilidad propia deben pagar Uber, con perjuicio económico por la lejanía. Hay un colectivo provincial solo para turno tarde escolar."],
+            ["Estado de calles", "Calles de tierra en su totalidad. Las que rodean la cancha de fútbol son más anchas; las internas son angostas, algunas sin salida y difíciles para móviles de altura."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-06",
+      "tipo": "seccion",
+      "icono": "🏫",
+      "titulo": "Educación y Salud",
+      "contenido": [
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            ["Establecimiento educativo", "Sin establecimientos escolares dentro del barrio. Los vecinos concurren a las escuelas más cercanas en Villa Adela: <strong>Escuela Secundaria N° 4 Damián P. Garat</strong> y <strong>Escuela N° 65 Guillermo Brown</strong> (primaria). También funciona la <strong>Escuela del Hogar Nueva Vida</strong>, solo para menores bajo guarda."],
+            ["Transporte escolar", "<span class=\"tag tag-parcial\">Parcial.</span> Hay un colectivo de la provincia que lleva a los niños del turno tarde. Los del <strong>turno mañana deben ir caminando atravesando la ruta</strong>, situación muy peligrosa por la velocidad de los vehículos."],
+            ["Establecimiento de salud", "Sin salas de atención primaria en el barrio. Concurren al <strong>Centro de Salud Villa Adela</strong> (dificultad para conseguir turnos). Ante urgencias, a los hospitales <strong>Masvernat</strong> o <strong>Carrillo</strong>."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-07",
+      "tipo": "seccion",
+      "icono": "🏠",
+      "titulo": "Condiciones de Vivienda",
+      "contenido": [
+        {
+          "tipo": "parrafo",
+          "texto": "En el barrio se distinguen *dos sectores diferenciados* en lo que refiere a los materiales de construcción de las viviendas. Lo que está en la entrada del barrio y rodeando la cancha de fútbol–parque infantil son viviendas de *material*, aunque económicas. Lo que está hacia el *oeste cercano a la bomba*, son de *madera* o parte en material, pero más precarias."
+        },
+        {
+          "tipo": "tablaDatos",
+          "filas": [
+            ["Sector entrada/cancha", "<span class=\"tag tag-si\">Material — viviendas económicas pero consolidadas</span>"],
+            ["Sector oeste/bomba", "<span class=\"tag tag-no\">Madera precaria — chapas asfálticas, sin mejoras</span>"],
+            ["Situación dominial", "Terrenos originalmente privados, regularizados por el municipio a órbita municipal"],
+            ["Riesgo hídrico", "<span class=\"tag tag-critico\">El desnivel del terreno arrastra aguas servidas hacia los lotes del límite norte en días de lluvia. El arrastre pasa por el terreno de la bomba de agua, con probable contaminación de napas.</span>"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blq-08",
+      "tipo": "equipo",
+      "icono": "👥",
+      "titulo": "Equipo de Trabajo",
+      "nombres": [
+        "Tito Lampazzi",
+        "Agostina Rettori",
+        "Nicolas Peri",
+        "Laura Canali",
+        "Lucas Masso"
+      ]
+    },
+    {
+      "id": "blq-09",
+      "tipo": "galeria",
+      "titulo": "Registro Fotográfico de Campo",
+      "icono": "📷",
+      "imagenes": [
+        {
+          "id": "346cf16260",
+          "src": "data/barrios/barrio-mendieta/adjuntos/galeria/346cf16260.jpg",
+          "alt": "Calle de tierra con charcos de agua estancada y viviendas precarias",
+          "caption": "Calle de tierra con charcos de agua estancada y viviendas precarias"
+        },
+        {
+          "id": "59a1aac479",
+          "src": "data/barrios/barrio-mendieta/adjuntos/galeria/59a1aac479.jpg",
+          "alt": "Poste con luminaria de alumbrado público y cableado aéreo",
+          "caption": "Poste con luminaria de alumbrado público y cableado aéreo"
+        },
+        {
+          "id": "e960a5d7e3",
+          "src": "data/barrios/barrio-mendieta/adjuntos/galeria/e960a5d7e3.jpg",
+          "alt": "Pasillo interno entre cercos de madera con viviendas al fondo",
+          "caption": "Pasillo interno entre cercos de madera con viviendas al fondo"
+        },
+        {
+          "id": "513c17d48b",
+          "src": "data/barrios/barrio-mendieta/adjuntos/galeria/513c17d48b.jpg",
+          "alt": "Suelo de tierra con agua estancada y hojarasca entre viviendas",
+          "caption": "Suelo de tierra con agua estancada y hojarasca entre viviendas"
+        },
+        {
+          "id": "96814120f7",
+          "src": "data/barrios/barrio-mendieta/adjuntos/galeria/96814120f7.jpg",
+          "alt": "Aguas servidas corriendo entre viviendas de material sin sistema cloacal",
+          "caption": "Aguas servidas corriendo entre viviendas de material sin sistema cloacal"
+        }
+      ]
+    },
+    {
+      "id": "blq-10",
+      "tipo": "htmlPreservado",
+      "html": "<div id=\"lb-overlay\" onclick=\"lbClose()\">\n<div id=\"lb-close\" onclick=\"lbClose()\">✕</div>\n<img alt=\"\" id=\"lb-img\" src=\"\"/>\n</div>"
+    },
+    {
+      "id": "blq-11",
+      "tipo": "htmlPreservado",
+      "html": "<script>\n    function lbOpen(src) {\n      document.getElementById('lb-img').src = src;\n      document.getElementById('lb-overlay').classList.add('active');\n    }\n    function lbClose() {\n      document.getElementById('lb-overlay').classList.remove('active');\n    }\n    document.addEventListener('keydown', function(e) {\n      if (e.key === 'Escape') lbClose();\n    });\n  </script>"
+    },
+    {
+      "id": "blq-12",
+      "tipo": "htmlPreservado",
+      "html": "<div class=\"disclaimer\">\n<strong>Nota metodológica:</strong> La información contenida en este informe corresponde a una <em>estimación territorial de carácter exploratorio</em>, basada en observaciones de campo y entrevistas zonales realizadas entre el 13 y el 16 de julio de 2026. Los datos presentados tienen carácter orientativo y no constituyen un censo ni un relevamiento estadístico de carácter exhaustivo. Los valores expresados en porcentaje reflejan proporciones observadas en la muestra zonal relevada.\n</div>"
+    }
+  ]
+}

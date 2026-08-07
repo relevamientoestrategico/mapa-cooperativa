@@ -66,6 +66,12 @@
       "nombreVisible": "Barrio La Colina",
       "color": "#2e7d32",
       "estado": "publicado"
+    },
+    {
+      "id": "barrio-mendieta",
+      "nombreVisible": "Barrio Mendieta",
+      "color": "#5c6bc0",
+      "estado": "publicado"
     }
   ]
 }

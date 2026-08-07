@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 2,
+  "id": "barrio-mendieta",
+  "nombreVisible": "Barrio Mendieta",
+  "color": "#5c6bc0",
+  "colorClaro": "#e8eaf6",
+  "zona": "Zona Sur Oeste",
+  "informeUrl": "Relevamiento Barrio Mendieta.html",
+  "estado": "publicado",
+  "fechaActualizacion": "2026-08-07T18:00:00.000Z",
+  "versionActual": null,
+  "datosMapa": {
+    "electricidad": 81,
+    "educacion": false,
+    "salud": false
+  },
+  "indicadores": [
+    {
+      "id": "edad",
+      "etiqueta": "Edad promedio",
+      "valor": "—"
+    },
+    {
+      "id": "origen",
+      "etiqueta": "Origen",
+      "valor": "1986"
+    },
+    {
+      "id": "viviendas",
+      "etiqueta": "Viviendas relevadas",
+      "valor": "Múltiples viviendas relevadas"
+    },
+    {
+      "id": "material",
+      "etiqueta": "Material predominante",
+      "valor": "Material / madera (dos sectores)"
+    }
+  ]
+}

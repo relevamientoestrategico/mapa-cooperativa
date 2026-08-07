@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relevamiento Barrio Mendieta — Cooperativa Eléctrica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #5c6bc0;
+      --primary-dark: #263692;
+      --primary-light: #e8eaf6;
+      --accent: #7684d6;
+      --border: #bbc1e8;
+      --text: #1a2433;
+      --text-muted: #5a6a7a;
+      --bg: #f7f9fb;
+      --white: #ffffff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }
+
+    .header { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--accent) 100%); color: white; padding: 0; position: relative; overflow: hidden; }
+    .header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+    .header::after { content: ''; position: absolute; bottom: -80px; left: 40%; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+    .header-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 24px; padding: 28px 48px; }
+    .logo-wrap img { width: 64px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2)); }
+    .header-text h1 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; letter-spacing: 0.3px; margin-bottom: 4px; }
+    .header-text .subtitulo { font-size: 13px; opacity: 0.82; font-weight: 300; }
+    .header-text .fecha { font-size: 12px; opacity: 0.65; margin-top: 2px; font-weight: 300; }
+    .header-badge { margin-left: auto; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 10px 18px; text-align: center; backdrop-filter: blur(4px); }
+    .header-badge .zona-label { font-size: 10px; opacity: 0.75; text-transform: uppercase; letter-spacing: 1px; }
+    .header-badge .zona-val { font-size: 15px; font-weight: 600; margin-top: 2px; }
+
+    .nav-back { background: var(--white); border-bottom: 1px solid var(--border); padding: 10px 48px; }
+    .nav-back a { color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+    .nav-back a:hover { gap: 10px; }
+
+    .contenido { max-width: 960px; margin: 0 auto; padding: 40px 24px 60px; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+    .kpi-card { background: var(--white); border-radius: 10px; padding: 18px 16px; border-top: 3px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
+    .kpi-card .kpi-icono { font-size: 22px; margin-bottom: 6px; }
+    .kpi-card .kpi-val { font-size: 22px; font-weight: 700; color: var(--primary); line-height: 1.1; margin-bottom: 4px; }
+    .kpi-card .kpi-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; font-weight: 600; }
+
+    .seccion { background: var(--white); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+    .seccion-header { background: var(--primary); color: white; padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
+    .seccion-header .icono { font-size: 16px; }
+    .seccion-header h2 { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .seccion-body { padding: 20px; }
+    .seccion-body p { margin-bottom: 12px; font-size: 14.5px; color: var(--text); }
+    .seccion-body p:last-child { margin-bottom: 0; }
+
+    .alerta { background: #fff8e1; border-left: 4px solid #f9a825; border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #5d3f00; display: flex; gap: 10px; align-items: flex-start; }
+    .alerta-roja { background: #fce8e6; border-left: 4px solid #c62828; border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #5d0000; display: flex; gap: 10px; align-items: flex-start; }
+
+    .tabla-datos { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .tabla-datos tr { border-bottom: 1px solid var(--border); }
+    .tabla-datos tr:last-child { border-bottom: none; }
+    .tabla-datos td { padding: 9px 12px; }
+    .tabla-datos td:first-child { color: var(--text-muted); font-weight: 600; width: 30%; }
+    .tabla-datos tr:hover td { background: var(--primary-light); }
+
+    .svc-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .svc-table th { background: var(--primary-light); color: var(--primary-dark); font-size: 11px; text-transform: uppercase; padding: 10px 12px; text-align: left; letter-spacing: 0.4px; font-weight: 700; }
+    .svc-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+    .svc-table tr:last-child td { border-bottom: none; }
+    .svc-table tr:hover td { background: var(--primary-light); }
+
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .badge.si { background: #e6f4ea; color: #2e7d32; }
+    .badge.no { background: #fce8e6; color: #c62828; }
+    .badge.parcial { background: #fff8e1; color: #f57f17; }
+
+    .conclusion { background: var(--primary-light); border-radius: 10px; padding: 20px 24px; border-left: 5px solid var(--accent); margin-bottom: 24px; }
+    .conclusion h2 { font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+    .conclusion p { font-size: 14.5px; line-height: 1.75; color: var(--text); }
+
+    .equipo-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+    .equipo-chip { background: var(--primary-light); border: 1px solid var(--border); color: var(--primary-dark); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 600; }
+
+    .galeria { background: white; border-radius: 10px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .galeria h2 { font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+    .galeria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .galeria-item { border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+    .galeria-item:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+    .galeria-item img { width: 100%; height: 240px; object-fit: cover; display: block; cursor: zoom-in; }
+    .galeria-caption { padding: 10px 14px; font-size: 13px; color: var(--text-muted); background: var(--white); }
+
+    #lightbox-overlay { display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); justify-content: center; align-items: center; cursor: zoom-out; }
+    #lightbox-overlay.active { display: flex; }
+    #lightbox-overlay img { max-width: 92vw; max-height: 92vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    #lightbox-close-btn { position: fixed; top: 20px; right: 30px; color: white; font-size: 36px; font-weight: 300; cursor: pointer; z-index: 100000; background: rgba(0,0,0,0.4); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; user-select: none; }
+    #lightbox-close-btn:hover { background: rgba(0,0,0,0.7); }
+
+    .footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); text-align: center; padding: 18px 24px; font-size: 12px; }
+    @media (max-width: 680px) { .kpi-grid { grid-template-columns: 1fr 1fr; } .header-inner { flex-wrap: wrap; padding: 20px; } .contenido { padding: 24px 16px 40px; } .nav-back { padding: 10px 16px; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-wrap"><img src="logo_cooperativa_transparente.png" alt="Cooperativa Eléctrica"></div>
+    <div class="header-text">
+      <h1>Relevamiento — Barrio Mendieta</h1>
+      <div class="subtitulo">Cooperativa Eléctrica y Otros Servicios de Concordia Ltda.</div>
+      <div class="fecha">Relevamiento realizado entre el 13 y el 16 de julio de 2026 · Informe N° 11</div>
+    </div>
+    <div class="header-badge">
+      <div class="zona-label">Zona</div>
+      <div class="zona-val">Sur Oeste</div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-back">
+  <a href="Mapa Relevamiento Asentamientos.html">← Volver al mapa</a>
+</div>
+
+<div class="contenido">
+
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-icono">🏠</div><div class="kpi-val">~80</div><div class="kpi-lbl">Familias residentes</div></div>
+    <div class="kpi-card"><div class="kpi-icono">⚡</div><div class="kpi-val">81%</div><div class="kpi-lbl">Conexión legal</div></div>
+    <div class="kpi-card"><div class="kpi-icono">🏗️</div><div class="kpi-val">65</div><div class="kpi-lbl">Conexiones tramitadas</div></div>
+    <div class="kpi-card"><div class="kpi-icono">📅</div><div class="kpi-val">1986</div><div class="kpi-lbl">Origen del barrio</div></div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">📍</span><h2>Información General del Barrio</h2></div>
+    <div class="seccion-body">
+      <p>El barrio <em>Mendieta</em> está ubicado en la <em>zona suroeste</em> de Concordia, cercano a Villa Adela. Se accede por <em>Av. Frondizi</em>, pasando el puente Yuquerí y desviando hacia la derecha por <em>calle Capitán Rojas</em>.</p>
+      <p>Los orígenes del barrio arrancan alrededor del año <em>1986</em>, cuando se estableció en el lugar el Sr. Mendieta y su familia. Luego, los hijos fueron creciendo y formando sus propios grupos familiares, y así se fue extendiendo y agrandando el barrio.</p>
+      <p>Los terrenos eran privados y pertenecían a un empresario de la ciudad. A principios del año <em>2000</em>, residían en el lugar <em>14 familias</em>. En ese entonces, no contaban con el servicio de agua potable, por lo que el municipio abastecía a los vecinos una vez por semana y llenaban dos barriles. En relación a la electricidad, solo había un medidor comunitario, ubicado frente a la cancha de fútbol, lejos del conglomerado de viviendas, y tenían muy baja tensión.</p>
+      <p>A partir del <em>2010</em>, en los caminos de acceso al barrio, se comenzaron a instalar varios aserraderos, lo que, al tener una fuente de trabajo cercana, hizo que muchas familias se vinieran a instalar en el lugar. Se fue extendiendo hacia el oeste y se comenzaron a delimitar algunas calles internas. En la actualidad residen cerca de <em>80 familias</em>.</p>
+      <p>Posteriormente, el municipio regularizó el dominio de los terrenos, que dejaron de ser privados y pasaron a la órbita municipal. A partir de allí se fueron dando condiciones para poder brindar el servicio eléctrico bajo condiciones de seguridad para todos los vecinos.</p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">📊</span><h2>Situación Socio-Económica</h2></div>
+    <div class="seccion-body">
+      <p>La mayoría de los vecinos trabajan en <em>aserraderos de la zona</em>, aunque todos son empleos <em>no registrados</em> con pago semanal. El monto informado es entre <em>$150.000 y $250.000 por semana</em>.</p>
+      <p>Se dan casos de personas jubiladas y pensionadas con la mínima, trabajos informales en servicio doméstico (aproximadamente <em>$200.000 semanales</em>), y como ingreso estable en la mayoría de los hogares donde hay niños tienen la <em>AUH</em>.</p>
+      <div class="alerta"><span class="alerta-icono">⚠️</span>
+<span>Si bien la situación en este barrio no es de tanta carencia, pues tienen acceso al trabajo, en general las familias tienen las <strong>necesidades básicas insatisfechas</strong> si se considera el monto de la canasta básica total.</span></div>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">⚡</span><h2>Situación Eléctrica</h2></div>
+    <div class="seccion-body">
+      <div class="elec-container">
+<div class="elec-gauge">
+<svg height="80" viewbox="0 0 80 80" width="80">
+<circle cx="40" cy="40" fill="none" r="32" stroke="#e0e0e0" stroke-width="8"></circle>
+<circle cx="40" cy="40" fill="none" r="32" stroke="#2e7d32" stroke-dasharray="162.86 200.96" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<span class="elec-pct" style="color:#2e7d32;">81%</span>
+</div>
+<div class="elec-info">
+<div class="elec-titulo">Conexión legal estimada: 81%</div>
+<div class="elec-desc">De las aproximadamente 80 familias residentes, 65 realizaron trámites de conexión a partir del proyecto de normalización de la Cooperativa en 2023. Las bajadas y acometidas se encuentran normalizadas.</div>
+<div class="elec-barra-wrap">
+<div class="elec-barra-label"><span>Legal (81%)</span><span>Irregular (19%)</span></div>
+<div class="elec-barra"><div class="elec-barra-fill" style="width: 81%; background: linear-gradient(90deg, #2e7d32, #43a047);"></div></div>
+</div>
+</div>
+</div>
+      <div class="alerta-verde"><span class="alerta-icono">✅</span>
+<span>El estado general del tendido eléctrico es <strong>bueno</strong>. Es de lo mejor encontrado hasta el momento en cuanto a normalización. Se verificó una altura de línea segura de <strong>11 metros</strong> en las calles con tendido norte-sur, perpendiculares a la entrada por calle Capitán Rojas.</span></div>
+      <div class="alerta"><span class="alerta-icono">⚠️</span>
+<span>Se observaron <strong>enganches ilegales parciales</strong> en viviendas que cuentan con suministro normalizado. Estos enganches se utilizan exclusivamente para alimentar <strong>artefactos de mayor consumo</strong> (aire acondicionado, calefones eléctricos, estufas).</span></div>
+      <p>En las calles con orientación <em>este-oeste</em> no hay tendido de red. La Cooperativa Eléctrica ocupa varios metros de cable hasta llegar a los domicilios. Se recomienda revisar periódicamente estas extensiones para que no pierdan altura y cumplan con las distancias de seguridad según <em>AEA 90364 cap. 5</em>.</p>
+      <table class="tabla-datos">
+        <tr><td>Estado general</td><td><span class="tag tag-si">Bueno — mejor barrio en normalización hasta el momento</span></td></tr>
+        <tr><td>Altura de línea</td><td><span class="tag tag-si">11 metros verificados en calles norte-sur</span></td></tr>
+        <tr><td>Acometidas</td><td><span class="tag tag-si">Normalizadas con pilares reglamentarios</span></td></tr>
+        <tr><td>Sistema anti hurto</td><td><span class="tag tag-si">Implementado</span></td></tr>
+        <tr><td>Enganches parciales</td><td><span class="tag tag-parcial">Detectados en viviendas normalizadas para cargas de alto consumo</span></td></tr>
+        <tr><td>Calles este-oeste</td><td><span class="tag tag-parcial">Sin tendido de red — extensiones largas de cable</span></td></tr>
+        <tr><td>Recomendación</td><td>Mantener altura de 11m y revisar periódicamente extensiones este-oeste</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">🔧</span><h2>Servicios e Infraestructura</h2></div>
+    <div class="seccion-body">
+      <div class="servicios-grid" style="margin-bottom: 16px;">
+<div class="servicio-item servicio-si">
+<span class="srv-icono">💧</span>Agua <span class="tag tag-si">Bomba comunitaria</span>
+</div>
+<div class="servicio-item servicio-no">
+<span class="srv-icono">🚿</span>Cloaca <span class="tag tag-no">Sin servicio</span>
+</div>
+<div class="servicio-item servicio-no">
+<span class="srv-icono">🔥</span>Gas natural <span class="tag tag-no">Sin servicio</span>
+</div>
+<div class="servicio-item servicio-si">
+<span class="srv-icono">🌐</span>Internet <span class="tag tag-si">Megacable</span>
+</div>
+<div class="servicio-item servicio-parcial">
+<span class="srv-icono">🗑️</span>Residuos <span class="tag tag-parcial">1-2 veces/semana</span>
+</div>
+<div class="servicio-item servicio-no">
+<span class="srv-icono">🚌</span>Transporte <span class="tag tag-no">No llega</span>
+</div>
+</div>
+      <table class="tabla-datos">
+        <tr><td>Agua</td><td>A través de una bomba comunitaria. Históricamente no contaban con agua potable; el municipio abastecía una vez por semana.</td></tr>
+        <tr><td>Cloacas</td><td><span class="tag tag-critico">Sin servicio cloacal.</span> El camión municipal pasa a vaciar los pozos pero no con la periodicidad necesaria. Las aguas servidas corren por las veredas.</td></tr>
+        <tr><td>Gas</td><td>Sin red de gas natural.</td></tr>
+        <tr><td>Internet y comunicación</td><td>Empresa Megacable presente en el barrio. Los vecinos utilizan telefonía celular.</td></tr>
+        <tr><td>Recolección de residuos</td><td><span class="tag tag-parcial">1 a 2 veces por semana.</span> El resto de los días amontonan en los domicilios o queman.</td></tr>
+        <tr><td>Alumbrado público</td><td><span class="tag tag-parcial">Parcial — no están las luminarias en todos los sectores.</span> Algunos vecinos se muestran disgustados porque en la factura tienen cargado el ítem correspondiente.</td></tr>
+        <tr><td>Transporte público</td><td><span class="tag tag-critico">No llega al barrio.</span> Los vecinos que no tienen motos o movilidad propia deben pagar Uber, con perjuicio económico por la lejanía. Hay un colectivo provincial solo para turno tarde escolar.</td></tr>
+        <tr><td>Estado de calles</td><td>Calles de tierra en su totalidad. Las que rodean la cancha de fútbol son más anchas; las internas son angostas, algunas sin salida y difíciles para móviles de altura.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">🏫</span><h2>Educación y Salud</h2></div>
+    <div class="seccion-body">
+      <table class="tabla-datos">
+        <tr><td>Establecimiento educativo</td><td>Sin establecimientos escolares dentro del barrio. Los vecinos concurren a las escuelas más cercanas en Villa Adela: <strong>Escuela Secundaria N° 4 Damián P. Garat</strong> y <strong>Escuela N° 65 Guillermo Brown</strong> (primaria). También funciona la <strong>Escuela del Hogar Nueva Vida</strong>, solo para menores bajo guarda.</td></tr>
+        <tr><td>Transporte escolar</td><td><span class="tag tag-parcial">Parcial.</span> Hay un colectivo de la provincia que lleva a los niños del turno tarde. Los del <strong>turno mañana deben ir caminando atravesando la ruta</strong>, situación muy peligrosa por la velocidad de los vehículos.</td></tr>
+        <tr><td>Establecimiento de salud</td><td>Sin salas de atención primaria en el barrio. Concurren al <strong>Centro de Salud Villa Adela</strong> (dificultad para conseguir turnos). Ante urgencias, a los hospitales <strong>Masvernat</strong> o <strong>Carrillo</strong>.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">🏠</span><h2>Condiciones de Vivienda</h2></div>
+    <div class="seccion-body">
+      <p>En el barrio se distinguen <em>dos sectores diferenciados</em> en lo que refiere a los materiales de construcción de las viviendas. Lo que está en la entrada del barrio y rodeando la cancha de fútbol–parque infantil son viviendas de <em>material</em>, aunque económicas. Lo que está hacia el <em>oeste cercano a la bomba</em>, son de <em>madera</em> o parte en material, pero más precarias.</p>
+      <table class="tabla-datos">
+        <tr><td>Sector entrada/cancha</td><td><span class="tag tag-si">Material — viviendas económicas pero consolidadas</span></td></tr>
+        <tr><td>Sector oeste/bomba</td><td><span class="tag tag-no">Madera precaria — chapas asfálticas, sin mejoras</span></td></tr>
+        <tr><td>Situación dominial</td><td>Terrenos originalmente privados, regularizados por el municipio a órbita municipal</td></tr>
+        <tr><td>Riesgo hídrico</td><td><span class="tag tag-critico">El desnivel del terreno arrastra aguas servidas hacia los lotes del límite norte en días de lluvia. El arrastre pasa por el terreno de la bomba de agua, con probable contaminación de napas.</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-header"><span class="icono">👥</span><h2>Equipo de Trabajo</h2></div>
+    <div class="seccion-body">
+      <div class="equipo-grid">
+        <div class="equipo-chip">Tito Lampazzi</div>
+        <div class="equipo-chip">Agostina Rettori</div>
+        <div class="equipo-chip">Nicolas Peri</div>
+        <div class="equipo-chip">Laura Canali</div>
+        <div class="equipo-chip">Lucas Masso</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="galeria">
+    <div class="galeria-header"><span class="icono">📷</span><h2>Registro Fotográfico de Campo</h2></div>
+    <div class="galeria-grid">
+      <div class="galeria-item"><img src="data/barrios/barrio-mendieta/adjuntos/galeria/346cf16260.jpg" alt="Calle de tierra con charcos de agua estancada y viviendas precarias"><div class="galeria-caption">Calle de tierra con charcos de agua estancada y viviendas precarias</div></div>
+      <div class="galeria-item"><img src="data/barrios/barrio-mendieta/adjuntos/galeria/59a1aac479.jpg" alt="Poste con luminaria de alumbrado público y cableado aéreo"><div class="galeria-caption">Poste con luminaria de alumbrado público y cableado aéreo</div></div>
+      <div class="galeria-item"><img src="data/barrios/barrio-mendieta/adjuntos/galeria/e960a5d7e3.jpg" alt="Pasillo interno entre cercos de madera con viviendas al fondo"><div class="galeria-caption">Pasillo interno entre cercos de madera con viviendas al fondo</div></div>
+      <div class="galeria-item"><img src="data/barrios/barrio-mendieta/adjuntos/galeria/513c17d48b.jpg" alt="Suelo de tierra con agua estancada y hojarasca entre viviendas"><div class="galeria-caption">Suelo de tierra con agua estancada y hojarasca entre viviendas</div></div>
+      <div class="galeria-item"><img src="data/barrios/barrio-mendieta/adjuntos/galeria/96814120f7.jpg" alt="Aguas servidas corriendo entre viviendas de material sin sistema cloacal"><div class="galeria-caption">Aguas servidas corriendo entre viviendas de material sin sistema cloacal</div></div>
+    </div>
+  </div>
+
+  <div id="lb-overlay" onclick="lbClose()">
+<div id="lb-close" onclick="lbClose()">✕</div>
+<img alt="" id="lb-img" src=""/>
+</div>
+
+  <script>
+    function lbOpen(src) {
+      document.getElementById('lb-img').src = src;
+      document.getElementById('lb-overlay').classList.add('active');
+    }
+    function lbClose() {
+      document.getElementById('lb-overlay').classList.remove('active');
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') lbClose();
+    });
+  </script>
+
+  <div class="disclaimer">
+<strong>Nota metodológica:</strong> La información contenida en este informe corresponde a una <em>estimación territorial de carácter exploratorio</em>, basada en observaciones de campo y entrevistas zonales realizadas entre el 13 y el 16 de julio de 2026. Los datos presentados tienen carácter orientativo y no constituyen un censo ni un relevamiento estadístico de carácter exhaustivo. Los valores expresados en porcentaje reflejan proporciones observadas en la muestra zonal relevada.
+</div>
+
+</div>
+
+<div class="footer">Cooperativa Eléctrica · Relevamiento Estratégico de Asentamientos · Concordia, Entre Ríos · 2026</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var overlay = document.createElement('div'); overlay.id = 'lightbox-overlay';
+  var closeBtn = document.createElement('span'); closeBtn.id = 'lightbox-close-btn'; closeBtn.innerHTML = '&times;';
+  var imgEl = document.createElement('img'); imgEl.alt = 'Foto ampliada';
+  overlay.appendChild(closeBtn); overlay.appendChild(imgEl); document.body.appendChild(overlay);
+  var imgs = document.querySelectorAll('.galeria-item img');
+  for (var i = 0; i < imgs.length; i++) { imgs[i].addEventListener('click', function(e) { e.stopPropagation(); imgEl.src = this.src; overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }); }
+  function cerrar() { overlay.classList.remove('active'); document.body.style.overflow = ''; }
+  overlay.addEventListener('click', cerrar); closeBtn.addEventListener('click', cerrar);
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') cerrar(); });
+});
+</script>
+</body>
+</html>
